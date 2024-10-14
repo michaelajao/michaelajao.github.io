@@ -15,7 +15,7 @@ header:
 description: This series of articles explores how to win at a hackathon even if you don't win the hackathon itself. The second post explores how to make connections at a hackathon.
 ---
 >“You can't connect the dots looking forward; you can only connect them looking backwards. So you have to trust that the dots will somehow connect in your future. You have to trust in something—your gut, destiny, life, karma, whatever. This approach has never let me down, and it has made all the difference in my life.”
-—Steve Jobs, 
+—Steve Jobs,
 Aug 10, 2018
 
 In [Part 1]({{base_url}}/article/2023/06/21/how-to-win-at-a-hackathon.html) of How to win at a hackathon, we looked at what to do in a hackathon. In this article, we’ll look at setting your dots up for the future. 

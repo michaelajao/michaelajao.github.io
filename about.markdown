@@ -53,9 +53,9 @@ I have a passion for teaching and have taught across various levels, aiming to m
 
 ## Education
 
-- **PhD in Computational Science and Mathematical Modelling** - Coventry University, UK
-- **MSc in Data Science and Computational Intelligence** - Coventry University, UK
-- **BEng in Electrical and Electronics Engineering** - Kwara State University, Nigeria
+- **PhD in Computational Science and Mathematical Modelling** - Coventry University, UK (In Progress)
+- **MSc in Data Science and Computational Intelligence** - Coventry University, United Kingdom, 2021
+- **BEng in Electrical and Electronics Engineering** - Kwara State University, Nigeria, 2016
 
 ---
 
@@ -64,6 +64,7 @@ I have a passion for teaching and have taught across various levels, aiming to m
 Here are some of my selected publications:
 
 - **"Deep Learning Based Forecasting of COVID-19 Hospitalisation in England: A Comparative Analysis"**, 2023 International Conference on Machine Learning and Applications (ICMLA), 2023. [Read the full paper](https://ieeexplore.ieee.org/abstract/document/10459821)
+
 
 For a full list of my publications, please visit my [Google Scholar profile](https://scholar.google.co.uk/citations?user=CXrGkfEAAAAJ&hl=en).
 
@@ -76,7 +77,7 @@ For a full list of my publications, please visit my [Google Scholar profile](htt
 - **ICMLA 2024** - International Conference on Machine Learning and Applications, 2024. [link to conference](https://www.icmla-conference.org/icmla24/)
 - **JuliaCon 2022** - The Julia Language Conference, 2022. [link to conference](https://juliacon.org/2022/)
 - **JuliaCon 2023** - The Julia Language Conference, 2023. [link to conference](https://juliacon.org/2023/)
-- **CSMM 2023** - Computational Science and Mathematical Modelling Conference, 2023. [link to conference](https://www.csmm-conference.org/2023/)
+- **CSMM 2023** - Computational Science and Mathematical Modelling Conference, 2023.
 - **CSMM 2024** - Computational Science and Mathematical Modelling Conference, 2024. [link to conference](https://sites.google.com/view/csmconference/)
 
 ## Scholarships and Awards
@@ -90,7 +91,7 @@ For a full list of my publications, please visit my [Google Scholar profile](htt
 
 For more detailed information about my experience, education, and skills, feel free to download my CV.
 
-[**Download CV**](/assets/cv/Michael%20new%20cv.pdf){: .btn .btn--info}
+[**Download CV**](/assets/cv/michael%20ajao%20CV.pdf){: .btn .btn--info}
 
 
 <!-- ## Download My CV
