@@ -101,6 +101,31 @@ code {
   letter-spacing: 0.05em;
 }
 
+
+/* Adjusted Styles for Headings */
+.archive__subtitle {
+  font-size: 1.5em; /* Adjust as needed */
+  margin-bottom: 1em;
+  font-family: $font-family-heading;
+  color: $text-color;
+  font-weight: 600;
+}
+
+.archive__item-title {
+  font-size: 1.2em; /* Adjust as needed */
+  margin-bottom: 0.5em;
+  font-family: $font-family-heading;
+  color: $primary-color;
+  font-weight: 500;
+}
+
+.archive__item-meta {
+  font-size: 0.9em;
+  color: $text-color;
+  font-family: $font-family-base;
+}
+
+
 .archive__item-teaser {
   border: 1px solid $light-gray;
   height: 150px;

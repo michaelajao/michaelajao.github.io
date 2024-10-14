@@ -8,15 +8,17 @@ $font-family-base: 'Nunito Sans', sans-serif;
 $font-family-heading: 'Montserrat', sans-serif;
 
 // Taxonomy Section Styling
+/* Adjusted Styles for Taxonomy Sections */
 .taxonomy__section {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 2em; // Compact padding to keep the sections balanced
+  margin-top: 2em;
+  padding-top: 2em;
+  border-top: 1px solid #e0e0e0;
 }
 
-// Spacing Between Sections
-.taxonomy__section + .taxonomy__section {
+.taxonomy__section:first-of-type {
   margin-top: 0;
+  padding-top: 0;
+  border-top: none;
 }
 
 // Headings Styling
@@ -30,21 +32,32 @@ $font-family-heading: 'Montserrat', sans-serif;
 }
 
 // Links in Taxonomy Index
-.taxonomy__index a {
-  border: none;
-  padding: 0 10px; // Comfortable padding for touch targets
-  border-radius: 6px; // Rounded corners for softer link appearance
-  background-color: $primary-color; // Black background for links
-  color: $background-color; // White text for contrast and readability
-  font-family: $font-family-base; // Consistent sans-serif font
-  font-weight: 500; // Slightly bold for emphasis on links
-  transition: background-color 0.3s ease, transform 0.3s ease; // Smooth transition for hover
-}
+/* Styles for Taxonomy Index */
+.taxonomy__index {
+  list-style: none;
+  padding: 0;
+  margin: 2em 0;
+  display: flex;
+  flex-wrap: wrap;
 
-// Hover Effects on Links
-.taxonomy__index a:hover {
-  background-color: $link-hover-color; // Darken background on hover
-  transform: scale(1.05); // Subtle zoom effect for interactivity
+  li {
+    margin: 0.5em 1em 0.5em 0;
+  }
+
+  a {
+    background-color: $primary-color;
+    color: $background-color;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: $font-family-base;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+
+  a:hover {
+    background-color: $link-hover-color;
+  }
 }
 
 // Responsive Styling for Smaller Screens
@@ -57,4 +70,20 @@ $font-family-heading: 'Montserrat', sans-serif;
     font-size: 0.9em; // Reduce link size for mobile readability
     padding: 0 8px; // Adjust padding for better mobile experience
   }
+}
+
+
+/* Styles for Back to Top Button */
+.back-to-top {
+  display: block;
+  margin-top: 2em;
+  text-align: center;
+  font-family: $font-family-base;
+  color: $primary-color;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-to-top:hover {
+  color: $accent-color;
 }

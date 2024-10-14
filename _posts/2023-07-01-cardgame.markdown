@@ -1,33 +1,54 @@
 ---
 layout: posts
-title:  "Shuffling Cards"
-date:   2023-07-01 16:13:27 -0500
-tags: [tutorial, javascript]
+title: "Shuffling Cards"
+date: 2023-07-01 16:13:27 -0500
+tags: [tutorial, javascript, codespaces]
 author_profile: true
 author: Michael Ajao-Olarinoye
 categories: project
 highlight_home: true
-tagline: "How to build a card game"
+tagline: "How to build a card game with JavaScript"
 header:
   overlay_image: https://images.unsplash.com/photo-1541278107931-e006523892df
   teaser: https://images.unsplash.com/photo-1541278107931-e006523892df
-  
   caption: "Photo credit: [**Unsplash: Amanda Jones**](https://unsplash.com/@amandagraphc)"
-description: This article showcases a tutorial that teaches learners how to code.
+description: A step-by-step guide to building a card game using JavaScript, designed to teach key coding concepts through a fun project.
 ---
 
-> To see a preview of this project go to [Shuffling Cards on Codespaces](https://leighlawhon-studious-space-guacamole-6v5gj6qwgp43rp4q.github.dev/) and select the `index.html` file and then `go live` on the status bar.
+> **Live Preview:** [Shuffling Cards on Codespaces](https://leighlawhon-studious-space-guacamole-6v5gj6qwgp43rp4q.github.dev/)
 
-![go live](/assets/images/go-live.PNG)
+![Go Live Screenshot](/assets/images/go-live.PNG)
+
+## Project Overview
+In this project, I create a fun and interactive card-shuffling game using **plain JavaScript**. The goal is to teach learners about key programming concepts like **binding** and **event propagation** while building something enjoyable.
+
+### Key Features:
+- **Technology Used:** JavaScript, HTML, CSS
+- **Goal:** Teach foundational JavaScript concepts through game mechanics
+- **Outcome:** Interactive card shuffling game that runs entirely in the browser
 
 ## Background
-A few years ago, I had the opportunity to build an app for LinkedIn Learning. The project aimed to teach the concepts of binding and propagation in plain JavaScript. Over a span of two months, I meticulously developed the course, and the recording took place at the LinkedIn campus in Carpenteria, CA. This venture marked my first tutorial collaboration with LinkedIn, and it proved to be an incredible experience. I came across this opportunity through a job board dedicated to female developers, and the entire process, from working with the content manager to the producer, was highly professional.
+This project was inspired by my collaboration with LinkedIn Learning, where I taught a similar JavaScript concept. The idea of using a card game as an analogy for programming concepts made it easier for learners to grasp these otherwise complex ideas.
 
 ## Approach
-In all my courses, I strive to create a narrative that complements the learning objectives. In the case of this particular project, I found that using cards as an analogy was a natural fit. By leveraging this analogy, I was able to elucidate complex JavaScript concepts in a simplified and easily understandable format for learners.
+By drawing parallels between card shuffling and JavaScript's event handling and binding, I crafted a tutorial that breaks down coding tasks into intuitive, bite-sized lessons. I chose **Cards** as a narrative structure because it aligns well with the practical focus of learning JavaScript.
 
 ## Results
-Upon publication, the course garnered significant attention, accumulating over 6,500 viewers to date. It remains one of my personal favorite tutorials, as it encapsulates my passion for teaching and the JavaScript language.
+The course on LinkedIn Learning garnered over **6,500 views**, becoming one of my most popular tutorials. This success encouraged me to expand on the project and make it available as a GitHub-hosted project with Codespaces.
+
+### See the Project:
+- **Live Preview:** [Shuffling Cards on Codespaces](https://leighlawhon-studious-space-guacamole-6v5gj6qwgp43rp4q.github.dev/)
+- **GitHub Repo:** [View Source Code on GitHub](https://github.com/username/shuffling-cards)
 
 ## Next Steps
-After witnessing the success of the cooking-inspired coding lesson, I am thrilled to share that I am incorporating the "Piece of Cake" app in my current tutorial, "Creating GitHub Portfolios." This exciting project seamlessly integrates with Codespaces, offering learners a hands-on demonstration of leveraging GitHub portfolios effectively. By including the "Piece of Cake" code, my objective is to enrich the overall learning experience, enabling individuals to showcase their skills with confidence and flair.
+Building on the success of this project, I plan to integrate it into my upcoming tutorials. For instance, it will be a key component of my next course, "Creating GitHub Portfolios," where learners can integrate their projects with **GitHub Codespaces** for easy portfolio hosting.
+
+### Conclusion
+If you're looking for a fun and educational way to improve your JavaScript skills, I highly recommend checking out this tutorial. You’ll not only learn the basics of event handling but also build a cool card-shuffling game to showcase in your own portfolio.
+
+---
+
+### **Technologies Used**
+- JavaScript
+- HTML
+- CSS

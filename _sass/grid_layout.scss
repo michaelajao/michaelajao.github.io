@@ -10,29 +10,38 @@ $font-family-heading: 'Proza Libre', sans-serif; // Heading font for titles
 
 // Grid Layout Styling
 .archive__item {
-  padding: 1em; // Balanced padding for content
-  border: 1px solid $border-color; // Light gray border for definition
-  background-color: $background-color; // White background for contrast
+  padding: 0.5em; // Reduce padding to make the card smaller
+  border: 1px solid $border-color; // Keep the light gray border for definition
+  background-color: $background-color; // White background
   box-shadow: 0 0.0625rem 0.3125rem $box-shadow-color; // Subtle shadow for depth
   transition: box-shadow 0.3s ease-in-out;
   display: flex;
   flex-direction: column; // Stack content vertically
+  height: auto; // Let the height adjust based on content
+  margin-bottom: 1em; // Reduced space between items
 
   &:hover {
     box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1); // Slightly stronger shadow on hover
+    transform: scale(1.03); // Zoom effect on hover
+    background-color: lighten($background-color, 5%);
   }
 }
 
-// Title Styling
-.grid__item .archive__item-title {
-  font-size: 1em; // Balanced font size for title
-  font-family: $font-family-heading; // Proza Libre for headings
+// Title Styling for Both Blogs and Projects
+.archive__item-title {
+  font-size: 1.2em; // Balanced size for project titles
+  font-family: $font-family-heading; // Use Proza Libre for headings
   color: $primary-color; // Black for text
-  font-weight: 700; // Bold weight for emphasis
-  margin-bottom: 0.55em; // Space below the title
-  text-transform: uppercase; // Uppercase for a modern feel
-  letter-spacing: 0.05em; // Subtle spacing for clarity
+  font-weight: 700; // Bold for emphasis
+  margin-bottom: 0.25em; // Space below the title
+  text-transform: uppercase; // Uppercase for a modern feel in projects
+  letter-spacing: 0.05em; // Subtle letter-spacing for clarity
   word-wrap: break-word; // Ensure long words break correctly
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: $accent-color; // Accent color on hover
+  }
 }
 
 // Teaser Image Styling
@@ -40,8 +49,9 @@ $font-family-heading: 'Proza Libre', sans-serif; // Heading font for titles
   border: 1px solid $border-color; // Light gray border around images
   overflow: hidden;
   margin-bottom: 0.75em; // Space below the image
-  height: 180px; // Uniform height for teaser images
-
+  width: 100%;
+  height: auto;
+  object-fit: cover; // Ensure images fit properly
   img {
     width: 100%; // Full width of the container
     height: 100%; // Fill the height of the container
@@ -54,7 +64,7 @@ $font-family-heading: 'Proza Libre', sans-serif; // Heading font for titles
   }
 }
 
-// Description/Excerpt Styling
+// Description/Excerpt Styling for Projects
 .archive__item-excerpt {
   font-size: 0.85em; // Slightly larger for readability
   font-family: $font-family-base; // Use Nunito Sans for body text
@@ -64,7 +74,7 @@ $font-family-heading: 'Proza Libre', sans-serif; // Heading font for titles
   margin-bottom: 0.55em; // Adjusted margin for consistency
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3; // Limit to 3 lines of text
+  -webkit-line-clamp: 3; // Limit to three lines of text
   -webkit-box-orient: vertical;
 }
 
@@ -75,6 +85,31 @@ $font-family-heading: 'Proza Libre', sans-serif; // Heading font for titles
 
 .archive__item:hover .archive__item-excerpt {
   color: lighten($primary-color, 20%); // Lighter text on hover for emphasis
+}
+
+// Blog-Specific Styles
+.archive__item-meta {
+  font-size: 0.85em;
+  color: lighten($primary-color, 40%); // Lightened text for blog meta
+  margin-top: 0.5em;
+  font-family: $font-family-base;
+}
+
+.archive__item-title.blog-title {
+  font-size: 1.4em; // Slightly larger font for blog titles
+  text-transform: none; // Blogs use normal casing for readability
+  margin-bottom: 0.75em;
+}
+
+// Teaser Image for Blogs
+.archive__item-teaser.blog-teaser {
+  height: 150px; // Slightly shorter for blog teaser images
+}
+
+// Blog Excerpt (longer)
+.archive__item-excerpt.blog-excerpt {
+  font-size: 0.9em; // Larger font for blog descriptions
+  -webkit-line-clamp: 5; // Allow more lines of text for blogs
 }
 
 // Responsive Adjustments for Larger Screens
@@ -89,7 +124,11 @@ $font-family-heading: 'Proza Libre', sans-serif; // Heading font for titles
 }
 
 // Responsive Adjustments for Smaller Screens
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 600px) {
+  .entries-grid {
+    grid-template-columns: repeat(1, 1fr); // One column for small screens
+  }
+
   .archive__item-teaser img {
     height: auto !important; // Allow image height to adjust on smaller screens
     width: 100% !important; // Full width for responsiveness
@@ -97,11 +136,19 @@ $font-family-heading: 'Proza Libre', sans-serif; // Heading font for titles
   }
 }
 
-// Font and Spacing Adjustments for Medium to Large Screens
-@media (min-width: 48em) {
-  .grid__item .archive__item .archive__item-excerpt {
-    font-size: 0.9em; // Increase font size for readability
-    color: $primary-color; // Consistent text color
-    font-family: $font-family-base; // Ensure Nunito Sans is used for body text
+// Hover Effects for Blogs and Projects
+.archive__item:hover {
+  transform: scale(1.03); // Hover effect to make items pop
+  background-color: lighten($background-color, 5%); // Subtle background change on hover
+}
+
+// Back-to-Top Button Styling
+.back-to-top {
+  color: $accent-color;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $hover-color; // Darken accent color on hover
   }
 }

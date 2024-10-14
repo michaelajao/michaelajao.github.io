@@ -12,23 +12,45 @@ layout: archive
         {% if blog_tags != empty %}
             <li>
                 <a href="#{{ tag[0] | slugify }}">
-                    <strong>{{ tag[0] }}</strong> <span class="taxonomy__count">{{ blog_tags.size }}</span>
+                    {{ tag[0] }} <span class="taxonomy__count">({{ blog_tags.size }})</span>
                 </a>
             </li>
         {% endif %}
     {% endfor %}
 </ul>
 
-<!-- Blog Posts by Category -->
+<!-- Blog Posts by Tag -->
 {% assign entries_layout = page.entries_layout | default: 'grid' %}
 {% for tag in sorted_tags %}
-    {% assign blog_tags = tag[1] | where: "categories", "blog" | sort %}
+    {% assign blog_tags = tag[1] | where: "categories", "blog" | sort: 'date' | reverse %}
     {% if blog_tags != empty %}
         <section id="{{ tag[0] | slugify | downcase }}" class="taxonomy__section">
-            <h2 class="archive__subtitle">{{ tag[0] }}</h2>
+            <h3 class="archive__subtitle">{{ tag[0] }}</h3>
             <div class="entries-{{ entries_layout }}">
                 {% for post in blog_tags %}
-                    {% include archive-single.html type=entries_layout %}
+                    <div class="archive__item">
+                        <!-- Blog Teaser Image -->
+                        {% if post.header.teaser %}
+                        <div class="archive__item-teaser">
+                            <a href="{{ post.url | relative_url }}">
+                                <img src="{{ post.header.teaser }}" alt="{{ post.title }}">
+                            </a>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Title with clickable link -->
+                        <h4 class="archive__item-title">
+                            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        </h4>
+
+                        <!-- Description / Excerpt -->
+                        <p class="archive__item-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                        
+                        <!-- Date and Author -->
+                        <p class="archive__item-meta">
+                            Posted on {{ post.date | date: "%B %d, %Y" }}{% if post.author %} by {{ post.author }}{% endif %}
+                        </p>
+                    </div>
                 {% endfor %}
             </div>
             <!-- Back to Top Button -->
