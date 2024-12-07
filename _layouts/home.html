@@ -25,10 +25,10 @@ layout: archive
         {% endfor %}
     </div>
 
-    <!-- Section for Favorite Articles/Blog Posts -->
+    <!-- Removed Section for Favorite Articles/Blog Posts -->
+    <!--
     <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Blog Posts" }}</h3>
 
-    {% comment %} Filter posts for highlighted blogs {% endcomment %}
     {% assign blog_posts = posts | where: "highlight_home", true | where_exp: "post", "post.categories contains 'blog'" %}
 
     <div class="entries-{{ entries_layout }}">
@@ -36,6 +36,7 @@ layout: archive
             {% include archive-single.html type=entries_layout %}
         {% endfor %}
     </div>
+    -->
 
     {% include paginator.html %}
 </div>

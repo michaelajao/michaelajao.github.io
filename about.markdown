@@ -1,6 +1,6 @@
 ---
-layout: archive
-title: About
+layout: single
+title: "About"
 permalink: /about/
 ---
 
@@ -91,7 +91,7 @@ For a full list of my publications, please visit my [Google Scholar profile](htt
 
 For more detailed information about my experience, education, and skills, feel free to download my CV.
 
-[**Download CV**](/assets/cv/michael%20ajao%20CV.pdf){: .btn .btn--info}
+[**Download CV**](/assets/cv/michael%20ajao%20CV.pdf){: .btn .btn--info target="_blank"}
 
 
 <!-- ## Download My CV
@@ -100,4 +100,4 @@ You can download my CV in PDF format [here](../assets/my-cv.pdf). -->
 
 ## Contact Me
 
-If you have any questions, suggestions, or just want to say hi, feel free to reach out to me via email at [ajaoolarinoyemichael@gmail.com](mailto:ajaolarinoyemichael@gmail.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/michael-ajao-olarinoye/) and [Twitter](https://twitter.com/michaelajao).
+If you have any questions or just want to say hi, feel free to reach out via email at [ajaoolarinoyemichael@gmail.com](mailto:ajaoolarinoyemichael@gmail.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/michael-ajao) and [Twitter](https://twitter.com/michaelajao).

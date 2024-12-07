@@ -4,7 +4,9 @@ layout: archive
 
 {{ content }}
 
+<!-- Blogs are now on Medium; this layout is no longer needed -->
 <!-- Taxonomy Index for Blog Tags -->
+<!--
 <ul class="taxonomy__index">
     {% assign sorted_tags = site.tags | sort %}
     {% for tag in sorted_tags %}
@@ -18,8 +20,10 @@ layout: archive
         {% endif %}
     {% endfor %}
 </ul>
+-->
 
 <!-- Blog Posts by Tag -->
+<!--
 {% assign entries_layout = page.entries_layout | default: 'grid' %}
 {% for tag in sorted_tags %}
     {% assign blog_tags = tag[1] | where: "categories", "blog" | sort: 'date' | reverse %}
@@ -58,3 +62,4 @@ layout: archive
         </section>
     {% endif %}
 {% endfor %}
+-->

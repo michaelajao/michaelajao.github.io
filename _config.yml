@@ -12,7 +12,7 @@ baseurl: "" # If hosting on a subpath (e.g., /blog)
 url: "https://michaelajao.github.io" # Base hostname & protocol
 twitter_username: michaelajao
 github_username: michaelajao
-linkedin_username: michael-ajao
+linkedin_username: michael-ajao-olarinoye
 
 # Site-specific settings
 search: true
@@ -28,7 +28,6 @@ remote_theme: "mmistakes/minimal-mistakes@4.24.0"
 plugins:
   - jekyll-remote-theme
   - jekyll-paginate
-  - jekyll-feed
   - jemoji
   - jekyll-sitemap
   - jekyll-include-cache
@@ -36,8 +35,10 @@ plugins:
   - jekyll-regex-replace
   - jekyll-jupyter-notebook
 
+# Removed 'jekyll-feed' plugin if not needed
+
 # Pagination settings
-paginate: 5
+paginate: false  # Disable pagination if only projects are displayed
 paginate_path: "/page:num/"
 
 # Build settings
@@ -81,8 +82,17 @@ exclude:
   - vendor/
 
 # Google Analytics tracking (Optional)
-google_analytics: "UA-XXXXX-Y"
+google_analytics: "UA-12345678-1"
 
 # Disqus integration (Optional)
 disqus:
   shortname: your-disqus-shortname
+
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "single"
+      author: "Michael Ajao-Olarinoye"
