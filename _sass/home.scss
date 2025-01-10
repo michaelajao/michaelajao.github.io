@@ -63,6 +63,22 @@ img.avatar {
   text-align: center; // Center the text for a cleaner layout
 }
 
+// Style for the projects section title
+.archive__subtitle {
+  font-size: 2em;
+  color: $primary-color;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+// Center and adjust the project entries grid
+.entries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 2em;
+  margin: 2em 0;
+}
+
 // Responsive Styling for Smaller Screens
 @media only screen and (max-width: 768px) {
   img.avatar {

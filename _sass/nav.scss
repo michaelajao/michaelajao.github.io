@@ -61,6 +61,11 @@ $font-family-heading: 'Montserrat', sans-serif; // Heading font for modern look
   color: $visited-link-color; // Lighter accent for visited links
 }
 
+// Add focus styles for accessibility
+#site-nav a:focus {
+  outline: 2px solid $accent-color;
+}
+
 // Optional Search/Other Icons
 .nav-icons {
   display: flex;
@@ -82,7 +87,7 @@ $font-family-heading: 'Montserrat', sans-serif; // Heading font for modern look
 @media only screen and (max-width: 768px) {
   #site-nav {
     flex-direction: column; // Stack nav items vertically
-    align-items: center; // Center align nav items
+    align-items: flex-start; // Align nav items to the start
   }
 
   #site-nav a {
