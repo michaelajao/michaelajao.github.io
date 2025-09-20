@@ -73,15 +73,12 @@ export const isValidEmail = (email: string): boolean => {
 }
 
 /**
- * Get obfuscated API configuration
+ * Get EmailJS configuration
  */
-export const getApiConfig = () => {
-  // Multiple layers of obfuscation
-  const parts = ['cmVfVjNa', 'cmp3M0Ff', 'OWZ6UzlneA==', 'dmhweVJFRmI0dEgyaXM0RlU=']
-  const combined = parts.join('').replace(/=/g, '')
-  
+export const getEmailJSConfig = () => {
   return {
-    key: atob(combined + '='.repeat((4 - combined.length % 4) % 4)),
-    endpoint: 'https://api.resend.com/emails'
+    userId: process.env.NEXT_PUBLIC_EMAILJS_USER_ID || 'user_XXXXXXXXXXXXX',
+    serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_4k3qbu9',
+    templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_xxx'
   }
 }
