@@ -175,7 +175,9 @@ export default function Hero() {
             className="flex justify-center lg:justify-end"
           >
             <div className="relative">
-              <div className="w-80 h-80 rounded-full overflow-hidden border-4 border-gray-700 shadow-2xl">
+              {/* Profile Image with subtle glow */}
+              <div className="w-80 h-80 rounded-full overflow-hidden border-4 border-gray-700 shadow-2xl relative">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-600/10 to-blue-600/10 animate-pulse"></div>
                 <Image
                   src="/profile-image.jpg"
                   alt="Michael Ajao-Olarinoye"
@@ -185,9 +187,136 @@ export default function Hero() {
                   priority
                 />
               </div>
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-green-900/30 rounded-full"></div>
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-blue-900/30 rounded-full"></div>
+              {/* Animated Decorative Bubbles */}
+              <motion.div 
+                className="absolute -top-4 -right-4 w-24 h-24 bg-green-900/30 rounded-full"
+                animate={{
+                  y: [0, -15, 0],
+                  scale: [1, 1.1, 1],
+                  opacity: [0.3, 0.5, 0.3]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div 
+                className="absolute -bottom-4 -left-4 w-32 h-32 bg-blue-900/30 rounded-full"
+                animate={{
+                  y: [0, 20, 0],
+                  x: [0, 10, 0],
+                  scale: [1, 0.9, 1],
+                  opacity: [0.3, 0.6, 0.3]
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1
+                }}
+              />
+              <motion.div 
+                className="absolute -top-8 -left-8 w-16 h-16 bg-purple-900/25 rounded-full"
+                animate={{
+                  y: [0, -10, 0],
+                  x: [0, -5, 0],
+                  scale: [1, 1.2, 1],
+                  opacity: [0.25, 0.4, 0.25]
+                }}
+                transition={{
+                  duration: 3.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2
+                }}
+              />
+              <motion.div 
+                className="absolute -bottom-8 -right-6 w-20 h-20 bg-cyan-900/25 rounded-full"
+                animate={{
+                  y: [0, 12, 0],
+                  x: [0, -8, 0],
+                  scale: [1, 1.15, 1],
+                  opacity: [0.25, 0.45, 0.25]
+                }}
+                transition={{
+                  duration: 4.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+              />
+              <motion.div 
+                className="absolute top-12 -right-12 w-12 h-12 bg-yellow-900/20 rounded-full"
+                animate={{
+                  y: [0, -8, 0],
+                  scale: [1, 1.3, 1],
+                  opacity: [0.2, 0.35, 0.2]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1.5
+                }}
+              />
+              <motion.div 
+                className="absolute bottom-16 -left-10 w-14 h-14 bg-pink-900/20 rounded-full"
+                animate={{
+                  y: [0, 15, 0],
+                  x: [0, 5, 0],
+                  scale: [1, 0.85, 1],
+                  opacity: [0.2, 0.4, 0.2]
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 3
+                }}
+              />
+              
+              {/* Micro bubbles for extra ambience */}
+              <motion.div 
+                className="absolute top-6 -left-4 w-6 h-6 bg-indigo-900/15 rounded-full"
+                animate={{
+                  y: [0, -6, 0],
+                  opacity: [0.15, 0.3, 0.15]
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.8
+                }}
+              />
+              <motion.div 
+                className="absolute bottom-6 -right-2 w-8 h-8 bg-teal-900/15 rounded-full"
+                animate={{
+                  y: [0, 8, 0],
+                  x: [0, -3, 0],
+                  opacity: [0.15, 0.25, 0.15]
+                }}
+                transition={{
+                  duration: 3.2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 2.5
+                }}
+              />
+              <motion.div 
+                className="absolute top-20 left-2 w-4 h-4 bg-orange-900/12 rounded-full"
+                animate={{
+                  scale: [1, 1.4, 1],
+                  opacity: [0.12, 0.25, 0.12]
+                }}
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 1.2
+                }}
+              />
             </div>
           </motion.div>
         </div>
