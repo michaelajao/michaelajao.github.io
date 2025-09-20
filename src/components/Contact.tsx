@@ -1,9 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+
+// Extend Window interface for EmailJS
+declare global {
+  interface Window {
+    emailjs?: typeof emailjs
+  }
+}
 import { motion } from 'framer-motion'
 import { Mail, Linkedin, Github, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
-import { validateDomain, checkRateLimit, recordSubmission, sanitizeInput, isValidEmail, getApiConfig } from '@/utils/security'
+import { validateDomain, checkRateLimit, recordSubmission, sanitizeInput, isValidEmail, getEmailJSConfig } from '@/utils/security'
+import emailjs from '@emailjs/browser'
 
 interface FormData {
   name: string
@@ -87,67 +95,40 @@ export default function Contact() {
     setStatus({ type: 'loading', message: 'Sending message...' })
 
     try {
-      const apiConfig = getApiConfig()
+      const emailConfig = getEmailJSConfig()
       const currentDomain = window.location.hostname + (window.location.port ? ':' + window.location.port : '')
       
-      const response = await fetch(apiConfig.endpoint, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiConfig.key}`,
-          'Content-Type': 'application/json',
-          'X-Domain': currentDomain,
-          'X-Timestamp': Date.now().toString(),
-        },
-        body: JSON.stringify({
-          from: 'Portfolio Contact <noreply@resend.dev>',
-          to: ['ajaoolarinoyemichael@gmail.com'],
-          subject: `Portfolio Contact: ${sanitizedData.subject}`,
-          html: `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-              <h2 style="color: #16a34a; border-bottom: 2px solid #16a34a; padding-bottom: 10px;">
-                🔒 Secure Contact Form Submission
-              </h2>
-              
-              <div style="margin: 20px 0;">
-                <h3 style="color: #374151; margin-bottom: 5px;">From:</h3>
-                <p style="margin: 0; padding: 10px; background-color: #f3f4f6; border-radius: 5px;">
-                  <strong>${sanitizedData.name}</strong><br>
-                  <a href="mailto:${sanitizedData.email}" style="color: #16a34a;">${sanitizedData.email}</a>
-                </p>
-              </div>
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        from_name: sanitizedData.name,
+        from_email: sanitizedData.email,
+        subject: sanitizedData.subject,
+        message: sanitizedData.message,
+        to_email: 'ajaoolarinoyemichael@gmail.com',
+        domain: currentDomain,
+        timestamp: new Date().toLocaleString(),
+        security_info: `Domain: ${currentDomain} | Timestamp: ${new Date().toISOString()}`
+      }
 
-              <div style="margin: 20px 0;">
-                <h3 style="color: #374151; margin-bottom: 5px;">Subject:</h3>
-                <p style="margin: 0; padding: 10px; background-color: #f3f4f6; border-radius: 5px;">
-                  ${sanitizedData.subject}
-                </p>
-              </div>
+      // Initialize EmailJS (if not already initialized)
+      if (!window.emailjs) {
+        emailjs.init(emailConfig.userId)
+      }
 
-              <div style="margin: 20px 0;">
-                <h3 style="color: #374151; margin-bottom: 5px;">Message:</h3>
-                <div style="margin: 0; padding: 15px; background-color: #f3f4f6; border-radius: 5px; line-height: 1.6;">
-                  ${sanitizedData.message.replace(/\n/g, '<br>')}
-                </div>
-              </div>
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        emailConfig.serviceId,
+        emailConfig.templateId,
+        templateParams
+      )
 
-              <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 14px;">
-                <p><strong>Security Info:</strong></p>
-                <p>• Domain: ${currentDomain}</p>
-                <p>• Timestamp: ${new Date().toISOString()}</p>
-                <p>• Sent from: <a href="https://michaelajao.github.io" style="color: #16a34a;">michaelajao.github.io</a></p>
-              </div>
-            </div>
-          `,
-        }),
-      })
-
-      if (response.ok) {
+      if (response.status === 200) {
         // Track successful submission for rate limiting
         recordSubmission()
         
         setStatus({
           type: 'success',
-          message: 'Message sent successfully! I&rsquo;ll get back to you soon.'
+          message: '🎉 Message sent successfully! I&rsquo;ll get back to you soon.'
         })
         // Reset form
         setFormData({
@@ -157,10 +138,9 @@ export default function Contact() {
           message: ''
         })
       } else {
-        const errorData = await response.json()
         setStatus({
           type: 'error',
-          message: errorData.message || 'Failed to send message. Please try again.'
+          message: 'Failed to send message. Please try again.'
         })
       }
     } catch {
