@@ -1,31 +1,39 @@
-# Michael Ajao-Olarinoye - Research Portfolio
+# 🧬 Michael Ajao-Olarinoye Portfolio
 
-A modern, professional portfolio website built with Next.js, showcasing research in Physics-Informed Neural Networks, Machine Learning, and Healthcare Analytics.
+A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS, featuring animated elements and a professional dark theme design.
 
-## 🚀 Features
+## 🌟 Features
 
-- **Modern Design**: Clean, professional layout with dark/light theme support
-- **Responsive**: Optimized for all devices and screen sizes
-- **Performance**: Built with Next.js 14 and optimized for speed
-- **Animations**: Smooth animations with Framer Motion
-- **SEO Optimized**: Proper meta tags and structured data
-- **Accessible**: WCAG compliant design
+- **Modern Design**: Clean, professional dark theme with gradient accents
+- **Responsive Layout**: Optimized for desktop, tablet, and mobile devices
+- **Animated Elements**: Smooth animations using Framer Motion, including floating bubbles around profile image
+- **Interactive Components**: Hover effects, smooth scrolling, and dynamic content
+- **Comprehensive Sections**:
+  - Hero section with animated decorative elements
+  - Featured research projects with expandable content
+  - Publications and presentations
+  - Professional experience timeline
+  - Educational background
+  - Skills and expertise
+  - Contact form with social links
 
-## 🛠️ Tech Stack
+## 🚀 Live Demo
 
-- **Framework**: Next.js 14 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Fonts**: Inter & Playfair Display
-- **Deployment**: Vercel/GitHub Pages
+Visit the live portfolio at: [https://michaelajao.github.io/](https://michaelajao.github.io/)
+
+## 🛠️ Built With
+
+- **Framework**: [Next.js 15](https://nextjs.org/) with App Router
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Deployment**: GitHub Pages with GitHub Actions
 
 ## 🏃‍♂️ Getting Started
 
 ### Prerequisites
-
-- Node.js 18+ 
+- Node.js 18 or higher
 - npm or yarn
 
 ### Installation
@@ -48,53 +56,60 @@ npm run dev
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 📁 Project Structure
+## 📦 Build and Deploy
 
+### Build for Production
+```bash
+npm run build
 ```
-src/
-├── app/
-│   ├── layout.tsx          # Root layout
-│   ├── page.tsx            # Home page
-│   └── globals.css         # Global styles
-├── components/
-│   ├── Hero.tsx            # Hero section
-│   ├── ResearchFocus.tsx   # Research areas
-│   ├── FeaturedProjects.tsx # Project showcase
-│   ├── Publications.tsx    # Publications list
-│   ├── Contact.tsx         # Contact information
-│   ├── Header.tsx          # Navigation header
-│   ├── Footer.tsx          # Site footer
-│   └── ThemeProvider.tsx   # Dark/light theme
-public/
-├── michael_cv.pdf          # CV document
-├── profile-image.jpg       # Profile photo
-└── project-*.jpg           # Project images
-```
+
+### Deploy to GitHub Pages
+The project is configured for automatic deployment to GitHub Pages. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
 
 ## 🎨 Customization
 
-### Content
-- Update personal information in components
-- Add your projects in `FeaturedProjects.tsx`
-- Update publications in `Publications.tsx`
-- Replace images in the `public` folder
+### Personal Information
+Update personal details in:
+- `src/components/Hero.tsx` - Main hero section content
+- `src/components/Contact.tsx` - Contact information
+- `src/components/Experience.tsx` - Work experience
+- `src/components/Education.tsx` - Educational background
+- `src/components/Publications.tsx` - Research publications
 
 ### Styling
-- Colors and theme: `src/app/globals.css`
-- Component styles: Individual component files
-- Tailwind config: `tailwind.config.ts`
+- Colors and themes: `tailwind.config.ts`
+- Global styles: `src/app/globals.css`
+- Component-specific styles: Individual component files
 
-## 📧 Contact
+### Assets
+- Profile image: `public/profile-image.jpg`
+- CV/Resume: `public/michael_cv.pdf`
+- Technology icons: `public/icons/`
 
-Michael Ajao-Olarinoye
-- Email: [removed]
-- LinkedIn: [michael-ajao](https://www.linkedin.com/in/michael-ajao)
-- GitHub: [michaelajao](https://github.com/michaelajao)
+## 📁 Project Structure
+
+```
+researcher-portfolio/
+├── public/                 # Static assets
+├── src/
+│   ├── app/               # Next.js App Router
+│   └── components/        # React components
+├── .github/workflows/     # GitHub Actions
+├── tailwind.config.ts     # Tailwind configuration
+├── next.config.ts         # Next.js configuration
+└── package.json           # Dependencies and scripts
+```
+
+## 🤝 Contributing
+
+This is a personal portfolio project, but suggestions and improvements are welcome!
 
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
----
+## 📞 Contact
 
-Built with ❤️ for the research community
+- **Email**: [removed]
+- **LinkedIn**: [michael-ajao](https://www.linkedin.com/in/michael-ajao)
+- **GitHub**: [michaelajao](https://github.com/michaelajao)
