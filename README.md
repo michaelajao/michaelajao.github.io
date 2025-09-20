@@ -64,7 +64,7 @@ npm run build
 ```
 
 ### Deploy to GitHub Pages
-The project is configured for automatic deployment to GitHub Pages. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+The project is configured for automatic deployment to GitHub Pages using GitHub Actions.
 
 ## 🎨 Customization
 
