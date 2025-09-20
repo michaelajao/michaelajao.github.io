@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import Image from 'next/image'
 
 interface TechIconProps {
   name: 'python' | 'pytorch' | 'tensorflow' | 'flutter' | 'r' | 'julia'
@@ -20,7 +21,7 @@ function TechIcon({ name, size = 20, className = '' }: TechIconProps) {
   const iconInfo = iconMapping[name] || { file: 'python.png', alt: name }
 
   return (
-    <img
+    <Image
       src={`/icons/${iconInfo.file}`}
       alt={`${iconInfo.alt} technology icon`}
       width={size}
@@ -28,7 +29,7 @@ function TechIcon({ name, size = 20, className = '' }: TechIconProps) {
       className={`${className} select-none`}
       style={{ minWidth: size, minHeight: size }}
       loading="lazy"
-      decoding="async"
+      unoptimized
     />
   )
 }

@@ -154,19 +154,24 @@ export default function Contact() {
           message: 'Failed to send message. Please try again.'
         })
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('EmailJS Error:', error)
       
       let errorMessage = 'Network error. Please check your connection and try again.'
       
-      if (error?.status === 400) {
-        errorMessage = 'Invalid email configuration. Please contact me directly at [removed]'
-      } else if (error?.status === 401) {
-        errorMessage = 'Email service authentication failed. Please contact me directly at [removed]'
-      } else if (error?.status === 402) {
-        errorMessage = 'Email service quota exceeded. Please contact me directly at [removed]'
-      } else if (error?.text?.includes('template')) {
-        errorMessage = 'Email template not found. Please contact me directly at [removed]'
+      // Type-safe error handling
+      if (error && typeof error === 'object') {
+        const emailError = error as { status?: number; text?: string }
+        
+        if (emailError.status === 400) {
+          errorMessage = 'Invalid email configuration. Please contact me directly at [removed]'
+        } else if (emailError.status === 401) {
+          errorMessage = 'Email service authentication failed. Please contact me directly at [removed]'
+        } else if (emailError.status === 402) {
+          errorMessage = 'Email service quota exceeded. Please contact me directly at [removed]'
+        } else if (emailError.text?.includes('template')) {
+          errorMessage = 'Email template not found. Please contact me directly at [removed]'
+        }
       }
       
       setStatus({
