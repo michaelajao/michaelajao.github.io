@@ -113,3 +113,6 @@ This project is open source and available under the [MIT License](LICENSE).
 - **Email**: ajaoolarinoyemichael@gmail.com
 - **LinkedIn**: [michael-ajao](https://www.linkedin.com/in/michael-ajao)
 - **GitHub**: [michaelajao](https://github.com/michaelajao)
+
+---
+*Portfolio updated with EmailJS integration - Contact form now fully functional!*
