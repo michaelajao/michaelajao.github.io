@@ -98,13 +98,12 @@ export default function Contact() {
       const emailConfig = getEmailJSConfig()
       const currentDomain = window.location.hostname + (window.location.port ? ':' + window.location.port : '')
       
-      // Prepare template parameters for EmailJS
+      // Prepare template parameters for EmailJS (matching your template variables)
       const templateParams = {
-        from_name: sanitizedData.name,
-        from_email: sanitizedData.email,
-        subject: sanitizedData.subject,
-        message: sanitizedData.message,
-        to_email: 'ajaoolarinoyemichael@gmail.com',
+        name: sanitizedData.name,        // {{name}} - From Name
+        email: sanitizedData.email,      // {{email}} - Reply To
+        title: sanitizedData.subject,    // {{title}} - Used in subject line
+        message: sanitizedData.message,  // Message content
         domain: currentDomain,
         timestamp: new Date().toLocaleString(),
         security_info: `Domain: ${currentDomain} | Timestamp: ${new Date().toISOString()}`

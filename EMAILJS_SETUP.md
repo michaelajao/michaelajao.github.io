@@ -9,60 +9,59 @@
 4. Replace `user_XXXXXXXXXXXXX` in `.env.local` with your actual User ID
 
 ### Step 2: Verify Service ID
-✅ **Already Done!** Your service ID is `service_4k3qbu9` (from your screenshot)
+✅ **Already Done!** Your service ID is `service_qxal56p` (Gmail service configured)
 
 ### Step 3: Create Email Template
-1. Go to **Email Templates** in your EmailJS dashboard
-2. Click **Create New Template**
-3. Use this template structure:
+✅ **Template Configuration Detected!** Based on your screenshot, you have:
+
+**Template Settings:**
+- **Subject**: `Contact Us: {{title}}`  
+- **To Email**: `ajaoolarinoyemichael@gmail.com` ✅
+- **From Name**: `{{name}}` ✅
+- **Reply To**: `{{email}}` ✅
+
+**Template Content** (paste this into your EmailJS template):
 
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Portfolio Contact</title>
-</head>
-<body>
-    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #16a34a; border-bottom: 2px solid #16a34a; padding-bottom: 10px;">
-            🔒 Secure Contact Form Submission
-        </h2>
-        
-        <div style="margin: 20px 0;">
-            <h3 style="color: #374151; margin-bottom: 5px;">From:</h3>
-            <p style="margin: 0; padding: 10px; background-color: #f3f4f6; border-radius: 5px;">
-                <strong>{{from_name}}</strong><br>
-                <a href="mailto:{{from_email}}" style="color: #16a34a;">{{from_email}}</a>
-            </p>
-        </div>
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #16a34a; border-bottom: 2px solid #16a34a; padding-bottom: 10px;">
+        🔒 Portfolio Contact Form
+    </h2>
+    
+    <div style="margin: 20px 0;">
+        <h3 style="color: #374151; margin-bottom: 5px;">From:</h3>
+        <p style="margin: 0; padding: 10px; background-color: #f3f4f6; border-radius: 5px;">
+            <strong>{{name}}</strong><br>
+            <a href="mailto:{{email}}" style="color: #16a34a;">{{email}}</a>
+        </p>
+    </div>
 
-        <div style="margin: 20px 0;">
-            <h3 style="color: #374151; margin-bottom: 5px;">Subject:</h3>
-            <p style="margin: 0; padding: 10px; background-color: #f3f4f6; border-radius: 5px;">
-                {{subject}}
-            </p>
-        </div>
+    <div style="margin: 20px 0;">
+        <h3 style="color: #374151; margin-bottom: 5px;">Subject:</h3>
+        <p style="margin: 0; padding: 10px; background-color: #f3f4f6; border-radius: 5px;">
+            {{title}}
+        </p>
+    </div>
 
-        <div style="margin: 20px 0;">
-            <h3 style="color: #374151; margin-bottom: 5px;">Message:</h3>
-            <div style="margin: 0; padding: 15px; background-color: #f3f4f6; border-radius: 5px; line-height: 1.6;">
-                {{message}}
-            </div>
-        </div>
-
-        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 14px;">
-            <p><strong>Security Info:</strong></p>
-            <p>{{security_info}}</p>
-            <p>Sent from: <a href="https://michaelajao.github.io" style="color: #16a34a;">michaelajao.github.io</a></p>
+    <div style="margin: 20px 0;">
+        <h3 style="color: #374151; margin-bottom: 5px;">Message:</h3>
+        <div style="margin: 0; padding: 15px; background-color: #f3f4f6; border-radius: 5px; line-height: 1.6;">
+            {{message}}
         </div>
     </div>
-</body>
-</html>
+
+    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 14px;">
+        <p><strong>Security Info:</strong></p>
+        <p>{{security_info}}</p>
+        <p>Sent from: <a href="https://michaelajao.github.io" style="color: #16a34a;">Portfolio Website</a></p>
+    </div>
+</div>
 ```
 
-4. **Subject Line**: `Portfolio Contact: {{subject}}`
-5. **To Email**: `ajaoolarinoyemichael@gmail.com`
-6. Save the template and copy its ID (starts with `template_`)
+**After adding the template content:**
+1. Save the template 
+2. Copy the **Template ID** (starts with `template_`)
+3. Update `.env.local` with the Template ID
 
 ### Step 4: Update Environment Variables
 Update `.env.local` with your actual values:
@@ -70,7 +69,7 @@ Update `.env.local` with your actual values:
 ```bash
 # Replace these with your actual EmailJS values
 NEXT_PUBLIC_EMAILJS_USER_ID=your_actual_user_id_here
-NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_4k3qbu9
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_qxal56p  # ✅ Already updated
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id_here
 ```
 
@@ -83,14 +82,15 @@ NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id_here
 
 The contact form sends these variables to your EmailJS template:
 
-- `{{from_name}}` - Sender's name
-- `{{from_email}}` - Sender's email
-- `{{subject}}` - Email subject
+- `{{name}}` - Sender's name (From Name)
+- `{{email}}` - Sender's email (Reply To)
+- `{{title}}` - Email subject (used in "Contact Us: {{title}}")
 - `{{message}}` - Email message content
-- `{{to_email}}` - Your email (ajaoolarinoyemichael@gmail.com)
 - `{{domain}}` - Website domain for security
 - `{{timestamp}}` - When the email was sent
 - `{{security_info}}` - Security validation info
+
+**✅ These match your EmailJS template configuration!**
 
 ## 🛡️ Security Features Maintained
 
