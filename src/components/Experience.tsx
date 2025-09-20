@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Briefcase, Award, GraduationCap } from 'lucide-react'
+import { Briefcase, Award } from 'lucide-react'
 
 export default function Experience() {
   const experiences = [

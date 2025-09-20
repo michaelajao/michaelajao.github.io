@@ -46,7 +46,7 @@ export default function Hero() {
                 transition={{ delay: 0.5 }}
                 className="text-lg text-green-400 font-medium italic"
               >
-                "Let's build something amazing together."
+                &ldquo;Let&rsquo;s build something amazing together.&rdquo;
               </motion.p>
               
               <motion.p
@@ -55,7 +55,7 @@ export default function Hero() {
                 transition={{ delay: 0.6 }}
                 className="text-lg text-gray-300 leading-relaxed max-w-2xl"
               >
-                I'm a <span className="text-green-400 font-semibold">PhD Researcher</span> in Computational Science and Mathematical Modelling at{' '}
+                I&rsquo;m a <span className="text-green-400 font-semibold">PhD Researcher</span> in Computational Science and Mathematical Modelling at{' '}
                 <span className="text-blue-400 font-semibold">Coventry University</span>, specializing in{' '}
                 <span className="text-cyan-400 font-semibold">Physics-Informed Neural Networks (PINNs)</span> and{' '}
                 <span className="text-purple-400 font-semibold">epidemiological modeling</span>.
@@ -82,7 +82,7 @@ export default function Hero() {
                 With expertise spanning{' '}
                 <span className="text-cyan-400 font-medium">healthcare analytics</span>,{' '}
                 <span className="text-orange-400 font-medium">scientific computing</span>, and{' '}
-                <span className="text-purple-400 font-medium">educational technology</span>, I'm passionate about{' '}
+                <span className="text-purple-400 font-medium">educational technology</span>, I&rsquo;m passionate about{' '}
                 <span className="text-green-400 font-medium">making complex computational concepts accessible</span>{' '}
                 through both research and teaching.
               </motion.p>
