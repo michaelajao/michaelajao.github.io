@@ -1,9 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ExternalLink, Github } from 'lucide-react'
+import { ExternalLink, Github, ChevronDown, ChevronUp } from 'lucide-react'
 
 export default function FeaturedProjects() {
+  const [showAllProjects, setShowAllProjects] = useState(false)
   const projects = [
     {
       title: "Aneurysm Transient Flow Analysis with Physics-Informed Neural Networks",
@@ -36,8 +38,43 @@ export default function FeaturedProjects() {
       github: "https://github.com/michaelajao/fitness_tracker",
       demo: "#",
       category: "Health Data Science"
+    },
+    {
+      title: "Flutter Chess Application",
+      description: "Mobile chess application built with Flutter, featuring interactive gameplay, move validation, and elegant user interface design. This project demonstrates cross-platform mobile development skills and game logic implementation.",
+      technologies: ["Flutter", "Dart", "Mobile Development", "Game Logic", "UI/UX Design"],
+      github: "https://github.com/michaelajao/chess_app",
+      demo: "#",
+      category: "Mobile Development"
+    },
+    {
+      title: "EpiHealthForecast: Epidemiological Health Forecasting",
+      description: "Advanced epidemiological forecasting system leveraging machine learning and statistical models for health trend prediction. This project integrates multiple data sources to provide insights for public health decision-making and pandemic preparedness.",
+      technologies: ["Python", "Machine Learning", "Time Series Analysis", "Epidemiological Modeling", "Public Health Analytics"],
+      github: "https://github.com/michaelajao/EpiHealthForecast",
+      demo: "#",
+      category: "Public Health"
+    },
+    {
+      title: "COVID-19 Spread Prediction & Vaccine Efficacy Analysis using SEIR-V Model",
+      description: "Advanced predictive framework for analyzing COVID-19 spread and assessing vaccine efficacy using a data-driven approach. Integrates SEIR-V (Susceptible, Exposed, Infected, Recovered, Vaccinated) model with deep learning techniques including RNNs and LSTMs to capture pandemic dynamics, transmission rates, and vaccine distribution. Provides evidence-based policy recommendations for vaccination strategies and public health interventions.",
+      technologies: ["Python", "Deep Learning", "SEIR-V Modeling", "RNNs", "LSTMs", "COVID-19 Analysis", "Public Health Policy", "Data Science"],
+      github: "https://github.com/michaelajao/data_driven_vaccination",
+      demo: "#",
+      category: "Public Health Research"
+    },
+    {
+      title: "Titanic Survival Prediction - Machine Learning Coursework",
+      description: "Machine learning project exploring techniques used in preprocessing, feature engineering, and ML evaluation to predict binary classification of the Titanic dataset. Implemented Logistic Regression, Support Vector Machine, Random Forest, Stochastic Gradient Descent (SGD), K-Nearest Neighbor, Gaussian Naive Bayes, and Decision Tree algorithms using Python and Scikit-learn library. Dataset used as a Kaggle competition.",
+      technologies: ["Python", "Scikit-learn", "Machine Learning", "Feature Engineering", "Data Preprocessing", "Jupyter Notebooks", "Binary Classification", "Kaggle"],
+      github: "https://github.com/michaelajao/machine_learning",
+      demo: "https://github.com/michaelajao/machine_learning/blob/master/Machine%20Learning%20Coursework.ipynb",
+      category: "Academic Work"
     }
   ]
+
+  // Show only top 3 projects initially, or all if expanded
+  const displayedProjects = showAllProjects ? projects : projects.slice(0, 3)
 
   return (
     <section id="projects" className="py-20 bg-gray-800">
@@ -63,7 +100,7 @@ export default function FeaturedProjects() {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <motion.div
               key={project.title}
               initial={{ opacity: 0, y: 20 }}
@@ -125,7 +162,7 @@ export default function FeaturedProjects() {
           ))}
         </div>
 
-        {/* View All Projects Link */}
+        {/* View All Projects Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -133,15 +170,13 @@ export default function FeaturedProjects() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <a
-            href="https://github.com/michaelajao"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setShowAllProjects(!showAllProjects)}
             className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
           >
-            View All Projects
-            <ExternalLink size={18} />
-          </a>
+            {showAllProjects ? 'Show Less' : 'View All Projects'}
+            {showAllProjects ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+          </button>
         </motion.div>
       </div>
     </section>
