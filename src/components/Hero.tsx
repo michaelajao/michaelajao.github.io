@@ -40,40 +40,64 @@ export default function Hero() {
                 PhD Researcher | Computational Science & Epidemiological Modeling
               </motion.p>
               
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="text-lg text-green-400 font-medium italic"
+              >
+                "Let's build something amazing together."
+              </motion.p>
+              
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="text-lg text-gray-300 leading-relaxed max-w-2xl"
               >
-                Advancing epidemiological modeling through{' '}
-                <span className="text-green-600 font-semibold">Physics-Informed Neural Networks</span>{' '}
-                and computational science. My research spans pandemic preparedness, healthcare resource
-                allocation, and developing interdisciplinary AI solutions including{' '}
-                <span className="text-blue-400 font-semibold">computational fluid dynamics (CFD)</span>,{' '}
-                <span className="text-cyan-400 font-semibold">deep learning architectures</span>,{' '}
-                <span className="text-cyan-400 font-semibold">graph neural networks</span>, and{' '}
-                <span className="text-orange-400 font-semibold">hybrid frameworks</span>{' '}
-                across diverse domains and applications.
+                I'm a <span className="text-green-400 font-semibold">PhD Researcher</span> in Computational Science and Mathematical Modelling at{' '}
+                <span className="text-blue-400 font-semibold">Coventry University</span>, specializing in{' '}
+                <span className="text-cyan-400 font-semibold">Physics-Informed Neural Networks (PINNs)</span> and{' '}
+                <span className="text-purple-400 font-semibold">epidemiological modeling</span>.
               </motion.p>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
+                className="text-lg text-gray-300 leading-relaxed max-w-2xl"
+              >
+                My research focuses on developing{' '}
+                <span className="text-green-400 font-semibold">AI models that predict healthcare resource demand</span>{' '}
+                during pandemic scenarios, bridging the gap between traditional mathematical modeling and{' '}
+                <span className="text-blue-400 font-semibold">modern deep learning approaches</span>.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
                 className="text-base text-gray-400 leading-relaxed max-w-2xl"
               >
-                Currently focused on{' '}
-                <span className="text-blue-400 font-medium">PINNs for aneurysm modeling</span>,
-                including wall shear stress (WSS) analysis, and developing{' '}
-                <span className="text-purple-400 font-medium">surrogate and digital twin models</span>.
-                Leveraging{' '}
-                <span className="text-cyan-400 font-medium">time series analysis</span>,{' '}
-                <span className="text-cyan-400 font-medium">deep learning</span>, and{' '}
-                <span className="text-orange-400 font-medium">hybrid prediction frameworks</span>{' '}
-                to integrate physics-based constraints with data-driven learning for healthcare forecasting,
-                COVID-19 hospitalization prediction, and critical care demand modeling to improve pandemic
-                preparedness and clinical decision-making.
+                With expertise spanning{' '}
+                <span className="text-cyan-400 font-medium">healthcare analytics</span>,{' '}
+                <span className="text-orange-400 font-medium">scientific computing</span>, and{' '}
+                <span className="text-purple-400 font-medium">educational technology</span>, I'm passionate about{' '}
+                <span className="text-green-400 font-medium">making complex computational concepts accessible</span>{' '}
+                through both research and teaching.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 }}
+                className="text-base text-gray-500 leading-relaxed max-w-2xl"
+              >
+                Currently developing{' '}
+                <span className="text-blue-400 font-medium">PINNs for aneurysm modeling</span>,{' '}
+                <span className="text-purple-400 font-medium">digital twin frameworks</span>, and{' '}
+                <span className="text-cyan-400 font-medium">hybrid prediction models</span>{' '}
+                for pandemic preparedness and clinical decision-making.
               </motion.p>
             </div>
 
@@ -81,14 +105,14 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
+              transition={{ delay: 1.0 }}
               className="flex flex-wrap gap-4"
             >
               <a
                 href="#projects"
                 className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
               >
-                View Projects
+                Explore My Research
                 <ArrowDown size={18} />
               </a>
               <a
@@ -106,7 +130,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0 }}
+              transition={{ delay: 1.1 }}
               className="space-y-4"
             >
               <h3 className="text-lg font-semibold text-gray-200">
@@ -136,7 +160,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 }}
+              transition={{ delay: 1.3 }}
               className="flex gap-4"
             >
               <a
