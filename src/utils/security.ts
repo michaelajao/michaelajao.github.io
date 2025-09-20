@@ -76,9 +76,21 @@ export const isValidEmail = (email: string): boolean => {
  * Get EmailJS configuration
  */
 export const getEmailJSConfig = () => {
+  // Validate that required environment variables are set
+  const userId = process.env.NEXT_PUBLIC_EMAILJS_USER_ID
+  const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
+  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+
+  if (!userId || !serviceId || !templateId) {
+    console.warn('EmailJS configuration missing. Please set environment variables:')
+    console.warn('- NEXT_PUBLIC_EMAILJS_USER_ID')
+    console.warn('- NEXT_PUBLIC_EMAILJS_SERVICE_ID') 
+    console.warn('- NEXT_PUBLIC_EMAILJS_TEMPLATE_ID')
+  }
+
   return {
-    userId: process.env.NEXT_PUBLIC_EMAILJS_USER_ID || 'user_XXXXXXXXXXXXX',
-    serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'service_4k3qbu9',
-    templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'template_xxx'
+    userId: userId || 'user_XXXXXXXXXXXXX',
+    serviceId: serviceId || 'service_4k3qbu9',
+    templateId: templateId || 'template_xxx'
   }
 }
