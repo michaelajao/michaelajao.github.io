@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Linkedin, Github, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { validateDomain, checkRateLimit, recordSubmission, sanitizeInput, isValidEmail, getApiConfig } from '@/utils/security'
 
 interface FormData {
   name: string
@@ -40,52 +41,100 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
+    // Security validations
+    if (!validateDomain()) {
+      setStatus({
+        type: 'error',
+        message: 'Unauthorized domain. Please visit the official site.'
+      })
+      return
+    }
+
+    const rateLimit = checkRateLimit()
+    if (!rateLimit.allowed) {
+      setStatus({
+        type: 'error',
+        message: `Too many submissions. Please wait 10 minutes before sending another message. (${rateLimit.remaining} remaining)`
+      })
+      return
+    }
+
+    // Input validation and sanitization
+    const sanitizedData = {
+      name: sanitizeInput(formData.name),
+      email: sanitizeInput(formData.email),
+      subject: sanitizeInput(formData.subject),
+      message: sanitizeInput(formData.message)
+    }
+
+    if (!isValidEmail(sanitizedData.email)) {
+      setStatus({
+        type: 'error',
+        message: 'Please enter a valid email address.'
+      })
+      return
+    }
+
+    if (sanitizedData.name.length < 2 || sanitizedData.message.length < 10) {
+      setStatus({
+        type: 'error',
+        message: 'Please provide a valid name and message (minimum 10 characters).'
+      })
+      return
+    }
+    
     // Reset status
     setStatus({ type: 'loading', message: 'Sending message...' })
 
     try {
-      // Use Resend API directly from the client (for development/testing)
-      // In production, you might want to use a form service like Formspree
-      const response = await fetch('https://api.resend.com/emails', {
+      const apiConfig = getApiConfig()
+      const currentDomain = window.location.hostname + (window.location.port ? ':' + window.location.port : '')
+      
+      const response = await fetch(apiConfig.endpoint, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_RESEND_API_KEY || 're_V3Zrjw3A_9fzS9zxvhpyREFb4tH2is4FU'}`,
+          'Authorization': `Bearer ${apiConfig.key}`,
           'Content-Type': 'application/json',
+          'X-Domain': currentDomain,
+          'X-Timestamp': Date.now().toString(),
         },
         body: JSON.stringify({
           from: 'Portfolio Contact <noreply@resend.dev>',
           to: ['ajaoolarinoyemichael@gmail.com'],
-          subject: `Portfolio Contact: ${formData.subject}`,
+          subject: `Portfolio Contact: ${sanitizedData.subject}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
               <h2 style="color: #16a34a; border-bottom: 2px solid #16a34a; padding-bottom: 10px;">
-                New Contact Form Submission
+                🔒 Secure Contact Form Submission
               </h2>
               
               <div style="margin: 20px 0;">
                 <h3 style="color: #374151; margin-bottom: 5px;">From:</h3>
                 <p style="margin: 0; padding: 10px; background-color: #f3f4f6; border-radius: 5px;">
-                  <strong>${formData.name}</strong><br>
-                  <a href="mailto:${formData.email}" style="color: #16a34a;">${formData.email}</a>
+                  <strong>${sanitizedData.name}</strong><br>
+                  <a href="mailto:${sanitizedData.email}" style="color: #16a34a;">${sanitizedData.email}</a>
                 </p>
               </div>
 
               <div style="margin: 20px 0;">
                 <h3 style="color: #374151; margin-bottom: 5px;">Subject:</h3>
                 <p style="margin: 0; padding: 10px; background-color: #f3f4f6; border-radius: 5px;">
-                  ${formData.subject}
+                  ${sanitizedData.subject}
                 </p>
               </div>
 
               <div style="margin: 20px 0;">
                 <h3 style="color: #374151; margin-bottom: 5px;">Message:</h3>
                 <div style="margin: 0; padding: 15px; background-color: #f3f4f6; border-radius: 5px; line-height: 1.6;">
-                  ${formData.message.replace(/\n/g, '<br>')}
+                  ${sanitizedData.message.replace(/\n/g, '<br>')}
                 </div>
               </div>
 
               <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 14px;">
-                <p>This email was sent from your portfolio contact form at <a href="https://michaelajao.github.io" style="color: #16a34a;">michaelajao.github.io</a></p>
+                <p><strong>Security Info:</strong></p>
+                <p>• Domain: ${currentDomain}</p>
+                <p>• Timestamp: ${new Date().toISOString()}</p>
+                <p>• Sent from: <a href="https://michaelajao.github.io" style="color: #16a34a;">michaelajao.github.io</a></p>
               </div>
             </div>
           `,
@@ -93,6 +142,9 @@ export default function Contact() {
       })
 
       if (response.ok) {
+        // Track successful submission for rate limiting
+        recordSubmission()
+        
         setStatus({
           type: 'success',
           message: 'Message sent successfully! I&rsquo;ll get back to you soon.'
