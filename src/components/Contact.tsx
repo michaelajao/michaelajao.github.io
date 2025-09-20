@@ -96,6 +96,18 @@ export default function Contact() {
 
     try {
       const emailConfig = getEmailJSConfig()
+      
+      // Check if EmailJS is properly configured
+      if (emailConfig.userId.startsWith('user_XXX') || 
+          emailConfig.serviceId.startsWith('service_') || 
+          emailConfig.templateId.startsWith('template_')) {
+        setStatus({
+          type: 'error',
+          message: 'Contact form is not configured. Please contact me directly at ajaoolarinoyemichael@gmail.com'
+        })
+        return
+      }
+      
       const currentDomain = window.location.hostname + (window.location.port ? ':' + window.location.port : '')
       
       // Prepare template parameters for EmailJS (matching your template variables)
@@ -142,10 +154,24 @@ export default function Contact() {
           message: 'Failed to send message. Please try again.'
         })
       }
-    } catch {
+    } catch (error: any) {
+      console.error('EmailJS Error:', error)
+      
+      let errorMessage = 'Network error. Please check your connection and try again.'
+      
+      if (error?.status === 400) {
+        errorMessage = 'Invalid email configuration. Please contact me directly at ajaoolarinoyemichael@gmail.com'
+      } else if (error?.status === 401) {
+        errorMessage = 'Email service authentication failed. Please contact me directly at ajaoolarinoyemichael@gmail.com'
+      } else if (error?.status === 402) {
+        errorMessage = 'Email service quota exceeded. Please contact me directly at ajaoolarinoyemichael@gmail.com'
+      } else if (error?.text?.includes('template')) {
+        errorMessage = 'Email template not found. Please contact me directly at ajaoolarinoyemichael@gmail.com'
+      }
+      
       setStatus({
         type: 'error',
-        message: 'Network error. Please check your connection and try again.'
+        message: errorMessage
       })
     }
   }
