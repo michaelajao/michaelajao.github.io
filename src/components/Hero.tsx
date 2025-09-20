@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, Github, Linkedin, Mail, FileText } from 'lucide-react'
 import Image from 'next/image'
+import TechIcon from '@/components/TechIcon'
 
 export default function Hero() {
   return (
@@ -39,32 +40,55 @@ export default function Hero() {
                 PhD Researcher | Computational Science & Epidemiological Modeling
               </motion.p>
               
-              <motion.p 
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="text-lg text-gray-300 leading-relaxed max-w-2xl"
               >
-                Specializing in{' '}
+                Advancing epidemiological modeling through{' '}
                 <span className="text-green-600 font-semibold">Physics-Informed Neural Networks</span>{' '}
-                for epidemiological modeling, with expertise in predicting mechanical ventilator 
-                demand during pandemics, healthcare resource allocation, and developing 
-                interdisciplinary AI solutions across multiple domains.
+                and computational science. My research spans pandemic preparedness, healthcare resource
+                allocation, and developing interdisciplinary AI solutions including{' '}
+                <span className="text-blue-400 font-semibold">computational fluid dynamics (CFD)</span>,{' '}
+                <span className="text-cyan-400 font-semibold">deep learning architectures</span>,{' '}
+                <span className="text-cyan-400 font-semibold">graph neural networks</span>, and{' '}
+                <span className="text-orange-400 font-semibold">hybrid frameworks</span>{' '}
+                across diverse domains and applications.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="text-base text-gray-400 leading-relaxed max-w-2xl"
+              >
+                Currently focused on{' '}
+                <span className="text-blue-400 font-medium">PINNs for aneurysm modeling</span>,
+                including wall shear stress (WSS) analysis, and developing{' '}
+                <span className="text-purple-400 font-medium">surrogate and digital twin models</span>.
+                Leveraging{' '}
+                <span className="text-cyan-400 font-medium">time series analysis</span>,{' '}
+                <span className="text-cyan-400 font-medium">deep learning</span>, and{' '}
+                <span className="text-orange-400 font-medium">hybrid prediction frameworks</span>{' '}
+                to integrate physics-based constraints with data-driven learning for healthcare forecasting,
+                COVID-19 hospitalization prediction, and critical care demand modeling to improve pandemic
+                preparedness and clinical decision-making.
               </motion.p>
             </div>
 
             {/* CTA Buttons */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.9 }}
               className="flex flex-wrap gap-4"
             >
               <a
-                href="#research"
+                href="#projects"
                 className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
               >
-                View Research
+                View Projects
                 <ArrowDown size={18} />
               </a>
               <a
@@ -79,10 +103,10 @@ export default function Hero() {
             </motion.div>
 
             {/* Technology Stack */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 }}
+              transition={{ delay: 1.0 }}
               className="space-y-4"
             >
               <h3 className="text-lg font-semibold text-gray-200">
@@ -90,37 +114,29 @@ export default function Hero() {
               </h3>
               <div className="flex flex-wrap gap-3">
                 <div className="flex items-center gap-2 bg-gray-800/70 px-3 py-2 rounded-lg">
-                  <span className="text-2xl">🐍</span>
+                  <TechIcon name="python" size={24} />
                   <span className="text-gray-200 font-medium">Python</span>
                 </div>
                 <div className="flex items-center gap-2 bg-gray-800/70 px-3 py-2 rounded-lg">
-                  <span className="text-2xl">🔥</span>
-                  <span className="text-gray-200 font-medium">PyTorch</span>
-                </div>
-                <div className="flex items-center gap-2 bg-gray-800/70 px-3 py-2 rounded-lg">
-                  <span className="text-2xl">🧠</span>
-                  <span className="text-gray-200 font-medium">TensorFlow</span>
-                </div>
-                <div className="flex items-center gap-2 bg-gray-800/70 px-3 py-2 rounded-lg">
-                  <span className="text-2xl">🦋</span>
+                  <TechIcon name="flutter" size={24} />
                   <span className="text-gray-200 font-medium">Flutter</span>
                 </div>
                 <div className="flex items-center gap-2 bg-gray-800/70 px-3 py-2 rounded-lg">
-                  <span className="text-2xl">📊</span>
+                  <TechIcon name="r" size={24} />
                   <span className="text-gray-200 font-medium">R</span>
                 </div>
                 <div className="flex items-center gap-2 bg-gray-800/70 px-3 py-2 rounded-lg">
-                  <span className="text-2xl">⚡</span>
+                  <TechIcon name="julia" size={24} />
                   <span className="text-gray-200 font-medium">Julia</span>
                 </div>
               </div>
             </motion.div>
 
             {/* Social Links */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1 }}
+              transition={{ delay: 1.2 }}
               className="flex gap-4"
             >
               <a

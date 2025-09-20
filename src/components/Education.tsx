@@ -95,7 +95,7 @@ export default function Education() {
   ]
 
   return (
-    <section id="education" className="py-20 bg-gray-800">
+    <section id="education" className="py-20 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -131,7 +131,7 @@ export default function Education() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-gray-900 p-6 rounded-lg shadow-lg border-l-4 border-blue-500"
+                className="bg-gray-800 p-6 rounded-lg shadow-lg border-l-4 border-blue-500"
               >
                 <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-4">
                   <div className="flex-1">
@@ -192,7 +192,7 @@ export default function Education() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-gray-900 p-6 rounded-lg shadow-lg"
+                className="bg-gray-800 p-6 rounded-lg shadow-lg"
               >
                 <h4 className="text-lg font-semibold text-white mb-3">
                   {conf.name}
@@ -232,7 +232,7 @@ export default function Education() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-gray-900 p-6 rounded-lg shadow-lg"
+                className="bg-gray-800 p-6 rounded-lg shadow-lg"
               >
                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3">
                   <div>

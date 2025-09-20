@@ -32,7 +32,7 @@ export default function Contact() {
   ]
 
   return (
-    <section id="contact" className="py-20 bg-gray-800">
+    <section id="contact" className="py-20 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -113,55 +113,83 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Research Interests */}
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-gray-900 p-8 rounded-xl shadow-lg"
+            className="bg-gray-800 p-8 rounded-xl shadow-lg"
           >
             <h3 className="text-2xl font-bold text-white mb-6">
-              Research Interests
+              Send a Message
             </h3>
-            
-            <div className="space-y-6">
-              <div>
-                <h4 className="text-lg font-semibold text-white mb-2">
-                  Current Focus Areas
-                </h4>
-                <ul className="text-gray-300 space-y-2">
-                  <li>• Epidemiological Modeling</li>
-                  <li>• Physics-Informed Neural Networks</li>
-                  <li>• Healthcare Resource Allocation</li>
-                  <li>• Interdisciplinary AI Applications</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="text-lg font-semibold text-white mb-2">
-                  Collaboration Opportunities
-                </h4>
-                <ul className="text-gray-300 space-y-2">
-                  <li>• Joint research projects</li>
-                  <li>• Conference presentations</li>
-                  <li>• Academic partnerships</li>
-                  <li>• Industry consulting</li>
-                </ul>
-              </div>
-              
-            </div>
 
-              <div className="pt-4">
-                <a
-                  href="/michael_cv.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
-                >
-                  Download CV
-                </a>
+            <form className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
+                  placeholder="Your name"
+                  required
+                />
               </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
+                  placeholder="your.email@example.com"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
+                  placeholder="Research collaboration, project inquiry, etc."
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200 resize-none"
+                  placeholder="Tell me about your project, collaboration ideas, or questions..."
+                  required
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2"
+              >
+                <Mail size={18} />
+                Send Message
+              </button>
+            </form>
           </motion.div>
         </div>
       </div>
