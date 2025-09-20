@@ -1,5 +1,10 @@
 # EmailJS Setup Guide 📧
 
+## ✅ **Current Status:**
+- **Service ID**: `service_qxal56p` ✅ **Configured**
+- **Template ID**: `template_o2dmzwp` ✅ **Configured** 
+- **User ID**: ⚠️ **Still needed from EmailJS dashboard**
+
 ## 🚀 Quick Setup Instructions
 
 ### Step 1: Get Your EmailJS User ID
@@ -67,10 +72,10 @@
 Update `.env.local` with your actual values:
 
 ```bash
-# Replace these with your actual EmailJS values
-NEXT_PUBLIC_EMAILJS_USER_ID=your_actual_user_id_here
-NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_qxal56p  # ✅ Already updated
-NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id_here
+# Replace USER_ID with your actual EmailJS User ID
+NEXT_PUBLIC_EMAILJS_USER_ID=your_actual_user_id_here  # ⚠️ Still needed
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_qxal56p        # ✅ Configured
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=template_o2dmzwp      # ✅ Configured
 ```
 
 ### Step 5: Test the Setup
