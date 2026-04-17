@@ -15,13 +15,13 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Michael Ajao-Olarinoye | PhD Researcher',
-  description: 'PhD Researcher in Computational Science specializing in epidemiological modeling, Physics-Informed Neural Networks, and healthcare resource allocation. Published in Physics of Fluids, IEEE conferences, and interdisciplinary AI applications.',
-  keywords: 'PhD Researcher, Epidemiological Modeling, Physics-Informed Neural Networks, Healthcare Resource Allocation, Machine Learning, Computational Science, Plant Disease Detection, Topic Modeling',
+  title: 'Dr. Michael Ajao-Olarinoye | Research Fellow',
+  description: 'Research Fellow at Coventry University\'s Centre for Computational Science & Mathematical Modelling (CSMM), working on the HOPE-MOVE project. Research in applied machine learning, generative AI, physics-informed neural networks, spatiotemporal epidemic forecasting, and cardiovascular hemodynamics.',
+  keywords: 'Research Fellow, HOPE-MOVE, Applied Machine Learning, Generative AI, Physics-Informed Neural Networks, Graph Neural Networks, Spatiotemporal Forecasting, Cardiovascular Hemodynamics, Epidemiological Modeling, Computational Science, Coventry University CSMM',
   authors: [{ name: 'Michael Ajao-Olarinoye' }],
   openGraph: {
-    title: 'Michael Ajao-Olarinoye | PhD Researcher',
-    description: 'PhD Researcher specializing in epidemiological modeling, Physics-Informed Neural Networks, and interdisciplinary AI applications',
+    title: 'Dr. Michael Ajao-Olarinoye | Research Fellow',
+    description: 'Research Fellow at CSMM, Coventry University. Applied machine learning, generative AI, physics-informed neural networks, and data-driven modelling for healthcare and scientific computing.',
     type: 'website',
     url: 'https://michaelajao.github.io',
   },

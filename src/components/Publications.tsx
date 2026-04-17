@@ -1,10 +1,30 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { BookOpen, ExternalLink, FileText } from 'lucide-react'
+import { BookOpen, ExternalLink, FileText, FlaskConical } from 'lucide-react'
 
 export default function Publications() {
   const publications = [
+    {
+      title: "Modeling of Double Descending Thoracic Aortic Aneurysms Using Computational Fluid Dynamics (CFD) and Residual-Based Physics-Informed Neural Networks (ResNets-PINNs)",
+      authors: "N. Fatima, M. Hamza, M. A. Farooq, Michael Ajao-Olarinoye",
+      venue: "Pramana — Journal of Physics (Accepted for publication)",
+      year: "2026",
+      type: "Journal Article — Accepted",
+      abstract: "Accepted study combining computational fluid dynamics with residual-based physics-informed neural networks to model haemodynamics in double descending thoracic aortic aneurysms, advancing PINN surrogates for patient-specific vascular modelling.",
+      link: "#",
+      pdf: "#"
+    },
+    {
+      title: "A hybrid physics-informed neural network - SEIRD model for forecasting COVID-19 intensive care unit demand in England",
+      authors: "Michael Ajao-Olarinoye, Vasile Palade, Fei He, Penny A. Wark, Zindoga Mukandavire, Seyedeh Mousavi",
+      venue: "Recent advances in deep learning applications - Taylor Francis",
+      year: "2026",
+      type: "Book Chapter",
+      abstract: "This work presents a novel hybrid approach combining physics-informed neural networks with the SEIRD epidemiological model to forecast COVID-19 intensive care unit demand in England, bridging traditional mathematical modeling with modern AI approaches.",
+      link: "#",
+      pdf: "#"
+    },
     {
       title: "Fluid–structure interaction analysis of pulsatile flow in arterial aneurysms with physics-informed neural networks and computational fluid dynamics",
       authors: "M. Abaid Ur Rehman, Ozgur Ekici, M. Asif Farooq, Khayam Butt, Michael Ajao-Olarinoye, Zhen Wang, Haipeng Liu",
@@ -24,20 +44,40 @@ export default function Publications() {
       abstract: "A comprehensive comparative analysis of deep learning approaches for forecasting COVID-19 hospitalizations in England, evaluating various neural network architectures and their predictive performance for healthcare resource planning.",
       link: "https://ieeexplore.ieee.org/abstract/document/10459821",
       pdf: "https://ieeexplore.ieee.org/abstract/document/10459821"
+    }
+  ]
+
+  const preprints = [
+    {
+      title: "Comparative CFD Analysis of Wall Shear Stress in Healthy and Diseased Coronary Arteries and Saphenous Vein Grafts Using Physics-Informed Neural Network Surrogates",
+      authors: "M. Ur Rehman, O. Ekici, S. Erdener, Michael Ajao-Olarinoye, A. G. Kuchumov, F. Jia",
+      venue: "Submitted to Physics of Fluids",
+      status: "Under Review",
+      year: "2025"
     },
     {
-      title: "A hybrid physics-informed neural network - SEIRD model for forecasting COVID-19 intensive care unit demand in England",
-      authors: "Michael Ajao-Olarinoye, Vasile Palade, Fei He, Penny A. Wark, Zindoga Mukandavire, Seyedeh Mousavi",
-      venue: "Recent advances in deep learning applications - Taylor Francis",
-      year: "2024",
-      type: "Book Chapter",
-      abstract: "This work presents a novel hybrid approach combining physics-informed neural networks with the SEIRD epidemiological model to forecast COVID-19 intensive care unit demand in England, bridging traditional mathematical modeling with modern AI approaches.",
-      link: "#",
-      pdf: "#"
+      title: "Morphology-Dependent Stress Localization in Thoracoabdominal Aneurysms: FSI Modeling with a Physics-Informed Neural Network Surrogate",
+      authors: "M. Ur Rehman, H. Temimi, Michael Ajao-Olarinoye, A. Laadhari, M. Riahi, I. Kissami",
+      venue: "Submitted to Physics of Fluids",
+      status: "Under Review",
+      year: "2025"
+    },
+    {
+      title: "MSAGAT-Net: Multi-Scale Temporal Adaptive Graph Attention for Efficient Spatiotemporal Epidemic Forecasting",
+      authors: "Michael Ajao-Olarinoye, Vasile Palade, Fei He, Penny A. Wark, Seyedeh Mousavi, Zindoga Mukandavire",
+      venue: "Submitted to Artificial Intelligence in Medicine (AIM) · Preprint on SSRN",
+      status: "Preprint · Under Review",
+      year: "2025"
     }
   ]
 
   const presentations = [
+    {
+      title: "Algorithmic Training Strategies for Physics-Informed Neural Network Wall Shear Stress Prediction in Cardiovascular Hemodynamics",
+      venue: "3rd International Conference of Future Algorithms (online)",
+      date: "29–30 April 2026",
+      type: "Invited Talk"
+    },
     {
       title: "Physics-Informed Neural Networks for Fluid-Structure Interaction Analysis of Arterial Aneurysms",
       venue: "2nd International Conference of Future Algorithms",
@@ -45,16 +85,16 @@ export default function Publications() {
       type: "Poster Presentation - First Prize Winner"
     },
     {
+      title: "Physics-Informed Neural Networks for Modelling Infectious Disease Dynamics: A Case Study of COVID-19 in England",
+      venue: "CSMM Conference, Coventry University",
+      date: "2024",
+      type: "Research Presentation"
+    },
+    {
       title: "Deep Learning Based Forecasting of COVID-19 Hospitalisation in England",
       venue: "International Conference on Machine Learning and Applications (ICMLA)",
       date: "December 2023",
       type: "Conference Presentation"
-    },
-    {
-      title: "Epidemiological Modeling and Resource Allocation",
-      venue: "Computational Science and Mathematical Modelling Conference (CSMM)",
-      date: "2024",
-      type: "Research Presentation"
     }
   ]
 
@@ -75,8 +115,8 @@ export default function Publications() {
           </h2>
           <div className="w-24 h-1 bg-green-600 mx-auto mb-6"></div>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            Research contributions to the scientific community in biomedical engineering, 
-            physics-informed neural networks, and healthcare analytics applications.
+            Peer-reviewed publications, preprints, and conference outputs across physics-informed neural networks,
+            cardiovascular hemodynamics, and spatiotemporal epidemic forecasting.
           </p>
         </motion.div>
 
@@ -123,21 +163,74 @@ export default function Publications() {
                 </p>
                 
                 <div className="flex gap-4">
-                  <a
-                    href={pub.link}
-                    className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors duration-200"
-                  >
-                    <ExternalLink size={16} />
-                    View Publication
-                  </a>
-                  <a
-                    href={pub.pdf}
-                    className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors duration-200"
-                  >
-                    <FileText size={16} />
-                    PDF
-                  </a>
+                  {pub.link && pub.link !== '#' && (
+                    <a
+                      href={pub.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors duration-200"
+                    >
+                      <ExternalLink size={16} />
+                      View Publication
+                    </a>
+                  )}
+                  {pub.pdf && pub.pdf !== '#' && pub.pdf !== pub.link && (
+                    <a
+                      href={pub.pdf}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors duration-200"
+                    >
+                      <FileText size={16} />
+                      PDF
+                    </a>
+                  )}
+                  {(!pub.link || pub.link === '#') && (
+                    <span className="text-gray-500 text-sm italic">Link to be added once available</span>
+                  )}
                 </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Preprints & Under Review */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+            <FlaskConical className="text-green-600" size={24} />
+            Preprints & Under Review
+          </h3>
+
+          <div className="space-y-6">
+            {preprints.map((pre, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="publication-card"
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <span className="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-sm font-medium">
+                    {pre.status}
+                  </span>
+                  <span className="text-gray-400 text-sm">
+                    {pre.year}
+                  </span>
+                </div>
+
+                <h4 className="text-xl font-semibold text-white mb-2">
+                  {pre.title}
+                </h4>
+
+                <p className="text-gray-300 mb-2">
+                  <strong>Authors:</strong> {pre.authors}
+                </p>
+
+                <p className="text-gray-300">
+                  <strong>Venue:</strong> {pre.venue}
+                </p>
               </motion.div>
             ))}
           </div>

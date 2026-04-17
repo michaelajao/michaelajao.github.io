@@ -12,8 +12,8 @@ export default function Header() {
     { name: 'Projects', href: '#projects' },
     { name: 'Publications', href: '#publications' },
     { name: 'Experience', href: '#experience' },
+    { name: 'Ventures', href: '#ventures' },
     { name: 'Education', href: '#education' },
-    { name: 'Skills', href: '#skills' },
     { name: 'Contact', href: '#contact' },
   ]
 
@@ -23,8 +23,8 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="text-xl font-bold font-heading text-white">
-              Michael Ajao-Olarinoye
+            <Link href="/" className="text-2xl font-bold font-heading gradient-text tracking-tight">
+              MAO
             </Link>
           </div>
 
