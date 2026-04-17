@@ -10,13 +10,13 @@ export default function Education() {
       field: "Computational Science and Mathematical Modelling",
       institution: "Coventry University",
       location: "Coventry, United Kingdom",
-      period: "May 2021 – Present",
-      status: "Expected Graduation: July 2026",
+      period: "May 2021 – February 2026",
+      status: "Awarded: February 2026",
       thesis: "Data-Driven Algorithms for Forecasting Critical Care Demand during the COVID-19 Pandemic",
       highlights: [
         "Fully-funded PhD studentship at the Centre for Computational Science and Mathematical Modelling (CSMM)",
-        "Research focus on epidemiological modeling using Physics-Informed Neural Networks",
-        "Published in high-impact journals including Physics of Fluids and IEEE conferences"
+        "Developed hybrid physics-informed neural network and epidemiological models for healthcare resource forecasting",
+        "Published in high-impact venues including Physics of Fluids and IEEE ICMLA"
       ]
     },
     {
@@ -73,10 +73,10 @@ export default function Education() {
   const volunteerWork = [
     {
       organization: "African Institute for Artificial Intelligence (AIAI)",
-      role: "Group Head of AI Literacy",
+      role: "Software Engineering Team Manager",
       period: "January 2024 – Present",
       location: "Remote",
-      description: "Leading AI literacy initiatives across African communities, developing educational programs and resources."
+      description: "Volunteer lead for AIAI's software engineering team, coordinating contributors and guiding engineering practice across the institute's software initiatives."
     },
     {
       organization: "CodeYourFuture",

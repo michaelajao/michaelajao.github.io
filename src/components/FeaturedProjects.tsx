@@ -93,8 +93,8 @@ export default function FeaturedProjects() {
           </h2>
           <div className="w-24 h-1 bg-green-600 mx-auto mb-6"></div>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            A selection of my research projects and implementations in biomedical engineering, 
-            physics-informed neural networks, and healthcare analytics applications.
+            A selection of research projects and implementations spanning physics-informed neural networks,
+            cardiovascular hemodynamics, spatiotemporal epidemic forecasting, and applied machine learning.
           </p>
         </motion.div>
 

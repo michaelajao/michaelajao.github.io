@@ -1,185 +1,76 @@
 'use client'
 
 import { useState } from 'react'
-
-// Extend Window interface for EmailJS
-declare global {
-  interface Window {
-    emailjs?: typeof emailjs
-  }
-}
 import { motion } from 'framer-motion'
-import { Mail, Linkedin, Github, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
-import { validateDomain, checkRateLimit, recordSubmission, sanitizeInput, isValidEmail, getEmailJSConfig } from '@/utils/security'
-import emailjs from '@emailjs/browser'
+import { useForm, ValidationError } from '@formspree/react'
+import { Mail, Linkedin, Github, Youtube, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { sanitizeInput, isValidEmail } from '@/utils/security'
 
-interface FormData {
+interface FormFields {
   name: string
   email: string
   subject: string
   message: string
+  _gotcha: string
 }
 
-interface FormStatus {
-  type: 'idle' | 'loading' | 'success' | 'error'
-  message: string
-}
+// Formspree form ID is a required public identifier. Set it in .env.local
+// (locally) or as a GitHub Actions secret (production).
+const FORMSPREE_FORM_ID = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID ?? ''
 
 export default function Contact() {
-  const [formData, setFormData] = useState<FormData>({
+  const [state, submitToFormspree] = useForm(FORMSPREE_FORM_ID)
+  const [formData, setFormData] = useState<FormFields>({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    _gotcha: ''
   })
-  
-  const [status, setStatus] = useState<FormStatus>({
-    type: 'idle',
-    message: ''
-  })
+  const [clientError, setClientError] = useState<string>('')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
+    setFormData(prev => ({ ...prev, [name]: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Security validations
-    if (!validateDomain()) {
-      setStatus({
-        type: 'error',
-        message: 'Unauthorized domain. Please visit the official site.'
-      })
+    setClientError('')
+
+    if (!FORMSPREE_FORM_ID) {
+      setClientError('Contact form is not configured. Please email me directly at ajaoolarinoyemichael@gmail.com')
       return
     }
 
-    const rateLimit = checkRateLimit()
-    if (!rateLimit.allowed) {
-      setStatus({
-        type: 'error',
-        message: `Too many submissions. Please wait 10 minutes before sending another message. (${rateLimit.remaining} remaining)`
-      })
-      return
-    }
-
-    // Input validation and sanitization
-    const sanitizedData = {
+    const sanitized = {
       name: sanitizeInput(formData.name),
       email: sanitizeInput(formData.email),
       subject: sanitizeInput(formData.subject),
-      message: sanitizeInput(formData.message)
+      message: sanitizeInput(formData.message),
+      _gotcha: formData._gotcha
     }
 
-    if (!isValidEmail(sanitizedData.email)) {
-      setStatus({
-        type: 'error',
-        message: 'Please enter a valid email address.'
-      })
+    if (!isValidEmail(sanitized.email)) {
+      setClientError('Please enter a valid email address.')
       return
     }
 
-    if (sanitizedData.name.length < 2 || sanitizedData.message.length < 10) {
-      setStatus({
-        type: 'error',
-        message: 'Please provide a valid name and message (minimum 10 characters).'
-      })
+    if (sanitized.name.length < 2 || sanitized.message.length < 10) {
+      setClientError('Please provide a valid name and message (minimum 10 characters).')
       return
     }
-    
-    // Reset status
-    setStatus({ type: 'loading', message: 'Sending message...' })
 
-    try {
-      const emailConfig = getEmailJSConfig()
-      
-      // Check if EmailJS is properly configured
-      if (emailConfig.userId.startsWith('user_XXX') || 
-          emailConfig.serviceId.startsWith('service_') || 
-          emailConfig.templateId.startsWith('template_')) {
-        setStatus({
-          type: 'error',
-          message: 'Contact form is not configured. Please contact me directly at ajaoolarinoyemichael@gmail.com'
-        })
-        return
-      }
-      
-      const currentDomain = window.location.hostname + (window.location.port ? ':' + window.location.port : '')
-      
-      // Prepare template parameters for EmailJS (matching your template variables)
-      const templateParams = {
-        name: sanitizedData.name,        // {{name}} - From Name
-        email: sanitizedData.email,      // {{email}} - Reply To
-        title: sanitizedData.subject,    // {{title}} - Used in subject line
-        message: sanitizedData.message,  // Message content
-        domain: currentDomain,
-        timestamp: new Date().toLocaleString(),
-        security_info: `Domain: ${currentDomain} | Timestamp: ${new Date().toISOString()}`
-      }
-
-      // Initialize EmailJS (if not already initialized)
-      if (!window.emailjs) {
-        emailjs.init(emailConfig.userId)
-      }
-
-      // Send email using EmailJS
-      const response = await emailjs.send(
-        emailConfig.serviceId,
-        emailConfig.templateId,
-        templateParams
-      )
-
-      if (response.status === 200) {
-        // Track successful submission for rate limiting
-        recordSubmission()
-        
-        setStatus({
-          type: 'success',
-          message: '🎉 Message sent successfully! I&rsquo;ll get back to you soon.'
-        })
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        })
-      } else {
-        setStatus({
-          type: 'error',
-          message: 'Failed to send message. Please try again.'
-        })
-      }
-    } catch (error: unknown) {
-      console.error('EmailJS Error:', error)
-      
-      let errorMessage = 'Network error. Please check your connection and try again.'
-      
-      // Type-safe error handling
-      if (error && typeof error === 'object') {
-        const emailError = error as { status?: number; text?: string }
-        
-        if (emailError.status === 400) {
-          errorMessage = 'Invalid email configuration. Please contact me directly at ajaoolarinoyemichael@gmail.com'
-        } else if (emailError.status === 401) {
-          errorMessage = 'Email service authentication failed. Please contact me directly at ajaoolarinoyemichael@gmail.com'
-        } else if (emailError.status === 402) {
-          errorMessage = 'Email service quota exceeded. Please contact me directly at ajaoolarinoyemichael@gmail.com'
-        } else if (emailError.text?.includes('template')) {
-          errorMessage = 'Email template not found. Please contact me directly at ajaoolarinoyemichael@gmail.com'
-        }
-      }
-      
-      setStatus({
-        type: 'error',
-        message: errorMessage
-      })
-    }
+    await submitToFormspree(sanitized)
   }
+
+  const serverErrorCount =
+    state.errors && 'getAllFieldErrors' in state.errors
+      ? state.errors.getAllFieldErrors().length + state.errors.getFormErrors().length
+      : 0
+  const hasServerError = serverErrorCount > 0
+  const showError = Boolean(clientError) || hasServerError
+  const errorMessage = clientError || 'Something went wrong. Please try again or email me directly at ajaoolarinoyemichael@gmail.com'
 
   const contactInfo = [
     {
@@ -199,6 +90,12 @@ export default function Contact() {
       label: "GitHub",
       value: "michaelajao",
       href: "https://github.com/michaelajao"
+    },
+    {
+      icon: Youtube,
+      label: "YouTube",
+      value: "@miolajtech2439",
+      href: "https://www.youtube.com/@miolajtech2439/featured"
     },
     {
       icon: MapPin,
@@ -225,8 +122,8 @@ export default function Contact() {
           </h2>
           <div className="w-24 h-1 bg-green-600 mx-auto mb-6"></div>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            I&apos;m always interested in discussing research opportunities, collaborations, 
-            and innovative projects in epidemiological modeling, physics-informed neural networks, and interdisciplinary AI applications.
+            I&apos;m always interested in discussing research opportunities, collaborations, and teaching partnerships
+            across applied machine learning, generative AI, physics-informed neural networks, and data-driven modelling for healthcare and scientific computing.
           </p>
         </motion.div>
 
@@ -245,9 +142,9 @@ export default function Contact() {
                 Get in Touch
               </h3>
               <p className="text-gray-300 mb-8 leading-relaxed">
-              Whether you&apos;re interested in research collaboration, discussing innovative 
-              approaches to epidemiological modeling, or exploring opportunities in 
-              physics-informed neural networks and interdisciplinary AI applications, I&apos;d love to hear from you.
+              Whether you&apos;d like to collaborate on a research problem, explore joint work in
+              generative AI, physics-informed neural networks, or spatiotemporal epidemic forecasting,
+              or discuss teaching and supervision, I&apos;d love to hear from you.
               </p>
             </div>
 
@@ -303,6 +200,18 @@ export default function Contact() {
             </h3>
 
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Honeypot field — hidden from users, filled only by bots. Formspree ignores submissions with _gotcha set. */}
+              <input
+                type="text"
+                name="_gotcha"
+                value={formData._gotcha}
+                onChange={handleInputChange}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] w-px h-px opacity-0 pointer-events-none"
+              />
+
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                   Name
@@ -316,8 +225,9 @@ export default function Contact() {
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
                   placeholder="Your name"
                   required
-                  disabled={status.type === 'loading'}
+                  disabled={state.submitting}
                 />
+                <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-sm mt-1" />
               </div>
 
               <div>
@@ -333,8 +243,9 @@ export default function Contact() {
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
                   placeholder="your.email@example.com"
                   required
-                  disabled={status.type === 'loading'}
+                  disabled={state.submitting}
                 />
+                <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-sm mt-1" />
               </div>
 
               <div>
@@ -350,8 +261,9 @@ export default function Contact() {
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200"
                   placeholder="Research collaboration, project inquiry, etc."
                   required
-                  disabled={status.type === 'loading'}
+                  disabled={state.submitting}
                 />
+                <ValidationError prefix="Subject" field="subject" errors={state.errors} className="text-red-400 text-sm mt-1" />
               </div>
 
               <div>
@@ -367,42 +279,43 @@ export default function Contact() {
                   className="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-500 transition-colors duration-200 resize-none"
                   placeholder="Tell me about your project, collaboration ideas, or questions..."
                   required
-                  disabled={status.type === 'loading'}
+                  disabled={state.submitting}
                 ></textarea>
+                <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-sm mt-1" />
               </div>
 
-              {/* Status Message */}
-              {status.message && (
+              {state.succeeded && (
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex items-center gap-2 p-3 rounded-lg ${
-                    status.type === 'success'
-                      ? 'bg-green-900/50 text-green-200 border border-green-700'
-                      : status.type === 'error'
-                      ? 'bg-red-900/50 text-red-200 border border-red-700'
-                      : 'bg-blue-900/50 text-blue-200 border border-blue-700'
-                  }`}
+                  className="flex items-center gap-2 p-3 rounded-lg bg-green-900/50 text-green-200 border border-green-700"
                 >
-                  {status.type === 'success' && <CheckCircle size={18} />}
-                  {status.type === 'error' && <AlertCircle size={18} />}
-                  {status.type === 'loading' && (
-                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-200 border-t-transparent"></div>
-                  )}
-                  <span dangerouslySetInnerHTML={{ __html: status.message }} />
+                  <CheckCircle size={18} />
+                  <span>Message sent — I&rsquo;ll get back to you soon.</span>
+                </motion.div>
+              )}
+
+              {!state.succeeded && showError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 p-3 rounded-lg bg-red-900/50 text-red-200 border border-red-700"
+                >
+                  <AlertCircle size={18} />
+                  <span>{errorMessage}</span>
                 </motion.div>
               )}
 
               <button
                 type="submit"
-                disabled={status.type === 'loading'}
+                disabled={state.submitting || state.succeeded}
                 className={`w-full px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
-                  status.type === 'loading'
+                  state.submitting || state.succeeded
                     ? 'bg-gray-600 cursor-not-allowed'
                     : 'bg-green-600 hover:bg-green-700'
                 } text-white`}
               >
-                {status.type === 'loading' ? (
+                {state.submitting ? (
                   <>
                     <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
                     Sending...

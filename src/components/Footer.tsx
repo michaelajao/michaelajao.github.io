@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <p className="text-gray-300">
-              © 2024 Michael Ajao-Olarinoye. All rights reserved.
+              © 2026 Michael Ajao-Olarinoye. All rights reserved.
             </p>
           </div>
           
@@ -25,6 +25,14 @@ export default function Footer() {
               className="text-gray-300 hover:text-white transition-colors duration-200"
             >
               LinkedIn
+            </a>
+            <a
+              href="https://www.youtube.com/@miolajtech2439/featured"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-300 hover:text-white transition-colors duration-200"
+            >
+              YouTube
             </a>
             <a
               href="mailto:ajaoolarinoyemichael@gmail.com"

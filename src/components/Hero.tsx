@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowDown, Github, Linkedin, Mail, FileText } from 'lucide-react'
+import { ArrowDown, Github, Linkedin, Mail, FileText, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import TechIcon from '@/components/TechIcon'
 
@@ -25,7 +25,7 @@ export default function Hero() {
                 transition={{ delay: 0.2 }}
                 className="text-4xl md:text-6xl font-bold font-heading text-white"
               >
-                Michael{' '}
+                Dr. Michael{' '}
                 <span className="gradient-text">
                   Ajao-Olarinoye
                 </span>
@@ -37,7 +37,7 @@ export default function Hero() {
                 transition={{ delay: 0.4 }}
                 className="text-xl md:text-2xl text-gray-200 font-medium"
               >
-                PhD Researcher | Computational Science & Epidemiological Modeling
+                Research Fellow & Lecturer in Computing | Applied ML, Generative AI & Physics-Informed Neural Networks
               </motion.p>
               
               <motion.p 
@@ -55,10 +55,9 @@ export default function Hero() {
                 transition={{ delay: 0.6 }}
                 className="text-lg text-gray-300 leading-relaxed max-w-2xl"
               >
-                I&rsquo;m a <span className="text-green-400 font-semibold">PhD Researcher</span> in Computational Science and Mathematical Modelling at{' '}
-                <span className="text-blue-400 font-semibold">Coventry University</span>, specializing in{' '}
-                <span className="text-cyan-400 font-semibold">Physics-Informed Neural Networks (PINNs)</span> and{' '}
-                <span className="text-purple-400 font-semibold">epidemiological modeling</span>.
+                I&rsquo;m a <span className="text-green-400 font-semibold">Research Fellow</span> at the{' '}
+                <span className="text-blue-400 font-semibold">Centre for Computational Science &amp; Mathematical Modelling (CSMM), Coventry University</span>, advancing the{' '}
+                <span className="text-cyan-400 font-semibold">HOPE-MOVE project</span> with a completed PhD in Computational Science and Mathematical Modelling.
               </motion.p>
 
               <motion.p
@@ -67,10 +66,11 @@ export default function Hero() {
                 transition={{ delay: 0.7 }}
                 className="text-lg text-gray-300 leading-relaxed max-w-2xl"
               >
-                My research focuses on developing{' '}
-                <span className="text-green-400 font-semibold">AI models that predict healthcare resource demand</span>{' '}
-                during pandemic scenarios, bridging the gap between traditional mathematical modeling and{' '}
-                <span className="text-blue-400 font-semibold">modern deep learning approaches</span>.
+                My research spans{' '}
+                <span className="text-green-400 font-semibold">applied machine learning</span>,{' '}
+                <span className="text-purple-400 font-semibold">generative AI</span>,{' '}
+                <span className="text-cyan-400 font-semibold">physics-informed neural networks</span>, spatiotemporal epidemic forecasting, and{' '}
+                <span className="text-blue-400 font-semibold">cardiovascular hemodynamics</span>.
               </motion.p>
 
               <motion.p
@@ -79,12 +79,10 @@ export default function Hero() {
                 transition={{ delay: 0.8 }}
                 className="text-base text-gray-400 leading-relaxed max-w-2xl"
               >
-                With expertise spanning{' '}
-                <span className="text-cyan-400 font-medium">healthcare analytics</span>,{' '}
-                <span className="text-orange-400 font-medium">scientific computing</span>, and{' '}
-                <span className="text-purple-400 font-medium">educational technology</span>, I&rsquo;m passionate about{' '}
+                Alongside research, I serve as a{' '}
+                <span className="text-cyan-400 font-medium">Lecturer in Computing</span> at QAHE, teaching programming, data science, and machine learning through partnerships with Ulster University and Southampton Solent University &mdash; committed to{' '}
                 <span className="text-green-400 font-medium">making complex computational concepts accessible</span>{' '}
-                through both research and teaching.
+                to diverse student cohorts.
               </motion.p>
 
               <motion.p
@@ -93,11 +91,11 @@ export default function Hero() {
                 transition={{ delay: 0.9 }}
                 className="text-base text-gray-500 leading-relaxed max-w-2xl"
               >
-                Currently developing{' '}
-                <span className="text-blue-400 font-medium">PINNs for aneurysm modeling</span>,{' '}
-                <span className="text-purple-400 font-medium">digital twin frameworks</span>, and{' '}
-                <span className="text-cyan-400 font-medium">hybrid prediction models</span>{' '}
-                for pandemic preparedness and clinical decision-making.
+                Currently working on{' '}
+                <span className="text-blue-400 font-medium">graph-attention models for epidemic forecasting</span>,{' '}
+                <span className="text-purple-400 font-medium">PINN surrogates for wall-shear-stress prediction</span>, and{' '}
+                <span className="text-cyan-400 font-medium">generative AI workflows</span>{' '}
+                with strong data quality and ethical AI assurance.
               </motion.p>
             </div>
 
@@ -142,10 +140,6 @@ export default function Hero() {
                   <span className="text-gray-200 font-medium">Python</span>
                 </div>
                 <div className="flex items-center gap-2 bg-gray-800/70 px-3 py-2 rounded-lg">
-                  <TechIcon name="flutter" size={24} />
-                  <span className="text-gray-200 font-medium">Flutter</span>
-                </div>
-                <div className="flex items-center gap-2 bg-gray-800/70 px-3 py-2 rounded-lg">
                   <TechIcon name="r" size={24} />
                   <span className="text-gray-200 font-medium">R</span>
                 </div>
@@ -180,6 +174,15 @@ export default function Hero() {
                 aria-label="LinkedIn"
               >
                 <Linkedin size={20} />
+              </a>
+              <a
+                href="https://www.youtube.com/@miolajtech2439/featured"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors duration-200"
+                aria-label="YouTube"
+              >
+                <Youtube size={20} />
               </a>
               <a
                 href="mailto:ajaoolarinoyemichael@gmail.com"

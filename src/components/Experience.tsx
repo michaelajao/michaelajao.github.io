@@ -6,6 +6,30 @@ import { Briefcase, Award } from 'lucide-react'
 export default function Experience() {
   const experiences = [
     {
+      title: "Research Fellow",
+      company: "Coventry University — Centre for Computational Science & Mathematical Modelling (CSMM)",
+      location: "Coventry, United Kingdom",
+      period: "February 2026 – Present",
+      description: [
+        "Advancing the HOPE-MOVE project through applied machine learning, generative AI, and interdisciplinary computational research.",
+        "Leading research activity spanning literature review, study design, data collection, model development, and evaluation of quantitative and qualitative outcomes.",
+        "Developing machine learning and generative AI workflows with strong data quality, ethical AI assurance, and responsible research practice.",
+        "Contributing to publications, collaborative proposals, and impact-focused activities while supporting student supervision and research-informed teaching."
+      ]
+    },
+    {
+      title: "Founder & CEO",
+      company: "miolajtech (RC KW10815)",
+      location: "Ikorodu, Lagos, Nigeria",
+      period: "April 2013 – Present",
+      description: [
+        "Founded and lead miolajtech, a Nigerian tech and AI services company building tax, accounting, and productivity tools for SMEs and agricultural businesses across Nigeria and Africa.",
+        "Driving development of TaxPadi — a React Native, Expo, and Supabase mobile app that helps Nigerian SMEs manage finances, invoices, and tax obligations (VAT, CIT, PAYE, Capital Gains) under the Tax Reform Acts 2025.",
+        "Delivering client work including Papromakeovers — a Next.js booking website with availability management, EmailJS notifications, and Zoho invoicing integration.",
+        "Sharing engineering tutorials and product updates on the miolajtech YouTube channel."
+      ]
+    },
+    {
       title: "Lecturer in Computing",
       company: "QAHE Ltd",
       location: "Birmingham, United Kingdom",
@@ -22,10 +46,20 @@ export default function Experience() {
       location: "Coventry, United Kingdom",
       period: "April 2021 – January 2025",
       description: [
-        "Authored peer-reviewed publications and presented research at prestigious conferences, including ICMLA, significantly contributing to institutional research output.",
-        "Developed and delivered tutorial sessions, workshops, and individual student support for Electrical, Electronics and Computing department.",
-        "Served as a Program Committee Member for the 23rd IEEE International Conference on Machine Learning and Applications (ICMLA).",
-        "Mentored postgraduate students and collaborated with interdisciplinary teams on AI-driven and healthcare projects."
+        "Produced peer-reviewed publications and conference outputs in applied machine learning, epidemic forecasting, and healthcare modelling, including presentations at the International Conference on Machine Learning and Applications (ICMLA).",
+        "Served as a Program Committee Member for the 23rd IEEE International Conference on Machine Learning and Applications (ICMLA), contributing paper reviews and conference planning.",
+        "Contributed to Coventry's research profile through interdisciplinary collaboration, postgraduate mentoring, and research dissemination across AI-driven and healthcare projects."
+      ]
+    },
+    {
+      title: "Graduate Teaching Assistant (Part-time)",
+      company: "Coventry University",
+      location: "Coventry, United Kingdom",
+      period: "April 2021 – January 2025",
+      description: [
+        "Delivered tutorials, workshops, and one-to-one student support in the Electrical, Electronics and Computing department, adapting teaching approaches to diverse learners.",
+        "Supported student progression through assessment marking and constructive academic feedback.",
+        "Collaborated with module leaders on curriculum delivery and continuously sought peer feedback to improve teaching practice."
       ]
     },
     {
@@ -54,10 +88,22 @@ export default function Experience() {
 
   const awards = [
     {
-      title: "PhD Studentship Award",
-      organization: "Coventry University",
-      date: "May 2021",
-      description: "Awarded a fully-funded PhD studentship at the Centre for Computational Science and Mathematical Modelling (CSMM) to research resource allocation during pandemics."
+      title: "Invited Speaker",
+      organization: "3rd International Conference of Future Algorithms",
+      date: "April 2026",
+      description: "Invited to present \"Algorithmic Training Strategies for Physics-Informed Neural Network Wall Shear Stress Prediction in Cardiovascular Hemodynamics\" at the 3rd edition of Future Algorithms (29–30 April 2026, online)."
+    },
+    {
+      title: "First Prize — Poster Competition",
+      organization: "2nd International Conference of Future Algorithms",
+      date: "July 2025",
+      description: "Won first prize for the poster titled \"Physics-Informed Neural Networks for Fluid-Structure Interaction Analysis of Arterial Aneurysms.\""
+    },
+    {
+      title: "Research Acknowledgement",
+      organization: "Chinese Journal of Physics",
+      date: "2025",
+      description: "Acknowledged for technical discussion that improved PINN results in Rehman et al. (2025), \"Application of computational fluid dynamics and physics-informed neural networks in predicting rupture risk of thoracoabdominal aneurysms with fluid-structure interaction analysis.\""
     },
     {
       title: "Best Reviewer Award",
@@ -66,10 +112,10 @@ export default function Experience() {
       description: "Received recognition for outstanding contribution in reviewing conference papers and providing high-quality feedback to authors."
     },
     {
-      title: "First Prize — Poster Competition",
-      organization: "2nd International Conference of Future Algorithms",
-      date: "July 2025",
-      description: "Won first prize for the poster titled \"Physics-Informed Neural Networks for Fluid-Structure Interaction Analysis of Arterial Aneurysms.\""
+      title: "PhD Studentship Award",
+      organization: "Coventry University",
+      date: "May 2021",
+      description: "Awarded a fully-funded PhD studentship at the Centre for Computational Science and Mathematical Modelling (CSMM) to research resource allocation during pandemics."
     },
     {
       title: "Third Place in Community Development Project",
