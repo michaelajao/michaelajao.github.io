@@ -36,7 +36,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="alternate icon" href="/favicon.ico" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-gray-950 text-white`}>
         <div className="flex flex-col min-h-screen">
