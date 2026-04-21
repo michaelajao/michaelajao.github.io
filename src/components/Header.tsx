@@ -6,7 +6,6 @@ import { Menu, X } from 'lucide-react'
 
 const navigation = [
   { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
   { name: 'Projects', href: '#projects' },
   { name: 'Publications', href: '#publications' },
   { name: 'Experience', href: '#experience' },
@@ -77,6 +76,7 @@ export default function Header() {
           {/* Mobile Menu */}
           <div className="md:hidden">
             <button
+              type="button"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 rounded-md text-blue-200 hover:text-green-400"
               aria-label="Toggle menu"
