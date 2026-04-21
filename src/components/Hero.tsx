@@ -59,45 +59,9 @@ export default function Hero() {
               >
                 I&rsquo;m a <span className="text-green-400 font-semibold">Research Fellow</span> at the{' '}
                 <span className="text-blue-400 font-semibold">Centre for Computational Science &amp; Mathematical Modelling (CSMM), Coventry University</span>, advancing the{' '}
-                <span className="text-cyan-400 font-semibold">HOPE-MOVE project</span> with a completed PhD in Computational Science and Mathematical Modelling.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                className="text-lg text-gray-300 leading-relaxed max-w-2xl"
-              >
-                My research spans{' '}
-                <span className="text-green-400 font-semibold">applied machine learning</span>,{' '}
-                <span className="text-purple-400 font-semibold">generative AI</span>,{' '}
-                <span className="text-cyan-400 font-semibold">physics-informed neural networks</span>, spatiotemporal epidemic forecasting, and{' '}
-                <span className="text-blue-400 font-semibold">cardiovascular hemodynamics</span>.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="text-base text-gray-400 leading-relaxed max-w-2xl"
-              >
-                Alongside research, I serve as a{' '}
-                <span className="text-cyan-400 font-medium">Lecturer in Computing</span> at QAHE, teaching programming, data science, and machine learning through partnerships with Ulster University and Southampton Solent University &mdash; committed to{' '}
-                <span className="text-green-400 font-medium">making complex computational concepts accessible</span>{' '}
-                to diverse student cohorts.
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 }}
-                className="text-base text-gray-500 leading-relaxed max-w-2xl"
-              >
-                Currently working on{' '}
-                <span className="text-blue-400 font-medium">graph-attention models for epidemic forecasting</span>,{' '}
-                <span className="text-purple-400 font-medium">PINN surrogates for wall-shear-stress prediction</span>, and{' '}
-                <span className="text-cyan-400 font-medium">generative AI workflows</span>{' '}
-                with strong data quality and ethical AI assurance.
+                <span className="text-cyan-400 font-semibold">HOPE-MOVE project</span> after completing my PhD in Computational Science and Mathematical Modelling. I also serve as a{' '}
+                <span className="text-cyan-400 font-semibold">Lecturer in Computing</span> at QAHE under partnerships with Ulster University and Southampton Solent &mdash; committed to{' '}
+                <span className="text-green-400 font-medium">making complex computational concepts accessible</span>.
               </motion.p>
             </div>
 
@@ -105,7 +69,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.0 }}
+              transition={{ delay: 0.8 }}
               className="flex flex-wrap gap-4"
             >
               <a
@@ -130,7 +94,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.1 }}
+              transition={{ delay: 0.9 }}
               className="space-y-4"
             >
               <h3 className="text-lg font-semibold text-gray-200">
@@ -156,7 +120,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.3 }}
+              transition={{ delay: 1.0 }}
               className="flex gap-4"
             >
               <a
