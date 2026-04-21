@@ -1,11 +1,13 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown, Github, Linkedin, Mail, FileText, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import TechIcon from '@/components/TechIcon'
 
 export default function Hero() {
+  const reduceMotion = useReducedMotion()
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 to-gray-900 pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -204,7 +206,7 @@ export default function Hero() {
             <div className="relative">
               {/* Profile Image with subtle glow */}
               <div className="w-80 h-80 rounded-full overflow-hidden border-4 border-gray-700 shadow-2xl relative">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-600/10 to-blue-600/10 animate-pulse"></div>
+                <div className={`absolute inset-0 rounded-full bg-gradient-to-r from-green-600/10 to-blue-600/10 ${reduceMotion ? '' : 'animate-pulse'}`}></div>
                 <Image
                   src="/profile-image.jpg"
                   alt="Michael Ajao-Olarinoye"
@@ -214,8 +216,9 @@ export default function Hero() {
                   priority
                 />
               </div>
-              {/* Animated Decorative Bubbles */}
-              <motion.div 
+              {/* Animated Decorative Bubbles — skipped entirely for reduced-motion */}
+              {!reduceMotion && <>
+              <motion.div
                 className="absolute -top-4 -right-4 w-24 h-24 bg-green-900/30 rounded-full"
                 animate={{
                   y: [0, -15, 0],
@@ -331,7 +334,7 @@ export default function Hero() {
                   delay: 2.5
                 }}
               />
-              <motion.div 
+              <motion.div
                 className="absolute top-20 left-2 w-4 h-4 bg-orange-900/12 rounded-full"
                 animate={{
                   scale: [1, 1.4, 1],
@@ -344,6 +347,7 @@ export default function Hero() {
                   delay: 1.2
                 }}
               />
+              </>}
             </div>
           </motion.div>
         </div>
