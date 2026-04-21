@@ -1,10 +1,84 @@
 'use client'
 
+import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { BookOpen, ExternalLink, FileText, FlaskConical } from 'lucide-react'
+import { BookOpen, ExternalLink, FileText, FlaskConical, Copy, Check } from 'lucide-react'
+
+type FilterKey = 'all' | 'journal' | 'conference' | 'preprint' | 'talk'
+
+const FILTERS: { key: FilterKey; label: string }[] = [
+  { key: 'all', label: 'All' },
+  { key: 'journal', label: 'Journal' },
+  { key: 'conference', label: 'Conference' },
+  { key: 'preprint', label: 'Preprint' },
+  { key: 'talk', label: 'Talks' },
+]
+
+type PublicationEntry = {
+  title: string
+  authors: string
+  venue: string
+  year: string
+  type: string
+  abstract: string
+  link: string
+  pdf: string
+}
+
+function classify(type: string): Exclude<FilterKey, 'all' | 'preprint' | 'talk'> {
+  const t = type.toLowerCase()
+  if (t.includes('conference')) return 'conference'
+  return 'journal'
+}
+
+function isDoiLink(url: string): boolean {
+  return /doi\.org|ieeexplore|pubs\.aip\.org|springer|sciencedirect|elsevier|nature\.com|mdpi\.com/.test(url)
+}
+
+function toBibtex(p: { authors: string; title: string; venue: string; year: string; type?: string; link?: string }) {
+  const firstAuthorSurname =
+    (p.authors.split(',')[0] ?? 'anon').trim().split(/\s+/).pop() ?? 'anon'
+  const firstWord = (p.title.split(/\s+/)[0] ?? 'work').toLowerCase().replace(/[^a-z0-9]/g, '')
+  const key = `${firstAuthorSurname.toLowerCase().replace(/[^a-z0-9]/g, '')}${p.year}${firstWord}`
+  const t = (p.type ?? '').toLowerCase()
+  const entryType = t.includes('conference') ? 'inproceedings' : t.includes('book') ? 'incollection' : 'article'
+  const venueField = entryType === 'article' ? 'journal' : 'booktitle'
+  const urlLine = p.link && p.link !== '#' ? `  url = {${p.link}},\n` : ''
+  return `@${entryType}{${key},
+  author = {${p.authors}},
+  title = {${p.title}},
+  ${venueField} = {${p.venue}},
+  year = {${p.year}},
+${urlLine}}`
+}
+
+function CopyBibtex({ entry }: { entry: Parameters<typeof toBibtex>[0] }) {
+  const [copied, setCopied] = useState(false)
+  return (
+    <button
+      type="button"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(toBibtex(entry))
+          setCopied(true)
+          setTimeout(() => setCopied(false), 1500)
+        } catch {
+          /* clipboard blocked — ignore */
+        }
+      }}
+      className="flex items-center gap-2 text-gray-400 hover:text-green-300 transition-colors duration-200 text-sm"
+      aria-label="Copy BibTeX citation"
+    >
+      {copied ? <Check size={16} /> : <Copy size={16} />}
+      {copied ? 'Copied' : 'BibTeX'}
+    </button>
+  )
+}
 
 export default function Publications() {
-  const publications = [
+  const [filter, setFilter] = useState<FilterKey>('all')
+
+  const publications: PublicationEntry[] = [
     {
       title: "Modeling of Double Descending Thoracic Aortic Aneurysms Using Computational Fluid Dynamics (CFD) and Residual-Based Physics-Informed Neural Networks (ResNets-PINNs)",
       authors: "N. Fatima, M. Hamza, M. A. Farooq, Michael Ajao-Olarinoye",
@@ -76,39 +150,68 @@ export default function Publications() {
       title: "Algorithmic Training Strategies for Physics-Informed Neural Network Wall Shear Stress Prediction in Cardiovascular Hemodynamics",
       venue: "3rd International Conference of Future Algorithms (online)",
       date: "29–30 April 2026",
+      year: "2026",
       type: "Invited Talk"
     },
     {
       title: "Physics-Informed Neural Networks for Fluid-Structure Interaction Analysis of Arterial Aneurysms",
       venue: "2nd International Conference of Future Algorithms",
       date: "July 2025",
+      year: "2025",
       type: "Poster Presentation - First Prize Winner"
     },
     {
       title: "Physics-Informed Neural Networks for Modelling Infectious Disease Dynamics: A Case Study of COVID-19 in England",
       venue: "CSMM Conference, Coventry University",
       date: "2024",
+      year: "2024",
       type: "Research Presentation"
     },
     {
       title: "Deep Learning Based Forecasting of COVID-19 Hospitalisation in England",
       venue: "International Conference on Machine Learning and Applications (ICMLA)",
       date: "December 2023",
+      year: "2023",
       type: "Conference Presentation"
     }
   ]
 
+  const sortedPublications = useMemo(
+    () => [...publications].sort((a, b) => Number(b.year) - Number(a.year)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
+  const sortedPreprints = useMemo(
+    () => [...preprints].sort((a, b) => Number(b.year) - Number(a.year)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
+  const sortedPresentations = useMemo(
+    () => [...presentations].sort((a, b) => Number(b.year) - Number(a.year)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
+
+  const visiblePublications = sortedPublications.filter((p) => {
+    if (filter === 'all') return true
+    if (filter === 'journal' || filter === 'conference') return classify(p.type) === filter
+    return false
+  })
+  const showPreprints = filter === 'all' || filter === 'preprint'
+  const showPresentations = filter === 'all' || filter === 'talk'
+  const showPublications = filter === 'all' || filter === 'journal' || filter === 'conference'
+
   return (
     <section id="publications" className="py-20 bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-4">
             Publications & Presentations
@@ -120,160 +223,197 @@ export default function Publications() {
           </p>
         </motion.div>
 
-        {/* Publications */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-            <BookOpen className="text-green-600" size={24} />
-            Publications
-          </h3>
-          
-          <div className="space-y-6">
-            {publications.map((pub, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="publication-card"
+        {/* Filter chips */}
+        <div
+          aria-label="Filter publications"
+          className="flex flex-wrap justify-center gap-2 mb-12"
+        >
+          {FILTERS.map(({ key, label }) => {
+            const active = filter === key
+            return (
+              <button
+                key={key}
+                type="button"
+                aria-pressed={active ? 'true' : 'false'}
+                onClick={() => setFilter(key)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 border ${
+                  active
+                    ? 'bg-green-600 border-green-600 text-white'
+                    : 'bg-transparent border-gray-700 text-gray-300 hover:border-green-500 hover:text-green-300'
+                }`}
               >
-                <div className="flex justify-between items-start mb-3">
-                  <span className="bg-green-900 text-green-200 px-3 py-1 rounded-full text-sm font-medium">
-                    {pub.type}
-                  </span>
-                  <span className="text-gray-400 text-sm">
-                    {pub.year}
-                  </span>
-                </div>
-                
-                <h4 className="text-xl font-semibold text-white mb-2">
-                  {pub.title}
-                </h4>
-                
-                <p className="text-gray-300 mb-2">
-                  <strong>Authors:</strong> {pub.authors}
-                </p>
-                
-                <p className="text-gray-300 mb-3">
-                  <strong>Venue:</strong> {pub.venue}
-                </p>
-                
-                <p className="text-gray-300 mb-4 leading-relaxed">
-                  {pub.abstract}
-                </p>
-                
-                <div className="flex gap-4">
-                  {pub.link && pub.link !== '#' && (
-                    <a
-                      href={pub.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors duration-200"
-                    >
-                      <ExternalLink size={16} />
-                      View Publication
-                    </a>
-                  )}
-                  {pub.pdf && pub.pdf !== '#' && pub.pdf !== pub.link && (
-                    <a
-                      href={pub.pdf}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors duration-200"
-                    >
-                      <FileText size={16} />
-                      PDF
-                    </a>
-                  )}
-                  {(!pub.link || pub.link === '#') && (
-                    <span className="text-gray-500 text-sm italic">Link to be added once available</span>
-                  )}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                {label}
+              </button>
+            )
+          })}
         </div>
+
+        {/* Publications */}
+        {showPublications && (
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+              <BookOpen className="text-green-600" size={24} />
+              Publications
+              <span className="text-sm text-gray-400 font-normal">({visiblePublications.length})</span>
+            </h3>
+
+            {visiblePublications.length === 0 ? (
+              <p className="text-gray-400 italic">No publications match this filter.</p>
+            ) : (
+              <div className="space-y-6">
+                {visiblePublications.map((pub, index) => {
+                  const hasLink = pub.link && pub.link !== '#'
+                  const linkLabel = hasLink && isDoiLink(pub.link) ? 'DOI' : 'View Publication'
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="publication-card"
+                    >
+                      <div className="flex justify-between items-start mb-3">
+                        <span className="bg-green-900 text-green-200 px-3 py-1 rounded-full text-sm font-medium">
+                          {pub.type}
+                        </span>
+                        <span className="text-gray-400 text-sm">{pub.year}</span>
+                      </div>
+
+                      <h4 className="text-xl font-semibold text-white mb-2">{pub.title}</h4>
+
+                      <p className="text-gray-300 mb-2">
+                        <strong>Authors:</strong> {pub.authors}
+                      </p>
+
+                      <p className="text-gray-300 mb-3">
+                        <strong>Venue:</strong> {pub.venue}
+                      </p>
+
+                      <p className="text-gray-300 mb-4 leading-relaxed">{pub.abstract}</p>
+
+                      <div className="flex flex-wrap gap-4 items-center">
+                        {hasLink && (
+                          <a
+                            href={pub.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors duration-200"
+                          >
+                            <ExternalLink size={16} />
+                            {linkLabel}
+                          </a>
+                        )}
+                        {pub.pdf && pub.pdf !== '#' && pub.pdf !== pub.link && (
+                          <a
+                            href={pub.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors duration-200"
+                          >
+                            <FileText size={16} />
+                            PDF
+                          </a>
+                        )}
+                        {!hasLink && (
+                          <a
+                            href="#contact"
+                            className="flex items-center gap-2 text-gray-400 hover:text-green-300 transition-colors duration-200 text-sm italic"
+                          >
+                            <FileText size={16} />
+                            In preparation — request a draft
+                          </a>
+                        )}
+                        <CopyBibtex entry={pub} />
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Preprints & Under Review */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-            <FlaskConical className="text-green-600" size={24} />
-            Preprints & Under Review
-          </h3>
+        {showPreprints && (
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+              <FlaskConical className="text-green-600" size={24} />
+              Preprints & Under Review
+              <span className="text-sm text-gray-400 font-normal">({sortedPreprints.length})</span>
+            </h3>
 
-          <div className="space-y-6">
-            {preprints.map((pre, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="publication-card"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <span className="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-sm font-medium">
-                    {pre.status}
-                  </span>
-                  <span className="text-gray-400 text-sm">
-                    {pre.year}
-                  </span>
-                </div>
+            <div className="space-y-6">
+              {sortedPreprints.map((pre, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="publication-card"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-sm font-medium">
+                      {pre.status}
+                    </span>
+                    <span className="text-gray-400 text-sm">{pre.year}</span>
+                  </div>
 
-                <h4 className="text-xl font-semibold text-white mb-2">
-                  {pre.title}
-                </h4>
+                  <h4 className="text-xl font-semibold text-white mb-2">{pre.title}</h4>
 
-                <p className="text-gray-300 mb-2">
-                  <strong>Authors:</strong> {pre.authors}
-                </p>
+                  <p className="text-gray-300 mb-2">
+                    <strong>Authors:</strong> {pre.authors}
+                  </p>
 
-                <p className="text-gray-300">
-                  <strong>Venue:</strong> {pre.venue}
-                </p>
-              </motion.div>
-            ))}
+                  <p className="text-gray-300 mb-3">
+                    <strong>Venue:</strong> {pre.venue}
+                  </p>
+
+                  <div className="flex flex-wrap gap-4 items-center">
+                    <CopyBibtex entry={{ ...pre, type: 'preprint' }} />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Presentations */}
-        <div>
-          <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-            <FileText className="text-green-600" size={24} />
-            Conference Presentations
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {presentations.map((pres, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-gray-800 p-6 rounded-lg"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <span className="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-sm font-medium">
-                    {pres.type}
-                  </span>
-                </div>
-                
-                <h4 className="text-lg font-semibold text-white mb-2">
-                  {pres.title}
-                </h4>
-                
-                <p className="text-gray-300 mb-1">
-                  {pres.venue}
-                </p>
-                
-                <p className="text-gray-400 text-sm">
-                  {pres.date}
-                </p>
-              </motion.div>
-            ))}
+        {showPresentations && (
+          <div>
+            <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+              <FileText className="text-green-600" size={24} />
+              Conference Presentations
+              <span className="text-sm text-gray-400 font-normal">({sortedPresentations.length})</span>
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {sortedPresentations.map((pres, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-gray-800 p-6 rounded-lg"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-sm font-medium">
+                      {pres.type}
+                    </span>
+                  </div>
+
+                  <h4 className="text-lg font-semibold text-white mb-2">{pres.title}</h4>
+
+                  <p className="text-gray-300 mb-1">{pres.venue}</p>
+
+                  <p className="text-gray-400 text-sm">{pres.date}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   )

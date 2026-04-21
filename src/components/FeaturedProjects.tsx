@@ -149,13 +149,17 @@ export default function FeaturedProjects() {
                     <Github size={18} />
                     <span>Code</span>
                   </a>
-                  <a
-                    href={project.demo}
-                    className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors duration-200"
-                  >
-                    <ExternalLink size={18} />
-                    <span>Demo</span>
-                  </a>
+                  {project.demo && project.demo !== '#' && project.demo !== project.github && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors duration-200"
+                    >
+                      <ExternalLink size={18} />
+                      <span>Demo</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>
