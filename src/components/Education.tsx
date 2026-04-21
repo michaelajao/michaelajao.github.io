@@ -49,27 +49,6 @@ export default function Education() {
     }
   ]
 
-  const conferences = [
-    {
-      name: "International Conference on Machine Learning and Applications (ICMLA)",
-      years: ["2023", "2024"],
-      role: "Presenter & Program Committee Member",
-      link: "https://www.icmla-conference.org/"
-    },
-    {
-      name: "The Julia Language Conference (JuliaCon)",
-      years: ["2022", "2023"],
-      role: "Attendee",
-      link: "https://juliacon.org/"
-    },
-    {
-      name: "Computational Science and Mathematical Modelling Conference (CSMM)",
-      years: ["2023", "2024"],
-      role: "Presenter & Best Reviewer Award Winner",
-      link: "https://sites.google.com/view/csmconference/"
-    }
-  ]
-
   const volunteerWork = [
     {
       organization: "African Institute for Artificial Intelligence (AIAI)",
@@ -173,46 +152,6 @@ export default function Education() {
                     ))}
                   </ul>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Conference Participation */}
-        <div className="mb-20">
-          <h3 className="text-2xl font-bold text-white mb-8">
-            Conference Participation
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {conferences.map((conf, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-gray-800 p-6 rounded-lg shadow-lg"
-              >
-                <h4 className="text-lg font-semibold text-white mb-3">
-                  {conf.name}
-                </h4>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {conf.years.map((year, i) => (
-                    <span key={i} className="bg-green-900 text-green-200 px-2 py-1 rounded text-sm">
-                      {year}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-gray-300 mb-3">{conf.role}</p>
-                <a 
-                  href={conf.link} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 text-sm"
-                >
-                  Conference Website →
-                </a>
               </motion.div>
             ))}
           </div>

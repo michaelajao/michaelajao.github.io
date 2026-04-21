@@ -2,7 +2,16 @@
 
 import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { BookOpen, ExternalLink, FileText, FlaskConical, Copy, Check } from 'lucide-react'
+import { BookOpen, ExternalLink, FileText, FlaskConical, Copy, Check, Mic } from 'lucide-react'
+
+function roleChipClass(role: string): string {
+  const r = role.toLowerCase()
+  if (r.includes('prize') || r.includes('award')) return 'bg-amber-900 text-amber-200'
+  if (r.includes('committee') || r.includes('reviewer')) return 'bg-purple-900 text-purple-200'
+  if (r.includes('attendee')) return 'bg-gray-700 text-gray-300'
+  if (r.includes('poster')) return 'bg-blue-900 text-blue-200'
+  return 'bg-green-900 text-green-200'
+}
 
 type FilterKey = 'all' | 'journal' | 'conference' | 'preprint' | 'talk'
 
@@ -145,34 +154,52 @@ export default function Publications() {
     }
   ]
 
-  const presentations = [
+  const conferenceActivity: {
+    name: string
+    years: string
+    latestYear: number
+    link: string | null
+    roles: string[]
+    contributions: string[]
+  }[] = [
     {
-      title: "Algorithmic Training Strategies for Physics-Informed Neural Network Wall Shear Stress Prediction in Cardiovascular Hemodynamics",
-      venue: "3rd International Conference of Future Algorithms (online)",
-      date: "29–30 April 2026",
-      year: "2026",
-      type: "Invited Talk"
+      name: "International Conference of Future Algorithms",
+      years: "2025, 2026",
+      latestYear: 2026,
+      link: null,
+      roles: ["Invited Talk", "First Prize (Poster)"],
+      contributions: [
+        "Algorithmic Training Strategies for PINN Wall-Shear-Stress Prediction in Cardiovascular Hemodynamics — Invited Talk (3rd Conf., online, 29–30 April 2026)",
+        "Physics-Informed Neural Networks for Fluid-Structure Interaction Analysis of Arterial Aneurysms — Poster (2nd Conf., July 2025, First Prize)"
+      ]
     },
     {
-      title: "Physics-Informed Neural Networks for Fluid-Structure Interaction Analysis of Arterial Aneurysms",
-      venue: "2nd International Conference of Future Algorithms",
-      date: "July 2025",
-      year: "2025",
-      type: "Poster Presentation - First Prize Winner"
+      name: "International Conference on Machine Learning and Applications (ICMLA)",
+      years: "2023, 2024",
+      latestYear: 2024,
+      link: "https://www.icmla-conference.org/",
+      roles: ["Presenter", "Program Committee"],
+      contributions: [
+        "Deep Learning Based Forecasting of COVID-19 Hospitalisation in England — Conference Paper (December 2023)"
+      ]
     },
     {
-      title: "Physics-Informed Neural Networks for Modelling Infectious Disease Dynamics: A Case Study of COVID-19 in England",
-      venue: "CSMM Conference, Coventry University",
-      date: "2024",
-      year: "2024",
-      type: "Research Presentation"
+      name: "Computational Science and Mathematical Modelling Conference (CSMM), Coventry University",
+      years: "2023, 2024",
+      latestYear: 2024,
+      link: "https://sites.google.com/view/csmconference/",
+      roles: ["Presenter", "Best Reviewer Award"],
+      contributions: [
+        "Physics-Informed Neural Networks for Modelling Infectious Disease Dynamics: A Case Study of COVID-19 in England (2024)"
+      ]
     },
     {
-      title: "Deep Learning Based Forecasting of COVID-19 Hospitalisation in England",
-      venue: "International Conference on Machine Learning and Applications (ICMLA)",
-      date: "December 2023",
-      year: "2023",
-      type: "Conference Presentation"
+      name: "The Julia Language Conference (JuliaCon)",
+      years: "2022, 2023",
+      latestYear: 2023,
+      link: "https://juliacon.org/",
+      roles: ["Attendee"],
+      contributions: []
     }
   ]
 
@@ -186,8 +213,8 @@ export default function Publications() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
-  const sortedPresentations = useMemo(
-    () => [...presentations].sort((a, b) => Number(b.year) - Number(a.year)),
+  const sortedActivity = useMemo(
+    () => [...conferenceActivity].sort((a, b) => b.latestYear - a.latestYear),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
@@ -198,7 +225,7 @@ export default function Publications() {
     return false
   })
   const showPreprints = filter === 'all' || filter === 'preprint'
-  const showPresentations = filter === 'all' || filter === 'talk'
+  const showActivity = filter === 'all' || filter === 'talk'
   const showPublications = filter === 'all' || filter === 'journal' || filter === 'conference'
 
   return (
@@ -379,36 +406,60 @@ export default function Publications() {
           </div>
         )}
 
-        {/* Presentations */}
-        {showPresentations && (
+        {/* Conference activity */}
+        {showActivity && (
           <div>
             <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-              <FileText className="text-green-600" size={24} />
-              Conference Presentations
-              <span className="text-sm text-gray-400 font-normal">({sortedPresentations.length})</span>
+              <Mic className="text-green-600" size={24} />
+              Conference Activity
+              <span className="text-sm text-gray-400 font-normal">({sortedActivity.length})</span>
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {sortedPresentations.map((pres, index) => (
+              {sortedActivity.map((conf, index) => (
                 <motion.div
-                  key={index}
+                  key={conf.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-gray-800 p-6 rounded-lg"
+                  className="bg-gray-800 p-6 rounded-lg flex flex-col"
                 >
-                  <div className="flex justify-between items-start mb-3">
-                    <span className="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-sm font-medium">
-                      {pres.type}
-                    </span>
+                  <div className="flex justify-between items-start gap-3 mb-3">
+                    <h4 className="text-lg font-semibold text-white">{conf.name}</h4>
+                    <span className="shrink-0 text-gray-400 text-sm whitespace-nowrap">{conf.years}</span>
                   </div>
 
-                  <h4 className="text-lg font-semibold text-white mb-2">{pres.title}</h4>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {conf.roles.map((role) => (
+                      <span
+                        key={role}
+                        className={`${roleChipClass(role)} px-3 py-1 rounded-full text-xs font-medium`}
+                      >
+                        {role}
+                      </span>
+                    ))}
+                  </div>
 
-                  <p className="text-gray-300 mb-1">{pres.venue}</p>
+                  {conf.contributions.length > 0 && (
+                    <ul className="text-gray-300 text-sm space-y-2 mb-4 list-disc list-outside pl-5">
+                      {conf.contributions.map((c, i) => (
+                        <li key={i}>{c}</li>
+                      ))}
+                    </ul>
+                  )}
 
-                  <p className="text-gray-400 text-sm">{pres.date}</p>
+                  {conf.link && (
+                    <a
+                      href={conf.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-auto inline-flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors duration-200 text-sm"
+                    >
+                      <ExternalLink size={14} />
+                      Conference website
+                    </a>
+                  )}
                 </motion.div>
               ))}
             </div>
