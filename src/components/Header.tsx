@@ -1,117 +1,151 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
+import { Lockup } from './Brand'
 
-const navigation = [
-  { name: 'Home', href: '#home' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Publications', href: '#publications' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Education', href: '#education' },
-  { name: 'Ventures', href: '#ventures' },
-  { name: 'Contact', href: '#contact' },
+const LINKS = [
+  { href: '/services/', label: 'Services' },
+  { href: '/about/', label: 'About' },
 ]
 
+function isActive(path: string, href: string) {
+  return path.startsWith(href)
+}
+
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeId, setActiveId] = useState<string>('home')
+  const path = usePathname() ?? '/'
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [ddOpen, setDdOpen] = useState(false)
+  const menuBtn = useRef<HTMLButtonElement>(null)
+  const ddBtn = useRef<HTMLButtonElement>(null)
+  const nd = useRef<HTMLDivElement>(null)
+
+  // close menus when the route changes
+  useEffect(() => {
+    setMenuOpen(false)
+    setDdOpen(false)
+  }, [path])
 
   useEffect(() => {
-    const ids = navigation.map((n) => n.href.slice(1))
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null)
-    if (sections.length === 0) return
+    const onDoc = (e: MouseEvent) => {
+      if (nd.current && !nd.current.contains(e.target as Node)) setDdOpen(false)
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      if (ddOpen) {
+        setDdOpen(false)
+        ddBtn.current?.focus()
+      } else if (menuOpen) {
+        setMenuOpen(false)
+        menuBtn.current?.focus()
+      }
+    }
+    document.addEventListener('click', onDoc)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('click', onDoc)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [ddOpen, menuOpen])
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (visible) setActiveId(visible.target.id)
-      },
-      { rootMargin: '-35% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
-    )
+  const toggleTheme = () => {
+    const root = document.documentElement
+    let cur = root.getAttribute('data-theme')
+    if (!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    const next = cur === 'dark' ? 'light' : 'dark'
+    root.classList.add('no-tr')
+    root.setAttribute('data-theme', next)
+    try {
+      localStorage.setItem('theme', next)
+    } catch {}
+    setTimeout(() => root.classList.remove('no-tr'), 60)
+  }
 
-    sections.forEach((s) => observer.observe(s))
-    return () => observer.disconnect()
-  }, [])
+  const cur = (href: string) => (path === href ? ('page' as const) : undefined)
 
   return (
-    <header className="fixed top-0 w-full bg-gray-900/90 backdrop-blur-md z-50 border-b border-gray-800">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold font-heading gradient-text tracking-tight">
-              MAO
+    <header className="hdr">
+      <div className="wrap">
+        <Link className="logo" href="/" aria-label="miolajtech, home">
+          <Lockup />
+        </Link>
+        <nav className={`nav${menuOpen ? ' open' : ''}`} id="nav" aria-label="Main">
+          <div
+            className="nd"
+            ref={nd}
+            onBlur={(e) => {
+              if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget as Node)) setDdOpen(false)
+            }}
+          >
+            <Link href="/research/" aria-current={cur('/research/')} data-active={isActive(path, '/research/') || undefined}>
+              Research
             </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              {navigation.map((item) => {
-                const isActive = activeId === item.href.slice(1)
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    aria-current={isActive ? 'true' : undefined}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                      isActive
-                        ? 'text-green-400 bg-green-900/30'
-                        : 'text-gray-200 hover:text-green-400'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-          <div className="md:hidden">
             <button
+              ref={ddBtn}
+              className="nd-btn"
               type="button"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-md text-blue-200 hover:text-green-400"
-              aria-label="Toggle menu"
+              aria-expanded={ddOpen}
+              aria-controls="dd-research"
+              aria-label="Research submenu"
+              onClick={() => setDdOpen((o) => !o)}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                <path d="M2.5 4.5 6 8l3.5-3.5" />
+              </svg>
             </button>
+            <ul className="dd" id="dd-research" hidden={!ddOpen}>
+              <li>
+                <Link href="/research/papers/" aria-current={cur('/research/papers/')}>
+                  Papers
+                </Link>
+              </li>
+              <li>
+                <Link href="/research/talks/" aria-current={cur('/research/talks/')}>
+                  Talks
+                </Link>
+              </li>
+            </ul>
           </div>
+          {LINKS.map((l) => (
+            <Link key={l.href} href={l.href} aria-current={cur(l.href)} data-active={isActive(path, l.href) || undefined}>
+              {l.label}
+            </Link>
+          ))}
+          <Link className="nav-cta-m" href="/contact/">
+            Get in touch
+          </Link>
+        </nav>
+        <div className="hdr-tools">
+          <Link className="btn btn-fill btn-sm hdr-cta" href="/contact/">
+            Get in touch
+          </Link>
+          <button className="icon-btn theme-btn" type="button" onClick={toggleTheme} aria-label="Switch colour theme">
+            <svg className="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />
+            </svg>
+            <svg className="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+            </svg>
+          </button>
+          <button
+            ref={menuBtn}
+            className="icon-btn menu-btn"
+            type="button"
+            id="menu"
+            aria-expanded={menuOpen}
+            aria-controls="nav"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" aria-hidden="true">
+              <path d="M4 8h16M4 16h16" />
+            </svg>
+          </button>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-900 border-t border-gray-800">
-              {navigation.map((item) => {
-                const isActive = activeId === item.href.slice(1)
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    aria-current={isActive ? 'true' : undefined}
-                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                      isActive
-                        ? 'text-green-400 bg-green-900/30'
-                        : 'text-gray-300 hover:text-green-400'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
-        )}
-      </nav>
+      </div>
     </header>
   )
 }

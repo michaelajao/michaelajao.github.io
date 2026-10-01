@@ -43,3 +43,5 @@ next-env.d.ts
 Thumbs.db
 
 CLAUDE.md
+# local browser-test artefacts
+.playwright-mcp/

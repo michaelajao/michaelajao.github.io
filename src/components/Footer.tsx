@@ -1,51 +1,51 @@
+import Link from 'next/link'
+import { Icon, Lockup } from './Brand'
+import { PROFILE_LINKS } from '@/content/site'
+
+const NAV = [
+  { href: '/research/', label: 'Research' },
+  { href: '/research/papers/', label: 'Papers' },
+  { href: '/research/talks/', label: 'Talks' },
+  { href: '/services/', label: 'Services' },
+  { href: '/services/tutoring/', label: 'Tutoring' },
+  { href: '/about/', label: 'About' },
+  { href: '/contact/', label: 'Contact' },
+]
+
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <p className="text-gray-300">
-              © 2026 Michael Ajao-Olarinoye. All rights reserved.
-            </p>
+    <footer>
+      <div className="wrap">
+        <div className="f-grid">
+          <div className="f-brand">
+            <Link className="logo" href="/" aria-label="miolajtech, home">
+              <Lockup />
+            </Link>
+            <p>miolajtech, the practice of Dr Michael Ajao-Olarinoye. Automated business systems, AI agents, data science, training, research and tutoring.</p>
+            <ul className="f-social" aria-label="Profiles">
+              {PROFILE_LINKS.map((p) => (
+                <li key={p.id}>
+                  <a href={p.href} rel="noopener" aria-label={p.label} title={p.label}>
+                    <Icon id={p.id} />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-          
-          <div className="flex space-x-6">
-            <a
-              href="https://github.com/michaelajao"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/michael-ajao"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://www.youtube.com/@miolajtech2439/featured"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              YouTube
-            </a>
-            <a
-              href="mailto:[removed]"
-              className="text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              Email
-            </a>
-          </div>
+          <ul className="f-nav">
+            {NAV.map((n) => (
+              <li key={n.href}>
+                <Link href={n.href}>{n.label}</Link>
+              </li>
+            ))}
+          </ul>
         </div>
-        
-        <div className="mt-4 pt-4 border-t border-gray-700 text-center">
-          <p className="text-gray-400 text-sm">
-            Built with Next.js, TypeScript, and Tailwind CSS
+        <div className="legal">
+          <p>© 2026 Michael Ajao-Olarinoye. miolajtech is a trading name. Opinions and services on this site are my own and are not those of Coventry University, QAHE or any other employer.</p>
+          <p className="legal-links">
+            <Link href="/privacy/">Privacy</Link>
+            <Link href="/terms/">Terms</Link>
+            <a href="/michael_cv.pdf">Download CV</a>
           </p>
         </div>
       </div>
