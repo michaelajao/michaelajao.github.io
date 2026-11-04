@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowDown, Github, Linkedin, Mail, FileText, Youtube } from 'lucide-react'
+import { ArrowDown, Github, Linkedin, FileText, Youtube } from 'lucide-react'
 import Image from 'next/image'
 import TechIcon from '@/components/TechIcon'
 
@@ -149,13 +149,6 @@ export default function Hero() {
                 aria-label="YouTube"
               >
                 <Youtube size={20} />
-              </a>
-              <a
-                href="mailto:[removed]"
-                className="p-3 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors duration-200"
-                aria-label="Email"
-              >
-                <Mail size={20} />
               </a>
             </motion.div>
           </motion.div>

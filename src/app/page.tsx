@@ -2,7 +2,6 @@ import Hero from '@/components/Hero'
 import FeaturedProjects from '@/components/FeaturedProjects'
 import Publications from '@/components/Publications'
 import Experience from '@/components/Experience'
-import Ventures from '@/components/Ventures'
 import Education from '@/components/Education'
 import Contact from '@/components/Contact'
 
@@ -14,7 +13,6 @@ export default function Home() {
       <Publications />
       <Experience />
       <Education />
-      <Ventures />
       <Contact />
     </main>
   )

@@ -19,12 +19,11 @@ export default function Experience() {
     },
     {
       title: "Founder & CEO",
-      company: "miolajtech ([removed])",
-      location: "Ikorodu, Lagos, Nigeria",
-      period: "April 2013 – Present",
+      company: "miolajtech",
+      location: "Lagos, Nigeria",
+      period: "Present",
       description: [
-        "Founded and lead miolajtech, a Nigerian tech and AI services company building tax, accounting, and productivity tools for SMEs and agricultural businesses across Nigeria and Africa.",
-        "Driving development of [removed] — a React Native, Expo, and Supabase mobile app that helps Nigerian SMEs manage finances, invoices, and tax obligations (VAT, CIT, PAYE, Capital Gains) under the Tax Reform Acts 2025.",
+        "Lead miolajtech, a tech and AI services practice for small businesses.",
         "Delivering client work including Papromakeovers — a Next.js booking website with availability management, EmailJS notifications, and Zoho invoicing integration.",
         "Sharing engineering tutorials and product updates on the miolajtech YouTube channel."
       ]

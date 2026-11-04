@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useForm, ValidationError } from '@formspree/react'
-import { Mail, Linkedin, Github, Youtube, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { Linkedin, Github, Youtube, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
 import { sanitizeInput, isValidEmail } from '@/utils/security'
 
 interface FormFields {
@@ -39,7 +39,7 @@ export default function Contact() {
     setClientError('')
 
     if (!FORMSPREE_FORM_ID) {
-      setClientError('Contact form is not configured. Please email me directly at [removed]')
+      setClientError('Contact form is not configured. Please reach me on LinkedIn.')
       return
     }
 
@@ -70,15 +70,9 @@ export default function Contact() {
       : 0
   const hasServerError = serverErrorCount > 0
   const showError = Boolean(clientError) || hasServerError
-  const errorMessage = clientError || 'Something went wrong. Please try again or email me directly at [removed]'
+  const errorMessage = clientError || 'Something went wrong. Please try again or reach me on LinkedIn.'
 
   const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "[removed]",
-      href: "mailto:[removed]"
-    },
     {
       icon: Linkedin,
       label: "LinkedIn",

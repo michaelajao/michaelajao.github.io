@@ -34,12 +34,6 @@ export default function Footer() {
             >
               YouTube
             </a>
-            <a
-              href="mailto:[removed]"
-              className="text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              Email
-            </a>
           </div>
         </div>
         

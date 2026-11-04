@@ -110,7 +110,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 📞 Contact
 
-- **Email**: [removed]
 - **LinkedIn**: [michael-ajao](https://www.linkedin.com/in/michael-ajao)
 - **GitHub**: [michaelajao](https://github.com/michaelajao)
 
