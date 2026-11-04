@@ -1,107 +1,110 @@
-import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Geist_Mono, Instrument_Sans, Newsreader } from 'next/font/google'
 import './globals.css'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import './academic.css'
+import { Sprite } from '@/components/Brand'
+import SectionNav from '@/components/SectionNav'
+import { COMPANY_URL, OWNER, PROFILES, SITE_URL } from '@/content/site'
+import { PUBLICATIONS } from '@/content/publications'
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter'
-})
+const sans = Instrument_Sans({ subsets: ['latin'], axes: ['wdth'], variable: '--f-sans', display: 'swap' })
+const serif = Newsreader({ subsets: ['latin'], style: ['normal', 'italic'], axes: ['opsz'], variable: '--f-serif', display: 'swap' })
+const mono = Geist_Mono({ subsets: ['latin'], variable: '--f-mono', display: 'swap' })
 
-const playfair = Playfair_Display({ 
-  subsets: ['latin'],
-  variable: '--font-playfair'
-})
-
-const siteUrl = 'https://michaelajao.github.io'
-const ogDescription =
-  'Research Fellow at CSMM, Coventry University. Applied machine learning, generative AI, physics-informed neural networks, and data-driven modelling for healthcare and scientific computing.'
+const TITLE = 'Michael Ajao-Olarinoye | Research Fellow, Coventry University'
+const DESCRIPTION = 'Dr Michael Ajao-Olarinoye is a Research Fellow at Coventry University working on applied machine learning, generative AI and scientific modelling, including physics-informed neural networks for blood flow. Publications, talks, teaching and CV.'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: 'Dr. Michael Ajao-Olarinoye | Research Fellow',
-  description: 'Research Fellow at Coventry University\'s Centre for Computational Science & Mathematical Modelling (CSMM), working on the HOPE-MOVE project. Research in applied machine learning, generative AI, physics-informed neural networks, spatiotemporal epidemic forecasting, and cardiovascular hemodynamics.',
-  keywords: 'Research Fellow, HOPE-MOVE, Applied Machine Learning, Generative AI, Physics-Informed Neural Networks, Graph Neural Networks, Spatiotemporal Forecasting, Cardiovascular Hemodynamics, Epidemiological Modeling, Computational Science, Coventry University CSMM',
-  authors: [{ name: 'Michael Ajao-Olarinoye', url: siteUrl }],
-  creator: 'Michael Ajao-Olarinoye',
-  alternates: { canonical: siteUrl },
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  authors: [{ name: OWNER, url: SITE_URL }],
+  creator: OWNER,
   openGraph: {
-    title: 'Dr. Michael Ajao-Olarinoye | Research Fellow',
-    description: ogDescription,
+    title: TITLE,
+    description: DESCRIPTION,
+    url: '/',
+    siteName: OWNER,
     type: 'profile',
-    url: siteUrl,
-    siteName: 'Michael Ajao-Olarinoye',
-    images: [
-      { url: '/profile-image.jpg', width: 1200, height: 630, alt: 'Dr. Michael Ajao-Olarinoye' },
-    ],
+    locale: 'en_GB',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: `${OWNER}, Research Fellow at Coventry University` }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Dr. Michael Ajao-Olarinoye | Research Fellow',
-    description: ogDescription,
-    images: ['/profile-image.jpg'],
-  },
-  robots: { index: true, follow: true },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/og.png'] },
 }
 
-const personJsonLd = {
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F1F3EF' },
+    { media: '(prefers-color-scheme: dark)', color: '#0B100D' },
+  ],
+}
+
+const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Michael Ajao-Olarinoye',
-  honorificPrefix: 'Dr.',
-  jobTitle: 'Research Fellow & Lecturer in Computing',
-  affiliation: [
+  '@graph': [
     {
-      '@type': 'Organization',
-      name: 'Centre for Computational Science & Mathematical Modelling (CSMM), Coventry University',
-      url: 'https://www.coventry.ac.uk/',
+      '@type': 'Person',
+      '@id': `${SITE_URL}/#person`,
+      name: OWNER,
+      honorificPrefix: 'Dr',
+      jobTitle: 'Research Fellow',
+      identifier: { '@type': 'PropertyValue', propertyID: 'ORCID', value: '0000-0003-2763-8293' },
+      affiliation: [
+        { '@type': 'CollegeOrUniversity', name: 'Coventry University', url: 'https://www.coventry.ac.uk/' },
+        { '@type': 'Organization', name: 'QAHE' },
+      ],
+      alumniOf: [
+        { '@type': 'CollegeOrUniversity', name: 'Coventry University' },
+        { '@type': 'CollegeOrUniversity', name: 'Kwara State University' },
+      ],
+      url: `${SITE_URL}/`,
+      image: `${SITE_URL}/images/portrait-4x5.jpg`,
+      sameAs: [PROFILES.orcid, PROFILES.scholar, PROFILES.pure, PROFILES.github, PROFILES.linkedin, COMPANY_URL],
+      knowsAbout: ['Applied machine learning', 'Generative AI', 'Physics-informed neural networks', 'Scientific machine learning', 'Digital health', 'Student engagement modelling'],
     },
-    {
-      '@type': 'Organization',
-      name: 'QAHE (Ulster University / Southampton Solent partnership)',
-    },
-  ],
-  url: siteUrl,
-  image: `${siteUrl}/profile-image.jpg`,
-  sameAs: [
-    'https://github.com/michaelajao',
-    'https://www.linkedin.com/in/michael-ajao',
-    'https://www.youtube.com/@miolajtech2439/featured',
-  ],
-  knowsAbout: [
-    'Physics-Informed Neural Networks',
-    'Generative AI',
-    'Applied Machine Learning',
-    'Spatiotemporal Epidemic Forecasting',
-    'Cardiovascular Hemodynamics',
-    'Graph Neural Networks',
+    ...PUBLICATIONS.filter((p) => p.status === 'published').map((p) => ({
+      '@type': 'ScholarlyArticle',
+      name: p.title,
+      datePublished: p.date,
+      url: p.links?.[0]?.href,
+      author: { '@id': `${SITE_URL}/#person` },
+    })),
   ],
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+// Applies the saved colour theme before first paint to avoid a flash.
+const themeScript = `try{var s=localStorage.getItem('theme');if(s==='light'||s==='dark')document.documentElement.setAttribute('data-theme',s)}catch(e){}`
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-GB" className={`${sans.variable} ${serif.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-gray-950 text-white`}>
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </div>
+      <body>
+        <Sprite />
+        <a className="skip" href="#main">
+          Skip to content
+        </a>
+        <SectionNav />
+        <main id="main">{children}</main>
+        <footer className="ac-foot">
+          <div className="wrap">
+            <p>
+              I also run{' '}
+              <a href={COMPANY_URL} rel="noopener">
+                miolajtech
+              </a>
+              , a practice for AI systems, training and tutoring.
+            </p>
+            <p className="muted">
+              © {OWNER}. <a href="#privacy">Privacy notice</a>.
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   )

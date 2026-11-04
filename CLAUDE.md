@@ -4,49 +4,53 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- `npm run dev` — start the Next.js dev server (Turbopack) at http://localhost:3000
-- `npm run build` — produce a static export into `dist/` (see architecture note below)
-- `npm run lint` — run `next lint` (ESLint flat config extending `next/core-web-vitals` + `next/typescript`)
-- `npm start` — serve the built app (rarely used; deployment uses the static export)
+- `npm run dev`: start the Next.js dev server (Turbopack) at http://localhost:3000
+- `npm run build`: produce a static export into `dist/`. Fails if `NEXT_PUBLIC_FORMSPREE_FORM_ID` is unset; for a local check use `NEXT_PUBLIC_FORMSPREE_FORM_ID=localpreview npm run build`
+- `npm run lint`: ESLint (`next/core-web-vitals` and `next/typescript`)
+- `npx tsc --noEmit`: type-check
 
-There is no test runner configured in this project.
+There is no test runner. `npm start` does not work with a static export; serve `dist/` to preview a build.
 
 ## Architecture
 
-This is a **single-page Next.js 15 App Router site that is statically exported** and deployed to GitHub Pages. Key consequences of the static-export configuration (`next.config.ts`):
+This is the **one-page academic site**, a Next.js 15 App Router static export deployed to GitHub Pages at `https://michaelajao.github.io`. `next.config.ts` sets `output: 'export'`, `distDir: 'dist'`, `trailingSlash: true` and `images.unoptimized`, so there are no server features. The company site (miolajtech.co.uk) is a separate project; this site links to it once, in the footer.
 
-- `output: 'export'` and `distDir: 'dist'` — `npm run build` writes static HTML/CSS/JS into `dist/`, which the GitHub Actions workflow (`.github/workflows/deploy.yml`) uploads as the Pages artifact. **Any Next.js feature that requires a server at runtime (API routes, `getServerSideProps`, middleware, Image Optimization) is unavailable.** `images.unoptimized: true` is set for this reason — use `next/image` with `unoptimized` behavior in mind.
-- `trailingSlash: true` — all routes are emitted as `/path/index.html`. Keep internal links consistent with trailing slashes.
-- `basePath`/`assetPrefix` are currently empty strings in both dev and prod because the site is served at the apex of `michaelajao.github.io` (user/organization Pages site), not a project subpath.
+### Page and content
 
-### Page composition
+`src/app/page.tsx` is the only page, plus `not-found.tsx`. Sections: top, Global Talent band, About, Research, Publications, Talks and awards, Teaching, CV, Contact.
 
-The entire landing page is `src/app/page.tsx`, which stacks section components in a fixed order:
-`Hero → FeaturedProjects → Publications → Experience → Education → Skills → Contact`.
-`src/app/layout.tsx` wraps everything with `Header` + `Footer` and loads Inter + Playfair Display via `next/font/google` (exposed as CSS variables `--font-inter` / `--font-heading`). All section components live directly under `src/components/` — they are content-heavy client components (most use `framer-motion` and need `'use client'`) with no shared state beyond props.
+Copy lives in `src/content/`:
+
+- `publications.ts`: every output, in one list. Adding a paper is one entry here.
+- `research.ts`: research themes with their figures, and talks.
+- `profile.tsx`: About, positions, education, memberships, teaching.
+- `site.ts`: URLs, profile links, section menu, form intents.
+
+### Each section has its own job
+
+Show each paper, figure and fact once. Research explains the themes and links to Publications; it does not list papers. A figure is set either on a theme or on a publication, never both. A talk given on a listed paper goes in that paper's `note`, not in Talks. Link between sections rather than restating them.
+
+### Components
+
+Client components are limited to interactive pieces: `SectionNav` (scrollspy, theme toggle, reveal), `PublicationList` (filters, citation copy, and the `a[data-topic]` links from Research), `Portrait`, `ContactForm`.
 
 ### Styling
 
-Tailwind CSS v4 via `@tailwindcss/postcss`. `tailwind.config.ts` extends the default theme with:
-- Custom font families `sans` (Inter) and `heading` (Playfair) bound to the CSS variables set in `layout.tsx`.
-- A full `fluid-*` font-size scale using `clamp()` — prefer these over raw `text-*` sizes when adding responsive typography.
-- Custom breakpoints `xs` (475px) and `3xl` (1600px), and a `touch` spacing token (44px) for hit targets.
-- Bespoke keyframes (`fadeIn`, `slideIn`, `bounceGentle`) plus utilities defined in `src/app/globals.css` (`gradient-text`, `research-card`, `publication-card`, `animate-fadeInUp`).
+Plain CSS with design tokens, no Tailwind: `src/app/globals.css` (tokens, themes, shared components) and `src/app/academic.css` (this site). Theme is set via `data-theme` on `<html>`, saved in localStorage and applied by an inline script before paint. Motion respects `prefers-reduced-motion`.
 
-The `@` path alias maps to `src/` (see `tsconfig.json`). Import from `@/components/...` and `@/utils/...`.
+### Contact form
 
-### Contact form (EmailJS)
-
-`src/components/Contact.tsx` sends mail **entirely from the client** using `@emailjs/browser`. Because the site is a static export, there is no server to proxy through. Configuration is read from three `NEXT_PUBLIC_EMAILJS_*` env vars in `src/utils/security.ts` (`getEmailJSConfig`); these are baked into the bundle at build time. Copy `.env.local.example` → `.env.local` for local dev; production values come from GitHub Actions secrets injected in `deploy.yml`.
-
-`src/utils/security.ts` centralizes the client-side hardening for the form and must be used before any `emailjs.send` call:
-- `validateDomain()` — allowlist of `michaelajao.github.io`, `localhost:3000`, `127.0.0.1:3000`. Submissions from other hosts are rejected.
-- `checkRateLimit()` / `recordSubmission()` — 3 submissions per 10 minutes, tracked in `localStorage`.
-- `sanitizeInput()` strips `<script>` tags and `<>` characters and caps length at 5000.
-- `isValidEmail()` is a lightweight regex check (not RFC-complete).
-
-Treat these as best-effort client-side defenses; real abuse protection lives in the EmailJS dashboard (template limits, reCAPTCHA).
+`src/components/ContactForm.tsx` posts with `@formspree/react` using `NEXT_PUBLIC_FORMSPREE_FORM_ID`, baked in at build time (`.env.local` locally, GitHub Actions secret in production). `src/utils/security.ts` provides `cleanInput` and `isValidEmail`.
 
 ### Deployment
 
-`.github/workflows/deploy.yml` runs on push/PR to `main` or `master`: `npm ci` → `npm run build` (with EmailJS secrets) → upload `./dist` → `actions/deploy-pages`. The repository's default branch is **`master`**, not `main` — open PRs against `master`.
+`.github/workflows/deploy.yml`: pull requests lint and build only; pushes to `master` also deploy to Pages. The default branch is **`master`**. `public/sitemap.xml` and `robots.txt` are hand-maintained.
+
+## Content rules
+
+- No email address or phone number on the site or in the public CV. `public/Michael_Ajao-olarinoye_cv.pdf` is the private copy; it is git-ignored and must never be committed. The public CV is `public/michael_cv.pdf`.
+- Don't mention unreleased products. No company registration number, founding date or address.
+- The Royal Academy of Engineering endorsement appears only in the Global Talent band.
+- Unpublished work (`review`, `submitted`, `progress`) has no links and no figures. Work in `progress` is the title only. Don't name the journal for submitted work; show only its current status.
+- Use "forecasting" only inside real titles.
+- Figures must be the real ones from the paper. Check against the paper's PDF, not a repo's figure folder, and don't use generic generated images.

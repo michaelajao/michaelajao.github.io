@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build and deploy to GitHub Pages
 
 on:
   push:
@@ -7,40 +7,54 @@ on:
     branches: [ main, master ]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: read
-      pages: write
-      id-token: write
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
-          
+
       - name: Install dependencies
         run: npm ci
-        
+
+      - name: Lint
+        run: npm run lint
+
       - name: Build project
         env:
           NEXT_PUBLIC_FORMSPREE_FORM_ID: ${{ secrets.NEXT_PUBLIC_FORMSPREE_FORM_ID }}
         run: npm run build
-        
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        
+
       - name: Upload artifact
+        if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
-          
+
+  deploy:
+    # Pull requests only build. Deployment happens on push to main or master.
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

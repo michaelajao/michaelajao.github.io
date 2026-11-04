@@ -43,3 +43,11 @@ next-env.d.ts
 Thumbs.db
 
 CLAUDE.md
+# local browser-test artefacts
+.playwright-mcp/
+
+# Private CV with phone and email: never publish
+public/Michael_Ajao-olarinoye_cv.pdf
+
+# local agent settings
+/.claude/settings.local.json
