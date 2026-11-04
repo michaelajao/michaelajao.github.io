@@ -17,18 +17,18 @@ This is the **one-page academic site**, a Next.js 15 App Router static export de
 
 ### Page and content
 
-`src/app/page.tsx` is the only page, plus `not-found.tsx`. Sections: top, Global Talent band, About, Research, Publications, Talks and awards, Teaching, CV, Contact.
+`src/app/page.tsx` is the only page, plus `not-found.tsx`. Sections: top, Global Talent band, About and News, Research, Publications, Talks and awards, Teaching, CV, Contact.
 
 Copy lives in `src/content/`:
 
 - `publications.ts`: every output, in one list. Adding a paper is one entry here.
-- `research.ts`: research themes with their figures, and talks.
+- `research.ts`: research themes with their figures, news and talks.
 - `profile.tsx`: About, positions, education, memberships, teaching.
 - `site.ts`: URLs, profile links, section menu, form intents.
 
 ### Each section has its own job
 
-Show each paper, figure and fact once. Research explains the themes and links to Publications; it does not list papers. A figure is set either on a theme or on a publication, never both. A talk given on a listed paper goes in that paper's `note`, not in Talks. Link between sections rather than restating them.
+Show each paper and figure once. News is a short dated list of recent highlights, so it may mention things recorded in full elsewhere. Research explains the themes and links to Publications; it does not list papers. A figure is set either on a theme or on a publication, never both. A talk given on a listed paper goes in that paper's `note`, not in Talks. Link between sections rather than restating them.
 
 ### Components
 
@@ -50,7 +50,7 @@ Plain CSS with design tokens, no Tailwind: `src/app/globals.css` (tokens, themes
 
 - No email address or phone number on the site or in the public CV. `public/Michael_Ajao-olarinoye_cv.pdf` is the private copy; it is git-ignored and must never be committed. The public CV is `public/michael_cv.pdf`.
 - Don't mention unreleased products. No company registration number, founding date or address.
-- The Royal Academy of Engineering endorsement appears only in the Global Talent band.
+- The Royal Academy of Engineering endorsement appears only in the Global Talent band and News.
 - Unpublished work (`review`, `submitted`, `progress`) has no links and no figures. Work in `progress` is the title only. Don't name the journal for submitted work; show only its current status.
 - Use "forecasting" only inside real titles.
-- Figures must be the real ones from the paper. Check against the paper's PDF, not a repo's figure folder, and don't use generic generated images.
+- Figures must be the real ones from the paper. Check against the paper's PDF, not a repo's figure folder, and use an illustration only where Michael has chosen it, labelled "Illustration".

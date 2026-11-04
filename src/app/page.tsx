@@ -5,7 +5,7 @@ import PublicationList from '@/components/PublicationList'
 import { ProfileLinks, Roles, SecHead, TalksFeed } from '@/components/Parts'
 import { ABOUT_PARAGRAPHS, EDUCATION, MEMBERSHIPS, ROLES, TEACHING } from '@/content/profile'
 import { PUBLICATIONS } from '@/content/publications'
-import { AREAS } from '@/content/research'
+import { AREAS, NEWS } from '@/content/research'
 
 
 export default function Home() {
@@ -44,13 +44,26 @@ export default function Home() {
       </aside>
 
       <section id="about" aria-labelledby="h-about">
-        <div className="wrap ac-narrow">
-          <h2 id="h-about">About</h2>
-          {ABOUT_PARAGRAPHS.map((p) => (
-            <p className="ac-prose" key={p}>
-              {p}
-            </p>
-          ))}
+        <div className="wrap ac-about">
+          <div>
+            <h2 id="h-about">About</h2>
+            {ABOUT_PARAGRAPHS.map((p) => (
+              <p className="ac-prose" key={p}>
+                {p}
+              </p>
+            ))}
+          </div>
+          <div className="ac-news">
+            <h2 id="h-news">News</h2>
+            <ol aria-labelledby="h-news">
+              {NEWS.map((n) => (
+                <li key={n.text}>
+                  <span className="mono muted">{n.date}</span>
+                  <p>{n.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
 

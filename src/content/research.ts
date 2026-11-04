@@ -30,7 +30,10 @@ export const AREAS: { id: AreaId; title: string; short: string; desc: string; wi
     short: 'Applied and generative AI',
     desc: 'Language-model agents and retrieval systems, and machine learning for student engagement and digital health.',
     with: 'Coventry University and research co-authors.',
-    figures: [{ src: '/images/research/hope-move-architecture.webp', width: 1692, height: 929, source: 'HOPE-MOVE', alt: 'System diagram: the Hope Move platform feeds a facilitator dashboard, which calls a risk engine and a drafting engine. A facilitator reviews, edits and sends each reply.', caption: 'Risk and drafting engines behind a facilitator dashboard. A person reviews and sends every reply.' }],
+    figures: [
+      { src: '/images/research/hope-move-architecture.webp', width: 1692, height: 929, source: 'HOPE-MOVE', alt: 'System diagram: the Hope Move platform feeds a facilitator dashboard, which calls a risk engine and a drafting engine. A facilitator reviews, edits and sends each reply.', caption: 'Risk and drafting engines behind a facilitator dashboard. A person reviews and sends every reply.' },
+      { src: '/images/research/illustration-digital-health.webp', width: 1300, height: 867, source: 'HOPE-MOVE · Illustration', alt: 'Illustration of a person with a knee brace working at a laptop at home.', caption: 'Digital support for people managing long-term conditions at home.' },
+    ],
   },
   {
     id: 'hs',
@@ -43,6 +46,15 @@ export const AREAS: { id: AreaId; title: string; short: string; desc: string; wi
       { src: '/images/research/msagat-architecture.webp', width: 1500, height: 946, source: 'MSAGAT-Net, Fig. 1', alt: 'Flow diagram of MSAGAT-Net: input and adjacency matrices pass through feature extraction, EAGAM, DMTFM with four dilation rates and PPRM to the output, with a skip connection from input to PPRM.', caption: 'Input and adjacency pass through feature extraction, EAGAM, DMTFM and PPRM, with a skip connection from input to PPRM.' },
     ],
   },
+]
+
+export const NEWS: { date: string; text: string }[] = [
+  { date: '20 Oct 2026', text: 'Invited talk at the launch of the Centre for Doctoral Training in Artificial Intelligence, Coventry University: “From Student to Success: An AI Alumni Journey”.' },
+  { date: 'Sep 2026', text: 'Endorsed by the Royal Academy of Engineering under UK Global Talent, Exceptional Promise.' },
+  { date: 'Sep 2026', text: 'Started as Research Fellow on EVOLVE AI at Coventry University.' },
+  { date: 'Sep 2026', text: 'New paper in Physics of Fluids on wall shear stress in coronary arteries and grafts.' },
+  { date: '10 Sep 2026', text: 'Presented first-author work on NHS critical-care surge allocation at UKCI 2026, Coventry.' },
+  { date: 'Jul 2026', text: 'Two new arXiv preprints, on language-model agents for home energy and on retrieval for document question answering.' },
 ]
 
 export type Talk = { date: string; head: string; sub: string; tag: string; className: string }

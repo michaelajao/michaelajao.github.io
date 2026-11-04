@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 export type Entry = { title: string; small?: ReactNode; when: string }
 
 export const ABOUT_PARAGRAPHS = [
+  'I am a Research Fellow at Coventry University and a Lecturer in Computing with QAHE. My work covers applied machine learning, generative AI and scientific modelling.',
   'I lead AI research on EVOLVE AI, which models student engagement and academic risk to support early intervention. Before that I led machine learning and generative AI research on HOPE-MOVE, an Innovate UK digital health project, building participant dropout prediction and language models for facilitator support.',
   'I also collaborate on physics-informed neural networks for cardiovascular blood flow, work that began during my PhD in Computational Science and Mathematical Modelling at Coventry.',
 ]

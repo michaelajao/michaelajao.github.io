@@ -63,6 +63,16 @@ section[id]{scroll-margin-top:60px}
 main a:not(.btn):not(.ulk){text-decoration-color:var(--accent);text-decoration-thickness:1px}
 .ulk{color:var(--accent-text)}
 
+/* about and news */
+.ac-about{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6vw,88px)}
+.ac-news h2{font-size:clamp(1.5rem,1.25rem + .9vw,2rem)!important}
+#about .ac-news h2{margin-bottom:6px}
+.ac-news ol{margin:0;padding:0;list-style:none}
+.ac-news li{padding:14px 0;border-bottom:1px solid var(--line)}
+.ac-news li .mono{display:block;font-size:.75rem;color:var(--accent-text)}
+.ac-news li p{margin:4px 0 0;font-size:.9688rem;line-height:1.45}
+@media (max-width:900px){.ac-about{grid-template-columns:1fr}}
+
 /* research themes */
 .ac-theme{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,56px);align-items:start;padding-block:clamp(24px,3.4vw,40px);border-top:1px solid var(--line)}
 .ac-theme h3{margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(1.375rem,1.15rem + .8vw,1.875rem);line-height:1.15;letter-spacing:-.012em;text-wrap:balance}
