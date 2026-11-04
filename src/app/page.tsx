@@ -1,121 +1,169 @@
-import Link from 'next/link'
-import Hero from '@/components/Hero'
-import { ABOUT_TEXT } from '@/content/profile'
-import ResearchMap from '@/components/ResearchMap'
+import Image from 'next/image'
+import ContactForm from '@/components/ContactForm'
 import Portrait from '@/components/Portrait'
-import TutoringTeaser from '@/components/Tutoring'
-import { Arr } from '@/components/Brand'
-import { PaperLedger, ProfileList, SecHead, ServiceRows } from '@/components/Parts'
+import PublicationList from '@/components/PublicationList'
+import { ProfileLinks, Roles, SecHead, TalksFeed } from '@/components/Parts'
+import { ABOUT_PARAGRAPHS, EDUCATION, MEMBERSHIPS, ROLES, TEACHING } from '@/content/profile'
+import { PUBLICATIONS } from '@/content/publications'
+import { AREAS } from '@/content/research'
+
 
 export default function Home() {
   return (
     <>
-      <Hero />
+      <section className="ac-top" id="top" aria-labelledby="ac-name">
+        <div className="wrap ac-top-grid">
+          <div className="ac-id">
+            <p className="mono muted">Applied machine learning · Generative AI · Scientific modelling</p>
+            <h1 id="ac-name">Michael Ajao-Olarinoye</h1>
+            <p className="ac-post">
+              <strong>Research Fellow</strong>, Coventry University
+              <br />
+              <strong>Lecturer in Computing</strong>, QAHE
+            </p>
+            <p className="ac-quals mono muted">PhD · AFHEA</p>
+            <ProfileLinks />
+            <p className="ac-cta">
+              <a className="btn btn-fill" href="/michael_cv.pdf">
+                Download CV
+              </a>
+              <a className="btn btn-line" href="#publications">
+                Publications
+              </a>
+            </p>
+          </div>
+          <Portrait />
+        </div>
+      </section>
+
+      <aside className="ac-gt" aria-label="Recognition">
+        <div className="wrap">
+          <p className="mono">UK Global Talent · Exceptional Promise</p>
+          <p className="ac-gt-text">Endorsed by the Royal Academy of Engineering, September 2026.</p>
+        </div>
+      </aside>
+
+      <section id="about" aria-labelledby="h-about">
+        <div className="wrap ac-narrow">
+          <h2 id="h-about">About</h2>
+          {ABOUT_PARAGRAPHS.map((p) => (
+            <p className="ac-prose" key={p}>
+              {p}
+            </p>
+          ))}
+        </div>
+      </section>
 
       <section id="research" aria-labelledby="h-research">
         <div className="wrap">
-          <SecHead
-            id="h-research"
-            title="Four areas, and the work behind each"
-            desc="Each area has a short description, then the papers, preprints and projects behind it with their status. Hover or focus an area to see its work."
-          />
-          <ResearchMap />
-          <div className="sec-foot">
-            <Link className="tl" href="/research/">
-              <span>All research areas</span>
-              <Arr />
-            </Link>
-          </div>
+          <SecHead id="h-research" title="Research" />
+          {AREAS.map((a) => (
+            <div className="ac-theme" key={a.id}>
+              <div>
+                <h3>{a.title}</h3>
+                <p>{a.desc}</p>
+                <p className="ac-theme-with">{a.with}</p>
+                <a className="ulk" href="#publications" data-topic={a.id}>
+                  See the papers ({PUBLICATIONS.filter((p) => p.areas.includes(a.id)).length})
+                </a>
+              </div>
+              <div className="ac-theme-figs">
+                {a.figures.map((f) => (
+                  <figure className="ac-fig" key={f.src} data-reveal>
+                    <a href={f.src} aria-label={`Open full size: ${f.caption}`}>
+                      <Image src={f.src} alt={f.alt} width={f.width} height={f.height} sizes="(max-width: 720px) 100vw, 640px" loading="lazy" />
+                    </a>
+                    <figcaption>
+                      <span className="mono">{f.source}</span>
+                      {f.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
       <section id="publications" aria-labelledby="h-pubs">
-        <div className="wrap">
-          <SecHead id="h-pubs" title="Latest papers" desc="Published and accepted work, newest first. Each entry shows where it appeared and what my part was." />
-          <PaperLedger limit={3} />
-          <div className="sec-foot">
-            <Link className="tl" href="/research/papers/">
-              <span>All papers, preprints and work in progress</span>
-              <Arr />
-            </Link>
-            <Link className="tl" href="/research/talks/">
-              <span>Talks, prizes and service</span>
-              <Arr />
-            </Link>
-          </div>
+        <div className="wrap ac-narrow">
+          <SecHead id="h-pubs" title="Publications" desc="Newest first, grouped by status. Filter by topic or status, and copy a citation from any entry." />
+          <PublicationList />
         </div>
       </section>
 
-      <section id="services" className="band" aria-labelledby="h-work">
+      <section id="talks" className="talks-sec" aria-labelledby="h-talks">
+        <div className="wrap">
+          <SecHead id="h-talks" title="Talks and awards" />
+          <TalksFeed />
+        </div>
+      </section>
+
+      <section id="teaching" aria-labelledby="h-teaching">
+        <div className="wrap ac-narrow">
+          <SecHead id="h-teaching" title="Teaching" />
+          <Roles items={TEACHING} />
+        </div>
+      </section>
+
+      <section id="cv" aria-labelledby="h-cv">
         <div className="wrap">
           <SecHead
-            id="h-work"
-            title="Work with me"
+            id="h-cv"
+            title="CV"
             desc={
-              <>
-                <strong>miolajtech is the practice of Dr Michael Ajao-Olarinoye.</strong> Independent work, delivered by me and scoped with you first.
-              </>
+              <a className="ulk" href="/michael_cv.pdf">
+                Download the full CV (PDF)
+              </a>
             }
           />
-          <ServiceRows />
-          <div className="cta-line">
-            <Link className="btn btn-fill" href="/contact/?intent=project">
-              Request a quote <Arr />
-            </Link>
-            <Link className="tl" href="/services/">
-              <span>All services and how we work</span>
-              <Arr />
-            </Link>
+          <div className="ac-cv">
+            <div>
+              <h3>Research and industry positions</h3>
+              <Roles items={ROLES} />
+            </div>
+            <div>
+              <h3>Education</h3>
+              <Roles items={EDUCATION} />
+              <h3>Memberships and service</h3>
+              <Roles items={MEMBERSHIPS} />
+            </div>
           </div>
-          <p className="svc-clinic">
-            Not sure where to start? <Link href="/contact/?intent=clinic">Book a clinic</Link>
-          </p>
         </div>
       </section>
 
-      <TutoringTeaser />
-
-      <section id="about" aria-labelledby="h-about">
-        <div className="wrap">
-          <div className="about-grid">
-            <Portrait />
-            <div className="p-body">
-              <h2 id="h-about">Research, engineering and teaching in one practice.</h2>
-              <p className="big">
-                {ABOUT_TEXT}
+      <section id="contact" className="contact" aria-labelledby="h-contact">
+        <div className="wrap c-grid">
+          <div className="c-intro">
+            <h2 id="h-contact">Contact</h2>
+            <p className="ac-prose">For research collaboration, speaking and peer review, send me a message here.</p>
+            <details className="ac-privacy" id="privacy">
+              <summary>Privacy notice</summary>
+              <p>
+                This site is run by Dr Michael Ajao-Olarinoye, Coventry, UK. If you use this form I receive your name, email address, the type of enquiry and your message, and I use them only to reply. This is based on your consent, given by ticking the box, which you can withdraw at any time.
               </p>
-              <div className="dl-row">
-                <Link className="btn btn-fill" href="/about/">
-                  More about me <Arr />
-                </Link>
-                <a className="btn btn-line" href="/michael_cv.pdf">
-                  Download CV
+              <p>
+                The form is processed by{' '}
+                <a href="https://formspree.io/legal/privacy-policy/" rel="noopener">
+                  Formspree
                 </a>
-              </div>
-            </div>
+                , based in the United States, so your information may be transferred outside the UK. The site is hosted on{' '}
+                <a href="https://pages.github.com/" rel="noopener">
+                  GitHub Pages
+                </a>
+                , which may log technical information such as your IP address.
+              </p>
+              <p>There are no analytics, advertising or tracking cookies. If you choose a colour theme, that one choice is saved in your browser. Fonts are served from this site.</p>
+              <p>
+                I keep messages for as long as I need to reply, and normally for up to 12 months afterwards, then delete them. You can ask me to show, correct or delete what I hold about you using this form. You can complain to the{' '}
+                <a href="https://ico.org.uk/" rel="noopener">
+                  Information Commissioner’s Office
+                </a>
+                .
+              </p>
+            </details>
           </div>
-        </div>
-      </section>
-
-      <section id="contact" className="contact c-cta" aria-labelledby="h-contact">
-        <div className="wrap">
-          <div className="c-grid">
-            <div className="c-intro">
-              <h2 id="h-contact">Tell me what you’re trying to do.</h2>
-              <p className="lead">Say what the problem is, who it is for and roughly when you need it. I’ll reply personally.</p>
-              <div className="cta-btns">
-                <Link className="btn btn-fill" href="/contact/">
-                  Get in touch <Arr />
-                </Link>
-                <Link className="btn btn-line" href="/contact/?intent=clinic">
-                  Book a clinic
-                </Link>
-              </div>
-            </div>
-            <div className="c-links">
-              <ProfileList />
-            </div>
-          </div>
+          <ContactForm />
         </div>
       </section>
     </>

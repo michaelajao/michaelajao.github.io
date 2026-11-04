@@ -4,31 +4,53 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- `npm run dev` — start the Next.js dev server (Turbopack) at http://localhost:3000
-- `npm run build` — produce a static export into `dist/` (see architecture note below)
-- `npm run lint` — run `next lint` (ESLint flat config extending `next/core-web-vitals` + `next/typescript`)
-- `npm start` — serve the built app (rarely used; deployment uses the static export)
+- `npm run dev`: start the Next.js dev server (Turbopack) at http://localhost:3000
+- `npm run build`: produce a static export into `dist/`. Fails if `NEXT_PUBLIC_FORMSPREE_FORM_ID` is unset; for a local check use `NEXT_PUBLIC_FORMSPREE_FORM_ID=localpreview npm run build`
+- `npm run lint`: ESLint (`next/core-web-vitals` and `next/typescript`)
+- `npx tsc --noEmit`: type-check
 
-There is no test runner configured in this project.
+There is no test runner. `npm start` does not work with a static export; serve `dist/` to preview a build.
 
 ## Architecture
 
-This is a **multi-page Next.js 15 App Router site, statically exported** and deployed to GitHub Pages at the custom domain `https://miolajtech.co.uk` (`public/CNAME`). `next.config.ts` sets `output: 'export'`, `distDir: 'dist'`, `trailingSlash: true` and `images.unoptimized`, so no server features (API routes, middleware, image optimisation) are available. Keep internal links with trailing slashes.
+This is the **one-page academic site**, a Next.js 15 App Router static export deployed to GitHub Pages at `https://michaelajao.github.io`. `next.config.ts` sets `output: 'export'`, `distDir: 'dist'`, `trailingSlash: true` and `images.unoptimized`, so there are no server features. The company site (miolajtech.co.uk) is a separate project; this site links to it once, in the footer.
 
-### Pages
-`src/app/`: `/` (home), `/research/`, `/research/papers/`, `/research/talks/`, `/services/`, `/services/tutoring/`, `/about/`, `/contact/`, `/privacy/`, `/terms/`, plus `not-found.tsx`. Each page exports metadata via `pageMeta()` in `src/lib/meta.ts` (canonical, Open Graph, Twitter). `layout.tsx` holds site metadata, the Person and ProfessionalService JSON-LD, fonts (Instrument Sans, Newsreader, Geist Mono via `next/font/google`, exposed as `--f-sans/--f-serif/--f-mono`), the SVG sprite, `Header` and `Footer`. `src/app/icon.svg` is the favicon; `public/og.png` is the social image; `public/sitemap.xml` and `robots.txt` are hand-maintained (update when adding pages).
+### Page and content
 
-### Content and components
-Copy lives in `src/content/` (`research.tsx`, `services.ts`, `profile.tsx`, `site.ts`); pages and `src/components/Parts.tsx` render it. Client components are limited to interactive pieces: `Header` (menu, dropdown, theme), `Hero` (brand field and marquee), `ResearchMap`, `Portrait`, `ContactForm`. Logo SVG markup is in `src/components/brand-data.ts`.
+`src/app/page.tsx` is the only page, plus `not-found.tsx`. Sections: top, Global Talent band, About, Research, Publications, Talks and awards, Teaching, CV, Contact.
+
+Copy lives in `src/content/`:
+
+- `publications.ts`: every output, in one list. Adding a paper is one entry here.
+- `research.ts`: research themes with their figures, and talks.
+- `profile.tsx`: About, positions, education, memberships, teaching.
+- `site.ts`: URLs, profile links, section menu, form intents.
+
+### Each section has its own job
+
+Show each paper, figure and fact once. Research explains the themes and links to Publications; it does not list papers. A figure is set either on a theme or on a publication, never both. A talk given on a listed paper goes in that paper's `note`, not in Talks. Link between sections rather than restating them.
+
+### Components
+
+Client components are limited to interactive pieces: `SectionNav` (scrollspy, theme toggle, reveal), `PublicationList` (filters, citation copy, and the `a[data-topic]` links from Research), `Portrait`, `ContactForm`.
 
 ### Styling
-Plain CSS with design tokens, no Tailwind: `src/app/globals.css` (tokens, light and dark themes, components from the approved design) and `src/app/pages.css` (inner-page additions). Theme is set via `data-theme` on `<html>` (saved in localStorage, applied by an inline script before paint). Motion respects `prefers-reduced-motion`.
 
-### Contact form (Formspree)
-`src/components/ContactForm.tsx` posts with `@formspree/react` using `NEXT_PUBLIC_FORMSPREE_FORM_ID` (baked in at build time; copy `.env.local.example` to `.env.local` locally, and set the GitHub Actions secret for production). `src/utils/security.ts` provides `sanitizeInput` and `isValidEmail`; spam protection is Formspree's (honeypot `_gotcha`, allowed domains in the Formspree dashboard). No email address or phone number is published.
+Plain CSS with design tokens, no Tailwind: `src/app/globals.css` (tokens, themes, shared components) and `src/app/academic.css` (this site). Theme is set via `data-theme` on `<html>`, saved in localStorage and applied by an inline script before paint. Motion respects `prefers-reduced-motion`.
 
-### Content rules
-No prices, no registration number or founding date, RAEng endorsement only on the home hero and About, forecasting only inside real paper titles.
+### Contact form
+
+`src/components/ContactForm.tsx` posts with `@formspree/react` using `NEXT_PUBLIC_FORMSPREE_FORM_ID`, baked in at build time (`.env.local` locally, GitHub Actions secret in production). `src/utils/security.ts` provides `cleanInput` and `isValidEmail`.
 
 ### Deployment
-`.github/workflows/deploy.yml`: pull requests lint and build only; pushes to `master` or `main` also upload `./dist` and deploy to Pages. The default branch is **`master`**.
+
+`.github/workflows/deploy.yml`: pull requests lint and build only; pushes to `master` also deploy to Pages. The default branch is **`master`**. `public/sitemap.xml` and `robots.txt` are hand-maintained.
+
+## Content rules
+
+- No email address or phone number on the site or in the public CV. `public/Michael_Ajao-olarinoye_cv.pdf` is the private copy; it is git-ignored and must never be committed. The public CV is `public/michael_cv.pdf`.
+- Don't mention unreleased products. No company registration number, founding date or address.
+- The Royal Academy of Engineering endorsement appears only in the Global Talent band.
+- Unpublished work (`review`, `submitted`, `progress`) has no links and no figures. Work in `progress` is the title only. Don't name the journal for submitted work; show only its current status.
+- Use "forecasting" only inside real titles.
+- Figures must be the real ones from the paper. Check against the paper's PDF, not a repo's figure folder, and don't use generic generated images.

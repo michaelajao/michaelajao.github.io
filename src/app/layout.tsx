@@ -1,38 +1,35 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist_Mono, Instrument_Sans, Newsreader } from 'next/font/google'
 import './globals.css'
-import './pages.css'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+import './academic.css'
 import { Sprite } from '@/components/Brand'
-import { PROFILES, SITE_NAME, SITE_URL } from '@/content/site'
-import { DEFAULT_DESCRIPTION } from '@/lib/meta'
+import SectionNav from '@/components/SectionNav'
+import { COMPANY_URL, OWNER, PROFILES, SITE_URL } from '@/content/site'
+import { PUBLICATIONS } from '@/content/publications'
 
 const sans = Instrument_Sans({ subsets: ['latin'], axes: ['wdth'], variable: '--f-sans', display: 'swap' })
 const serif = Newsreader({ subsets: ['latin'], style: ['normal', 'italic'], axes: ['opsz'], variable: '--f-serif', display: 'swap' })
 const mono = Geist_Mono({ subsets: ['latin'], variable: '--f-mono', display: 'swap' })
 
-const TITLE = 'Michael Ajao-Olarinoye | Research Fellow and miolajtech'
+const TITLE = 'Michael Ajao-Olarinoye | Research Fellow, Coventry University'
+const DESCRIPTION = 'Dr Michael Ajao-Olarinoye is a Research Fellow at Coventry University working on applied machine learning, generative AI and scientific modelling, including physics-informed neural networks for blood flow. Publications, talks, teaching and CV.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: TITLE, template: '%s | Michael Ajao-Olarinoye' },
-  description: DEFAULT_DESCRIPTION,
-  applicationName: SITE_NAME,
-  authors: [{ name: 'Michael Ajao-Olarinoye', url: SITE_URL }],
-  creator: 'Michael Ajao-Olarinoye',
-  alternates: { canonical: '/' },
+  title: TITLE,
+  description: DESCRIPTION,
+  authors: [{ name: OWNER, url: SITE_URL }],
+  creator: OWNER,
   openGraph: {
     title: TITLE,
-    description: DEFAULT_DESCRIPTION,
+    description: DESCRIPTION,
     url: '/',
-    siteName: SITE_NAME,
-    type: 'website',
+    siteName: OWNER,
+    type: 'profile',
     locale: 'en_GB',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'miolajtech, the practice of Dr Michael Ajao-Olarinoye' }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: `${OWNER}, Research Fellow at Coventry University` }],
   },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DEFAULT_DESCRIPTION, images: ['/og.png'] },
-  robots: { index: true, follow: true },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/og.png'] },
 }
 
 export const viewport: Viewport = {
@@ -50,30 +47,30 @@ const jsonLd = {
     {
       '@type': 'Person',
       '@id': `${SITE_URL}/#person`,
-      name: 'Michael Ajao-Olarinoye',
+      name: OWNER,
       honorificPrefix: 'Dr',
       jobTitle: 'Research Fellow',
-      affiliation: {
-        '@type': 'CollegeOrUniversity',
-        name: 'Coventry University',
-        url: 'https://www.coventry.ac.uk/',
-      },
+      identifier: { '@type': 'PropertyValue', propertyID: 'ORCID', value: '0000-0003-2763-8293' },
+      affiliation: [
+        { '@type': 'CollegeOrUniversity', name: 'Coventry University', url: 'https://www.coventry.ac.uk/' },
+        { '@type': 'Organization', name: 'QAHE' },
+      ],
+      alumniOf: [
+        { '@type': 'CollegeOrUniversity', name: 'Coventry University' },
+        { '@type': 'CollegeOrUniversity', name: 'Kwara State University' },
+      ],
       url: `${SITE_URL}/`,
       image: `${SITE_URL}/images/portrait-4x5.jpg`,
-      sameAs: [PROFILES.orcid, PROFILES.scholar, PROFILES.github, PROFILES.linkedin, PROFILES.youtube],
-      knowsAbout: ['Physics-informed neural networks', 'Scientific machine learning', 'Generative AI', 'AI agents', 'Data science'],
+      sameAs: [PROFILES.orcid, PROFILES.scholar, PROFILES.pure, PROFILES.github, PROFILES.linkedin, COMPANY_URL],
+      knowsAbout: ['Applied machine learning', 'Generative AI', 'Physics-informed neural networks', 'Scientific machine learning', 'Digital health', 'Student engagement modelling'],
     },
-    {
-      '@type': 'ProfessionalService',
-      '@id': `${SITE_URL}/#practice`,
-      name: 'miolajtech',
-      description: 'miolajtech is the practice of Dr Michael Ajao-Olarinoye: automated business systems, AI agents, data science, training, research partnering and tutoring.',
-      url: `${SITE_URL}/`,
-      image: `${SITE_URL}/og.png`,
-      founder: { '@id': `${SITE_URL}/#person` },
-      areaServed: ['United Kingdom', 'Nigeria'],
-      sameAs: [PROFILES.youtube],
-    },
+    ...PUBLICATIONS.filter((p) => p.status === 'published').map((p) => ({
+      '@type': 'ScholarlyArticle',
+      name: p.title,
+      datePublished: p.date,
+      url: p.links?.[0]?.href,
+      author: { '@id': `${SITE_URL}/#person` },
+    })),
   ],
 }
 
@@ -92,9 +89,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip" href="#main">
           Skip to content
         </a>
-        <Header />
+        <SectionNav />
         <main id="main">{children}</main>
-        <Footer />
+        <footer className="ac-foot">
+          <div className="wrap">
+            <p>
+              I also run{' '}
+              <a href={COMPANY_URL} rel="noopener">
+                miolajtech
+              </a>
+              , a practice for AI systems, training and tutoring.
+            </p>
+            <p className="muted">
+              © {OWNER}. <a href="#privacy">Privacy notice</a>.
+            </p>
+          </div>
+        </footer>
       </body>
     </html>
   )

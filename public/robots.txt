@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://miolajtech.co.uk/sitemap.xml
+Sitemap: https://michaelajao.github.io/sitemap.xml

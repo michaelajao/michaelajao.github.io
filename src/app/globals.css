@@ -343,38 +343,6 @@ section{border-top:1px solid var(--line)}
 .ulk:hover .arr{transform:translateX(3px)}
 
 /* ===== research map ===== */
-.rmap{position:relative}
-.rmap-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
-.edge{fill:none;stroke:var(--ctl);stroke-width:1.25;transition:stroke .25s,opacity .25s,stroke-width .25s}
-.edge.x{opacity:.65}
-.armed .edge{stroke-dasharray:1;stroke-dashoffset:1}
-.armed.in .edge{stroke-dashoffset:0;transition:stroke-dashoffset 1.1s var(--ease) calc(var(--k) * 70ms),stroke .25s,opacity .25s,stroke-width .25s}
-.edge.on{stroke:var(--accent);stroke-width:2.25;opacity:1}
-.has-active .edge:not(.on){opacity:.14}
-.rgroup{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;row-gap:24px;padding-block:36px 40px;border-top:1px solid var(--line)}
-.rgroup:last-child{border-bottom:1px solid var(--line)}
-.rm-theme{grid-column:1 / span 5;position:relative;transition:opacity .25s}
-.rm-theme h3{font-weight:500;font-size:clamp(1.5rem,1.1rem + 1.4vw,2.125rem);line-height:1.1;letter-spacing:-.028em;margin:10px 0 0;text-wrap:balance}
-.rm-theme.minor h3{font-size:clamp(1.35rem,1rem + 1.1vw,1.75rem)}
-.t-btn{appearance:none;background:none;border:0;padding:0;margin:0;font:inherit;letter-spacing:inherit;text-align:left;color:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.2em;text-decoration-thickness:1px;transition:text-decoration-color .2s}
-.t-btn:hover,.t-btn[aria-pressed="true"]{text-decoration-color:var(--accent)}
-.rm-theme .d{margin:16px 0 0;font-family:var(--serif);font-size:1.1875rem;line-height:1.5;color:var(--ink-2);max-width:30em}
-.a-with{margin:14px 0 0;font-size:.875rem;color:var(--ink-3)}
-.port{position:absolute;right:-6px;top:1.05rem;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);transition:background .2s}
-.rm-theme.on .port{background:var(--accent)}
-.rm-items{grid-column:8 / span 5;display:grid;align-content:start;margin:0;padding:0;list-style:none}
-.rm-items li{position:relative;display:grid;grid-template-columns:auto 1fr;column-gap:12px;row-gap:2px;align-items:start;padding:14px 0;border-top:1px solid var(--line);font-size:.9375rem;line-height:1.4;transition:opacity .25s}
-.rm-items li:first-child{border-top:0;padding-top:0}
-.node{position:absolute;left:-19px;top:calc(1rem + 2px);width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);transition:background .2s}
-.rm-items li:first-child .node{top:2px}
-.rm-items li.on .node{background:var(--accent)}
-.rm-items .tag{margin-top:2px;min-width:5.8rem;text-align:center}
-.rm-items a{display:inline-block;min-height:24px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--ctl);font-weight:500}
-.rm-items a:hover{text-decoration-color:var(--ink)}
-.rm-items small{display:block;color:var(--ink-3);font-size:.8125rem;margin-top:2px}
-.rm-items .also{display:block;font-family:var(--mono);font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);margin-top:4px}
-.rm-items .also::before{content:"also in: ";color:var(--ink-3)}
-.has-active .rm-theme:not(.on),.has-active .rm-items li:not(.on){opacity:.42}
 
 /* ===== papers ledger + preprints ===== */
 .pl{margin:0;padding:0;list-style:none;border-top:1px solid var(--line-strong)}
@@ -490,9 +458,6 @@ section{border-top:1px solid var(--line)}
   .hero-meta{grid-column:1 / -1;grid-row:auto}
   .sec-head h2{grid-column:1 / -1;max-width:18ch}
   .sec-head .desc{grid-column:1 / span 9}
-  .rmap-svg,.port,.node{display:none}
-  .rm-theme,.rm-items{grid-column:1 / -1}
-  .has-active .rm-theme:not(.on),.has-active .rm-items li:not(.on){opacity:1}
   .pl .m{grid-column:1 / -1;grid-template-columns:auto auto 1fr;align-items:center;gap:10px 14px}
   .pl .b{grid-column:1 / -1}
   .pl .lk{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:4px 20px}
@@ -523,7 +488,6 @@ section{border-top:1px solid var(--line)}
   .arch .arcs::before{inset:-14px -14px 0 -14px}
   .arch .arcs::after{inset:-28px -28px 0 -28px}
   .roles > div{grid-template-columns:1fr}
-  .rm-items .tag{min-width:0}
   .pl .m{grid-template-columns:auto 1fr}
   .pl .m .tag{grid-column:1}
   .groups li{grid-template-columns:1fr}

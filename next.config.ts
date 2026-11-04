@@ -1,4 +1,12 @@
+import { loadEnvConfig } from '@next/env';
 import type { NextConfig } from 'next';
+
+loadEnvConfig(process.cwd());
+
+// A production build without the form ID would publish a contact form that cannot send.
+if (process.argv.includes('build') && !process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID) {
+  throw new Error('NEXT_PUBLIC_FORMSPREE_FORM_ID is not set. Add it to .env.local or the GitHub Actions secrets.');
+}
 
 const nextConfig: NextConfig = {
   output: 'export',
@@ -8,8 +16,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '' : '',
 };
 
 export default nextConfig;

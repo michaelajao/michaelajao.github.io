@@ -48,3 +48,6 @@ CLAUDE.md
 
 # Private CV with phone and email: never publish
 public/Michael_Ajao-olarinoye_cv.pdf
+
+# local agent settings
+/.claude/settings.local.json
