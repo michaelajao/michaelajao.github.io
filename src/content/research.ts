@@ -54,7 +54,9 @@ export const NEWS: { date: string; text: string }[] = [
   { date: 'Sep 2026', text: 'Started as Research Fellow on EVOLVE AI at Coventry University.' },
   { date: 'Sep 2026', text: 'New paper in Physics of Fluids on wall shear stress in coronary arteries and grafts.' },
   { date: '10 Sep 2026', text: 'Presented first-author work on NHS critical-care surge allocation at UKCI 2026, Coventry.' },
+  { date: 'Aug 2026', text: 'New SSRN preprint on weather-aware home energy management with language models.' },
   { date: 'Jul 2026', text: 'Two new arXiv preprints, on language-model agents for home energy and on retrieval for document question answering.' },
+  { date: 'Mar 2026', text: 'Paper on double descending thoracic aortic aneurysms accepted by Pramana – Journal of Physics.' },
 ]
 
 export type Talk = { date: string; head: string; sub: string; tag: string; className: string }
