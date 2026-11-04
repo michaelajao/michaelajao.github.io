@@ -209,7 +209,7 @@ export default function Hero() {
           </span>
         </h1>
         <div className="hero-grid">
-          <p className="lead rise d3">Research Fellow in computational science and mathematical modelling.</p>
+          <p className="lead rise d3">Applied AI research for digital health and student engagement.</p>
           <p className="hero-cta rise d4">
             <Link className="btn btn-fill" href="/services/">
               Work with me <Arr />
@@ -220,7 +220,7 @@ export default function Hero() {
           </p>
           <ul className="hero-meta mono rise d4">
             <li>Endorsed by the Royal Academy of Engineering as Exceptional Promise (UK Global Talent)</li>
-            <li>Agents, applied machine learning, scientific ML, GenAI and others</li>
+            <li>Applied machine learning, generative AI and scientific modelling</li>
             <li>Consulting, training and tutoring</li>
             <li>Open to projects in the UK, Nigeria and around the world</li>
           </ul>

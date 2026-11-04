@@ -59,12 +59,13 @@ export const AREAS: MapArea[] = [
   {
     id: 'gen',
     label: 'Area 03',
-    title: 'Generative AI and agents',
-    desc: 'Language-model agents and retrieval systems, compared with real baselines on tasks such as home energy scheduling and document question answering. On HOPE-MOVE, generative AI with ethical AI assurance.',
-    with: 'Innovate UK HOPE-MOVE, Coventry University, and co-authors on the preprints.',
+    title: 'Applied and generative AI',
+    desc: 'Digital health AI through HOPE-MOVE and student engagement modelling through EVOLVE AI. Research also covers language-model agents and retrieval systems for home energy scheduling and document question answering.',
+    with: 'Coventry University (HOPE-MOVE and EVOLVE AI) and research co-authors.',
     items: [
       { themes: ['gen'], tag: 'Preprint', kind: 'sub', title: 'LLMs for agentic home energy management', href: 'https://arxiv.org/abs/2607.04569', small: 'arXiv:2607.04569, 2026, co-author' },
       { themes: ['gen'], tag: 'Preprint', kind: 'sub', title: 'Controlled evaluation of graph and multimodal augmentation in retrieval-augmented generation for document question answering', href: 'https://arxiv.org/abs/2607.16604', small: 'arXiv:2607.16604, 2026, co-author' },
+      { themes: ['gen'], tag: 'In progress', kind: 'wip', title: 'EVOLVE AI', href: '/about/', small: 'Student engagement and academic risk modelling, Coventry University' },
       { themes: ['gen'], tag: 'Funded', kind: 'acc', title: 'HOPE-MOVE', href: 'https://www.coventry.ac.uk/research/research-directories/projects/2026/hope-move-help-overcome-problems-effectively--movement-and-healthy-lifestyle/', small: 'Innovate UK, Coventry University' },
     ],
   },

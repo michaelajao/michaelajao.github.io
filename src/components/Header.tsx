@@ -7,6 +7,7 @@ import { Lockup } from './Brand'
 
 const LINKS = [
   { href: '/services/', label: 'Services' },
+  { href: '/games/', label: 'Games' },
   { href: '/about/', label: 'About' },
 ]
 

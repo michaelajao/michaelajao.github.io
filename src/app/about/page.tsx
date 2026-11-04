@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Portrait from '@/components/Portrait'
 import { Arr } from '@/components/Brand'
 import { PageHead, ProfileLinks, Roles } from '@/components/Parts'
-import { CAREER, EDUCATION, MEMBERSHIPS, ROLES, VOLUNTEERING } from '@/content/profile'
+import { ABOUT_TEXT, CAREER, EDUCATION, MEMBERSHIPS, ROLES, VOLUNTEERING } from '@/content/profile'
 import { pageMeta } from '@/lib/meta'
 
 export const metadata = pageMeta({
@@ -21,11 +21,11 @@ export default function AboutPage() {
             <Portrait />
             <div className="p-body">
               <p className="big">
-                I’m a research fellow at Coventry University and a lecturer in computing. I work on physics-informed neural networks for arterial blood flow, and on generative AI and agents. Through miolajtech I offer AI systems and digital tools to businesses in the UK and Nigeria, and I tutor students, researchers and professionals.
+                {ABOUT_TEXT}
               </p>
               <Roles items={ROLES} />
               <Roles items={EDUCATION} label="Education" />
-              <Roles items={MEMBERSHIPS} label="Memberships and certifications" />
+              <Roles items={MEMBERSHIPS} label="Memberships, certifications and service" />
               <Roles items={VOLUNTEERING} label="Volunteering and leadership" />
               <ProfileLinks />
               <div className="dl-row">

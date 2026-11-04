@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Hero from '@/components/Hero'
+import { ABOUT_TEXT } from '@/content/profile'
 import ResearchMap from '@/components/ResearchMap'
 import Portrait from '@/components/Portrait'
 import TutoringTeaser from '@/components/Tutoring'
@@ -81,7 +82,7 @@ export default function Home() {
             <div className="p-body">
               <h2 id="h-about">Research, engineering and teaching in one practice.</h2>
               <p className="big">
-                I’m a research fellow at Coventry University and a lecturer in computing. I work on physics-informed neural networks for arterial blood flow, and on generative AI and agents. Through miolajtech I offer AI systems and digital tools to businesses in the UK and Nigeria, and I tutor students, researchers and professionals.
+                {ABOUT_TEXT}
               </p>
               <div className="dl-row">
                 <Link className="btn btn-fill" href="/about/">

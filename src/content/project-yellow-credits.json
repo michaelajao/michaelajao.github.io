@@ -1,0 +1,188 @@
+{
+  "generatedFrom": "docs/ASSET_REGISTER.md",
+  "generator": "tools/credits/build_credits.py",
+  "madeBy": [
+    "<b>Developed by MiolajTech</b>",
+    "Creative direction: Michael Ajao-Olarinoye",
+    "miolajtech.co.uk",
+    "",
+    "Technology: Unity 6 (URP) and Blender",
+    "Additional asset creators and licences are listed on the following pages."
+  ],
+  "madeInCode": [
+    "Environment kit",
+    "miolajtech company logo"
+  ],
+  "entries": [
+    {
+      "id": "EXT-001",
+      "title": "Universal Animation Library (Standard), 45 humanoid clips",
+      "creator": "Quaternius",
+      "source": "OpenGameArt / quaternius.com",
+      "url": "https://opengameart.org/content/universal-animation-library",
+      "licence": "CC0 1.0",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-002",
+      "title": "MakeHuman/MPFB2 base meshes, skins, eyebrow001, low-poly eyes, hair/beard proxies",
+      "creator": "MakeHuman team and community",
+      "source": "MPFB2 2.0.17 add-on for Blender (MakeHuman community assets)",
+      "url": "https://static.makehumancommunity.org/mpfb.html",
+      "licence": "CC0 for MPFB output and the bundled system assets",
+      "modified": true,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-003",
+      "title": "OpenStreetMap road geometry",
+      "creator": "OpenStreetMap contributors",
+      "source": "Overpass API download, processed by tools/osm/extract_routes.py",
+      "url": "https://www.openstreetmap.org/copyright",
+      "licence": "ODbL 1.0",
+      "modified": true,
+      "attributionRequired": true
+    },
+    {
+      "id": "EXT-004",
+      "title": "Fonts: Barlow Semi Condensed and Nunito",
+      "creator": "The Barlow Project Authors; The Nunito Project Authors",
+      "source": "Google Fonts repository (github.com/google/fonts)",
+      "url": "https://github.com/google/fonts/tree/main/ofl",
+      "licence": "SIL OFL 1.1",
+      "modified": true,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-005",
+      "title": "CMU Graphics Lab Motion Capture Database, 22 trials",
+      "creator": "CMU Graphics Lab (NSF EIA-0196217)",
+      "source": "mocap.cs.cmu.edu, Motionbuilder-friendly BVH conversion (B. Hahne, cgspeed) mirrored at github.com/una-dinosauria/cmu-mocap",
+      "url": "https://github.com/una-dinosauria/cmu-mocap",
+      "licence": "Free for research and commercial use; do not resell the raw data",
+      "modified": true,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-006",
+      "title": "Poly Haven PBR surface sets, 13",
+      "creator": "Poly Haven contributors",
+      "source": "polyhaven.com via api.polyhaven.com",
+      "url": "https://polyhaven.com/textures",
+      "licence": "CC0 1.0",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-007",
+      "title": "3D Low Poly Car For Games (Tocus hatchback, v1.0)",
+      "creator": "Ruslan",
+      "source": "Unity Asset Store (free)",
+      "url": "assetstore.unity.com (My Assets)",
+      "licence": "Standard Unity Asset Store EULA",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-008",
+      "title": "Police Car & Helicopter (v1.1)",
+      "creator": "SICS Games",
+      "source": "Unity Asset Store (free)",
+      "url": "assetstore.unity.com (My Assets)",
+      "licence": "Standard Unity Asset Store EULA",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-011",
+      "title": "Hatchback and Sedan (HATCHBACK_1988, SEDAN)",
+      "creator": "RCC Design",
+      "source": "Unity Asset Store (free)",
+      "url": "assetstore.unity.com (My Assets)",
+      "licence": "Standard Unity Asset Store EULA",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-012",
+      "title": "Pickup model",
+      "creator": "Perfect Games",
+      "source": "Unity Asset Store (free)",
+      "url": "assetstore.unity.com (My Assets)",
+      "licence": "Standard Unity Asset Store EULA",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-013",
+      "title": "Single Detailed Truck (truck, trailer)",
+      "creator": "VIS Games",
+      "source": "Unity Asset Store (free)",
+      "url": "assetstore.unity.com (My Assets)",
+      "licence": "Standard Unity Asset Store EULA",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-014",
+      "title": "Simple Retro Car (V1)",
+      "creator": "Polyeler",
+      "source": "Unity Asset Store (free)",
+      "url": "assetstore.unity.com (My Assets)",
+      "licence": "Standard Unity Asset Store EULA",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-016",
+      "title": "Human Basic Motions FREE; Human Crafting Animations FREE",
+      "creator": "Kevin Iglesias",
+      "source": "Unity Asset Store (free)",
+      "url": "assetstore.unity.com (My Assets)",
+      "licence": "Standard Unity Asset Store EULA",
+      "modified": true,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-018",
+      "title": "Poly Haven street-edge sets",
+      "creator": "Poly Haven contributors",
+      "source": "polyhaven.com",
+      "url": "https://polyhaven.com/a/<id>",
+      "licence": "CC0 1.0",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-019",
+      "title": "ambientCG foliage sets",
+      "creator": "ambientCG (Lennart Demes)",
+      "source": "ambientcg.com",
+      "url": "https://ambientcg.com/view?id=<id>",
+      "licence": "CC0 1.0",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-020",
+      "title": "Mixamo animations",
+      "creator": "Adobe Mixamo",
+      "source": "Mixamo (Adobe)",
+      "url": "https://www.mixamo.com",
+      "licence": "Adobe Mixamo terms: royalty-free in games incl. commercial; raw animation files may not be redistributed on their own",
+      "modified": false,
+      "attributionRequired": false
+    },
+    {
+      "id": "EXT-021",
+      "title": "Font: Kalam Regular",
+      "creator": "Indian Type Foundry",
+      "source": "Google Fonts repository (github.com/google/fonts/tree/main/ofl/kalam)",
+      "url": "https://github.com/google/fonts/tree/main/ofl/kalam",
+      "licence": "SIL OFL 1.1, no Reserved Font Name",
+      "modified": true,
+      "attributionRequired": false
+    }
+  ]
+}

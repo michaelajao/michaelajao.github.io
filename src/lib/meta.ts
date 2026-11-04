@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { OWNER, SITE_NAME } from '@/content/site'
 
 export const DEFAULT_DESCRIPTION =
-  'Michael Ajao-Olarinoye is a Research Fellow at Coventry University working on physics-informed machine learning, generative AI and agents. miolajtech is his practice for automated business systems, AI agents, data science, training and tutoring.'
+  'Michael Ajao-Olarinoye is a Research Fellow at Coventry University working on digital health, student engagement, physics-informed modelling and generative AI. miolajtech is his practice for automated business systems, AI agents, data science, training and tutoring.'
 
 /** Per-page metadata: title, description, canonical and social cards. */
 export function pageMeta({ title, description, path }: { title: string; description: string; path: string }): Metadata {

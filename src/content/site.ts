@@ -38,6 +38,8 @@ export const PAGES = [
   { path: '/research/talks/', priority: '0.7' },
   { path: '/services/', priority: '0.9' },
   { path: '/services/tutoring/', priority: '0.8' },
+  { path: '/games/', priority: '0.8' },
+  { path: '/games/project-yellow/credits/', priority: '0.4' },
   { path: '/about/', priority: '0.8' },
   { path: '/contact/', priority: '0.8' },
   { path: '/privacy/', priority: '0.3' },
